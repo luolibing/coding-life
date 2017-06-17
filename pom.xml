@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>samples-tim</groupId>
-    <artifactId>samples</artifactId>
+    <artifactId>coding-life</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
@@ -20,7 +20,6 @@
         <module>linux</module>
         <!--<module>cloud</module>-->
         <module>algorithm</module>
-        <module>summary</module>
         <module>kotlin</module>
     </modules>
 

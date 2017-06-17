@@ -48,6 +48,7 @@ class BookServiceImpl(dataSource: DataSource) : BookService {
     /**
      * 默认只会回滚RuntimeException，所以要不回滚，可以声明为其他的异常
      */
+    @Transactional
     override fun save(book: Book) {
         jdbcTemplate.update(
                 "insert into book(id,name) values(?,?)",
@@ -60,7 +61,7 @@ class BookServiceImpl(dataSource: DataSource) : BookService {
 fun main(args: Array<String>) {
     val context = ClassPathXmlApplicationContext("jdbc/jdbc.xml")
     val bean = context.getBean(BookService::class.java)
-    bean.save(Book(103236L, "测试Book"))
+    bean.save(Book(103237L, "测试Book"))
     val books = bean.getBooks()
     for(book in books) {
         println(book)
