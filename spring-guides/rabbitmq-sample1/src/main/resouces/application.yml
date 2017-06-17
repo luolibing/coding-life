@@ -1,0 +1,6 @@
+spring:
+  rabbitmq:
+    host: localhost
+    username: admin
+    password: admin
+    virtual-host: develop

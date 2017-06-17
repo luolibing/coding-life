@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tim.mybatis.base.mapper.CityMapper">
+    <parameterMap id="conditionMap" type="cn.tim.mybatis.base.entity.CityForm" />
+    <select id="selectCityById" resultType="cn.tim.mybatis.base.entity.City">
+        SELECT * FROM CITY where id = #{id}
+    </select>
+
+    <!-- 多条件 -->
+    <sql id="condition">
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <!--<if test="name != null">-->
+                <!--and name = #{name}-->
+            <!--</if>-->
+            <!-- 等同于调用StringUtils.isNotBlank(name) -->
+            <if test="#fn = isNotBlank, name">
+                and name = #{name}
+            </if>
+            <if test="countryCode != null">
+                and countryCode = #{countryCode}
+            </if>
+            <if test="#fn = isNotBlank, countryCode">
+                <bind name="forLogging" value="#fn = sysout, #fn('Hi ' + countryCode)" />
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectByCondition" parameterMap="conditionMap" resultType="cn.tim.mybatis.base.entity.City">
+        <include refid="org.apache.commons.lang3.StringUtils.isNotBlank" />
+        <include refid="org.apache.commons.lang3.StringUtils.sysout" />
+        SELECT * FROM CITY
+        <include refid="condition" />
+    </select>
+
+    <insert id="insert">
+        INSERT INTO City(NAME, countrycode, district, population) VALUES (#{name}, #{countryCode}, #{district}, #{population})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM City WHERE id = #{id}
+    </delete>
+
+    <!-- 修改 -->
+    <update id="update">
+        <include refid="org.apache.commons.lang3.StringUtils.isNotBlank" />
+        UPDATE City
+        <set>
+            <if test="#fn = isNotBlank, name">
+               name = #{name},
+            </if>
+            <if test="#fn = isNotBlank, countryCode">
+                countrycode = #{countryCode}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <insert id="createEmpty" parameterType="Project" useGeneratedKeys="true" keyProperty="project.projectId" keyColumn="PROJECT_ID">
+        INSERT INTO PROJECT (TITLE,DESCRIPTION)
+        VALUES
+        (#{title},#{description})
+    </insert>
+
+</mapper>

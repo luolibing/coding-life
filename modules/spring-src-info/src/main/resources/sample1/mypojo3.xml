@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 本身抽象类并不允许被实例化， 但是这个地方给抽象方法注入了bean，所以可以进行实例化 -->
+    <bean id="userTest" class="cn.tim.springsrc.ioc.UserTest">
+        <!-- 注入指定的Bean，这样以后要切换，直接在这个地方改变注入的类型即可 -->
+        <lookup-method name="getBean" bean="teacher" />
+        <lookup-method name="getBean" bean="student" />
+    </bean>
+
+    <bean id="teacher" class="cn.tim.springsrc.ioc.Teacher" />
+
+    <bean id="student" class="cn.tim.springsrc.ioc.Student" />
+
+</beans>

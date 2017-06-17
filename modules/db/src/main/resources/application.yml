@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/employees?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    tomcat:
+      jdbc-interceptors: cn.tim.db.sample1.interceptor.MySlowQueryReport(threshold=100,maxQueries=100)
+
+  jpa:
+    database: MYSQL
+    show-sql: true
+
+
+server:
+  port: 8070
+
+logging:
+  level: DEBUG

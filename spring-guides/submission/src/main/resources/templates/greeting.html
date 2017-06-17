@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title></title>
+</head>
+<body>
+    <h1>Form</h1>
+    <form th:action="@{/greeting}" th:object="${greeting}" method="post">
+        <p>ID: <input type="text" th:field="*{id}" /></p>
+        <p>Message：<input type="text" th:field="*{content}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</body>
+</html>

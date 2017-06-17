@@ -1,0 +1,21 @@
+# 表分区
+
+### 一、分区表创建
+> 哈希分区
+ALTER TABLE t1
+      PARTITION BY HASH(id)
+      PARTITIONS 8;
+
+> 范围分区
+CREATE TABLE t1 (
+    id INT,
+    year_col INT
+)
+PARTITION BY RANGE (year_col) (
+    PARTITION p0 VALUES LESS THAN (1991),
+    PARTITION p1 VALUES LESS THAN (1995),
+    PARTITION p2 VALUES LESS THAN (1999)
+);
+
+### 二、压缩表和表分区
+> OPTIMIZE TABLE foo;  ALTER TABLE t1 OPTIMIZE PARTITION p0, p1;

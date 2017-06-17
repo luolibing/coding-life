@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="constructorSample" class="cn.tim.springsrc.ioc.ConstructorSample">
+        <constructor-arg name="name" value="罗立兵" />
+        <constructor-arg name="welcome" value="大家好！！" />
+        <tim:user username="luolibing" />
+    </bean>
+
+    <bean id="person" class="cn.tim.springsrc.ioc.Person">
+        <property name="id">
+            <value>1</value>
+        </property>
+        <property name="name" value="luolibing" />
+        <property name="desc" value="简介" />
+        <property name="tags">
+            <list>
+                <value>teacher</value>
+                <value>student</value>
+                <value>employee</value>
+                <value>ceo</value>
+            </list>
+        </property>
+        <property name="references">
+            <map>
+                <entry key="name" value="luolibing" />
+                <entry key="age" value="30" />
+                <entry key="address" value="上地" />
+            </map>
+        </property>
+        <qualifier value="ablity" type="cn.tim.springsrc.ioc.StudentAblity"/>
+    </bean>
+
+    <bean id="workAblity" class="cn.tim.springsrc.ioc.WorkAblity" />
+    <bean id="studentAblity" class="cn.tim.springsrc.ioc.StudentAblity" />
+</beans>

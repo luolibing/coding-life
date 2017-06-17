@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>samples</artifactId>
+        <groupId>samples-tim</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-boot-sample</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>spring-boot-starter</module>
+        <module>spring-boot-jsp</module>
+        <module>spring-boot-profiles</module>
+        <module>spring-boot-jpa</module>
+        <module>tim-autoconfiguration</module>
+        <module>timautoconfigurationclient</module>
+        <module>velocity</module>
+        <module>spring-listener-publisher</module>
+        <module>spring-boot-property</module>
+        <module>spring-boot-customer-tag</module>
+        <module>spring-boot-cache</module>
+        <module>spring-boot-returnvalue-handler</module>
+        <module>spring-boot-yml</module>
+        <module>spring-boot-docker</module>
+        <module>spring-boot-web</module>
+        <module>spring-boot-rest-docs</module>
+        <module>spring-boot-conditional</module>
+        <module>spring-boot-client</module>
+        <module>spring-boot-aspect</module>
+        <module>spring-boot-activiti</module>
+        <module>spring-boot-transaction-mq</module>
+    </modules>
+
+
+</project>

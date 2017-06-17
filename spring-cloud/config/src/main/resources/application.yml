@@ -1,0 +1,76 @@
+server:
+  port: 8666
+
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8666
+  profiles:
+    active: native
+
+eureka:
+  instance:
+    preferIpAddress: false
+    leaseRenewalIntervalInSeconds: 10
+    hostname: localhost
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/
+
+---
+spring.profiles: remote_crm
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/luolibing/Study/tree/develop
+          basedir:
+---
+
+spring.profiles: product_crm
+
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    validation-query: select 1
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  jpa:
+    show-sql: true
+    open-in-view: true
+    database: MYSQL
+
+
+---
+spring.profiles: dev_crm
+
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    validation-query: select 1
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  jpa:
+    show-sql: false
+    open-in-view: true
+    database: MYSQL

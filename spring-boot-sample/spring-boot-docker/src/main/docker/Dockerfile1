@@ -1,0 +1,33 @@
+# 来自哪个镜像
+FROM java8
+
+# 创建者信息
+MAINTAINER luolibing
+
+# 执行指令
+RUN echo "hello"
+
+# 启动容器时执行的指令
+ENTRYPOINT ["java", "-version"]
+
+# 启动java -version以root用户执行
+USER root
+
+# 映射端口
+EXPOSE 8888
+
+# 挂载点，需要添加文件
+VOLUME /tmp
+
+# 将本地文件拷贝到挂载点
+ADD spring-boot-docker-1.0-SNAPSHOT.jar app.jar
+
+# 创建出app.jar
+RUN sh -c 'touch /app.jar'
+
+# 环境变量设置
+ENV JAVA_OPTS=""
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
+
+# 容器启动时执行的命令
+CMD ["echo helloword"]

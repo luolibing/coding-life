@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: test
+
+server:
+  port: 9999
+
+db:
+  username: admin_test
+  password: 12345_test
+
+simple:
+  -
+    key: luolibing
+    value: ll
+  -
+    key: luo
+    value: liu
+---
+spring:
+ profiles: development
+db:
+  username: 罗立兵
+  password: 12345
+  tables: a,b,c,d
+
+---

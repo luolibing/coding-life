@@ -1,0 +1,29 @@
+package cn.tim.reactor.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+/**
+ * Created by LuoLiBing on 15/10/26.
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Quote {
+
+    Long id;
+    String quote;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getQuote() {
+        return quote;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
+}

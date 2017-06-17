@@ -1,0 +1,3 @@
+# Custom PropertySource Loaders自定义的sourceLoader
+org.springframework.boot.env.PropertySourceLoader=\
+cn.tim.property.UnicodePropertiesPropertySourceLoader

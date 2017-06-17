@@ -1,0 +1,3 @@
+server:
+  context-path: /http
+  port: 0

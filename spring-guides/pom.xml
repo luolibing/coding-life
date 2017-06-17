@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>samples</artifactId>
+        <groupId>samples-tim</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-guides</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>restful</module>
+        <module>schedtask</module>
+        <module>device</module>
+        <module>resttemplate</module>
+        <module>cache</module>
+        <module>jdbc</module>
+        <module>uploadFiles</module>
+        <module>ldap</module>
+        <module>form</module>
+        <module>batch</module>
+        <module>transaction</module>
+        <module>async</module>
+        <module>submission</module>
+        <module>reactor</module>
+        <module>jquery</module>
+        <module>multirep</module>
+        <module>spring-import</module>
+        <module>spring-data-jpa</module>
+        <module>reactor-thumbnailer</module>
+        <module>soapwebservice</module>
+        <module>soapwebservice-server</module>
+        <module>redis</module>
+        <module>redis-client</module>
+        <module>j2cache</module>
+        <module>version</module>
+        <module>twolevelcache</module>
+        <module>envers</module>
+        <module>aop</module>
+        <module>flyway</module>
+        <module>log4j</module>
+        <module>session-redis</module>
+        <module>hateoas</module>
+        <module>atmosphere</module>
+        <module>integration</module>
+        <module>integration-webservice</module>
+        <module>integration-http</module>
+        <module>integration-client</module>
+        <module>metric-redis</module>
+        <module>redis-action</module>
+        <module>debry</module>
+        <module>reback</module>
+        <module>reback-resource</module>
+        <module>system-service</module>
+        <module>dto-demo</module>
+        <module>multiconfig</module>
+        <module>rabbitmq-sample1</module>
+        <module>multipart-upload</module>
+        <module>retry</module>
+        <module>repeat-submit</module>
+        <module>quartz-database</module>
+        <module>liquibase</module>
+        <module>mail</module>
+        <module>schedule</module>
+    </modules>
+
+
+</project>

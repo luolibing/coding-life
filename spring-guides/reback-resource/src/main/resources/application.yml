@@ -1,0 +1,30 @@
+
+logging:
+  level:
+    com:
+      timedu: info
+    org:
+      springframework: info
+#  file: /opt/log/vote.log
+#  file: vote.log
+#  path: /opt/log
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.0.100:3306/brms?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: tim
+    driverClassName: com.mysql.jdbc.Driver
+    validation-query: SELECT 1
+    test-while-idle: true
+
+  jpa:
+#    hibernate:
+#      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+    show-sql: true
+
+server:
+  port: 8090

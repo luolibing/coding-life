@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- redis连接 -->
+    <!-- 1、Jedis ConnectionFactory 定义 -->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+            p:hostName="localhost" p:port="6379" />
+
+    <!-- 2、JRedis ConnectionFactory定义 -->
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jredis.JredisConnectionFactory"/>
+
+    <!-- 3、带JRedisPool的factory -->
+    <!--<bean class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <constructor-arg>
+            <bean class="org.springframework.data.redis.connection.jredis.DefaultJredisPool">
+                <constructor-arg value="localhost"/>
+                <constructor-arg value="6379"/>
+            </bean>
+        </constructor-arg>
+    </bean>-->
+
+    <!-- SRP（第三方开源连接） -->
+    <bean id="srpConnectionFactory" class="org.springframework.data.redis.connection.srp.SrpConnectionFactory"
+            p:hostName="server" p:port="6379"/>
+
+    <!-- Lettuce 第四个开源连接器 -->
+    <bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"
+          p:hostName="server" p:port="6379"/>
+</beans>

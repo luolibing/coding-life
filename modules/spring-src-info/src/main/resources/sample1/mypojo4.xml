@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 使用Replaced-method甚至可以改变掉之前的业务-->
+    <bean id="worker" class="cn.tim.springsrc.ioc.replace.Worker">
+        <replaced-method name="execute" replacer="replacer" />
+    </bean>
+
+    <bean id="replacer" class="cn.tim.springsrc.ioc.replace.WorkerReplacer" />
+
+    <bean id="methodOverride" class="cn.tim.springsrc.ioc.replace.WorkerMethodOverride">
+        <constructor-arg value="execute"/>
+    </bean>
+
+</beans>

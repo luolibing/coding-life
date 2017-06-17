@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 函数 -->
+<mapper namespace="org.apache.commons.lang3.StringUtils">
+    <sql id="isNotBlank">
+        <bind name="isNotBlank" value=":[@org.apache.commons.lang3@isNotBlank(#this)]" />
+    </sql>
+
+    <sql id="sysout">
+        <bind name="sysout" value=":[@System@out.println(#this)]" />
+    </sql>
+</mapper>

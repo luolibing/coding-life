@@ -1,0 +1,7 @@
+.git
+Dockerfile
+password.txt
+
+# 不允许markdown文件，但是允许README.md
+*.md
+!README.md

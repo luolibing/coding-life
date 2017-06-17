@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userManage" class="cn.tim.springsrc.context.mng.UserManage">
+        <property name="dateValue" value="2017-02-02"/>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <!--<property name="customEditors">-->
+            <!--<map>-->
+                <!--<entry key="java.util.Date">-->
+                    <!--<value type="java.lang.Class">cn.tim.springsrc.context.editor.DatePropertyEditor</value>-->
+                <!--</entry>-->
+            <!--</map>-->
+        <!--</property>-->
+
+        <property name="propertyEditorRegistrars">
+            <list>
+                <bean class="cn.tim.springsrc.context.editor.DatePropertyEditorRegistrar" />
+            </list>
+        </property>
+    </bean>
+</beans>

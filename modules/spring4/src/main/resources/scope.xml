@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="thread">
+                    <bean class="cn.tim.spring4.scope.ThreadScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="foo" class="cn.tim.spring4.scope.Foo" scope="thread">
+        <aop:scoped-proxy />
+    </bean>
+
+    <bean id="smartLifecycleTest" class="cn.tim.spring4.custom.SmartLifecycleTest" />
+
+    <!-- 容器默认会初始化所有的单例对象singleston,如果我们使用的是一个template模板,请使用abstract=true,否则容器会尝试去初始化抽象类 -->
+    <!--<bean id="inheritedTestBeanWithoutClass" abstract="true">-->
+        <!--<property name="name" value="parent"/>-->
+        <!--<property name="age" value="1"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="inheritsWithClass" class="org.springframework.beans.DerivedTestBean"-->
+          <!--parent="inheritedTestBeanWithoutClass" init-method="initialize">-->
+        <!--<property name="name" value="override"/>-->
+        <!--&lt;!&ndash; age will inherit the value of 1 from the parent bean definition&ndash;&gt;-->
+    <!--</bean>-->
+
+    <!-- 最大停止时间 -->
+    <bean id="lifecycleProcessor" class="org.springframework.context.support.DefaultLifecycleProcessor">
+        <property name="timeoutPerShutdownPhase" value="1000" />
+    </bean>
+</beans>

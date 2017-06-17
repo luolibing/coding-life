@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="mypojo.xml" />
+
+    <!-- 别名的声明方式，name="myPojo,alias1,alias2",这样第一个作为id,后面几个作为别名 -->
+    <bean name="myPojo,myBean,myId;" class="cn.tim.springsrc.ioc.MyPojo" depends-on="myBean1">
+        <property name="name" value="luolibing"/>
+    </bean>
+    <bean id="myBean1" class="cn.tim.springsrc.ioc.MyBean">
+        <description>配置信息</description>
+        <meta key="key" value="val" />
+    </bean>
+
+    <!-- 显示声明别名 -->
+    <alias name="myBean" alias="my,myIds" />
+
+    <bean id="myBeanPostProcessor" class="cn.tim.springsrc.ioc.processor.MyBeanPostProcessor"/>
+
+    <!--<beans profile="test" default-init-method="init" default-destroy-method="destroy">-->
+        <!--&lt;!&ndash; profile="develop" &ndash;&gt;-->
+        <!--<bean name="myPojo,myBean,myId;" class="cn.tim.springsrc.ioc.MyPojo" depends-on="myBean1">-->
+            <!--<property name="name" value="luolibing"/>-->
+        <!--</bean>-->
+        <!--<bean id="myBean1" class="cn.tim.springsrc.ioc.MyBean">-->
+            <!--<description>配置信息</description>-->
+            <!--<meta key="key" value="val" />-->
+        <!--</bean>-->
+    <!--</beans>-->
+
+    <!--&lt;!&ndash; 多环境配置 &ndash;&gt;-->
+    <!--<beans profile="develop">-->
+        <!--<bean id="mypojo2" class="cn.tim.springsrc.ioc.MyPojo" depends-on="myBean2">-->
+            <!--<property name="name" value="luolibing"/>-->
+        <!--</bean>-->
+        <!--<bean id="myBean2" class="cn.tim.springsrc.ioc.MyBean">-->
+        <!--</bean>-->
+    <!--</beans>-->
+</beans>

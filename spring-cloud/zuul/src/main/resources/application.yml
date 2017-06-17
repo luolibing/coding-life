@@ -1,0 +1,21 @@
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+    metadataMap:
+          instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/
+
+zuul:
+  routes:
+    users:
+      stripPrefix: false
+
+  ribbon:
+    eureka:
+     enabled: false

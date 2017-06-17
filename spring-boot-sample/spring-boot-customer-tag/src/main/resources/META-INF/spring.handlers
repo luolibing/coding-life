@@ -1,0 +1,2 @@
+## 指定命名空间解析帮助类位置
+http\://www.tim.com/schema/employee=cn.tim.customer.tag.config.CustomerNameSpaceHandlerSupport

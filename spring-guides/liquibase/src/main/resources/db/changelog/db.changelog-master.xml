@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.7"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
+    <!-- 一个Change就是一个增量改变改变 -->
+    <changeSet id="quartz_tables_mysql" author="luolibing" dbms="mysql">
+        <sqlFile encoding="utf8"
+                 path="db/changelog/sql/quartz1.sql"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <sqlFile encoding="utf8"
+                 path="db/changelog/sql/quartz2.sql"
+                 splitStatements="true"
+                 stripComments="true"/>
+
+    </changeSet>
+
+    <changeSet id="quartz_tables_mysql2" author="luolibing" dbms="mysql">
+        <sqlFile encoding="utf8"
+                 path="db/changelog/sql/quartz3.sql"
+                 splitStatements="true"
+                 stripComments="true"/>
+
+    </changeSet>
+</databaseChangeLog>

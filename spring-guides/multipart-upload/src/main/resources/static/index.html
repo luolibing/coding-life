@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传</title>
+    <script src="js/jquery-1.9.1.js"></script>
+    <script>
+
+
+        var n = 1;
+
+        // 上传图片
+        function upload() {
+            var of = $("#uploadFile");
+            //检查是否选择了图片
+            if(of.val()=="") {
+                alert('没有选择图片!');
+                return;
+            }
+            //复制一个file放至原处
+            $("#ufc"+n).append(of.clone().attr("value",""));
+            //修改属性
+            of.attr("id","");
+            of.attr("name","uploadFile");
+            //其他表单
+            $("#ufFileName" + n).val("文件" + n);
+            $("#ufWidth" + n).val($("#zoomWidth"+n).val());
+            $("#ufHeight" + n).val($("#zoomHeight"+n).val());
+            //先清除
+            $("#ufMark" + n).val($("#mark"+n).val());
+            $("#uploadNum").val(n);
+            appendFileContent()
+            //$("#uploadForm").submit();
+
+        }
+
+        function appendFileContent() {
+            n++;
+            var fileId = "fileContent" + n;
+            var fileNameId = "ufFileName" + n
+            $("#fileList").append(
+                    $('<span id="'+ fileId + '" class="list-group-item" style="width:500px"/>')
+                            .append($('<input id="' + fileNameId +  '"/>').text("文件" + n)));
+        }
+
+        function submit() {
+            var fileList = $("#fileList").find(".fileContent");
+            for(var file in fileList) {
+                alert($(file).attr("id"))
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+
+    姓名 <input type="text" name="name" />
+    图片 <input type="file" id="uploadFile" name="files">
+    <form id="uploadForm"  action="/upload" method="post"  enctype="multipart/form-data" target="hiddenIframe" style="">
+        <div id="fileList">
+            <span id="fileContent1" class="fileContent">
+                <input id="ufWidth1" type="hidden" name="zoomWidth"/>
+                <input id="ufHeight1" type="hidden" name="zoomHeight"/>
+                <input id="ufFileName1" name="fileName"/>
+                <input id="ufMark1" type="hidden" name="mark"/>
+                <input id="uploadNum1" type="hidden" name="uploadNum"/>
+            </span>
+        </div>
+    </form>
+    <a href="javascript: upload()" id="btn_upload">上传抬高实验照片</a>
+    <iframe name="hiddenIframe" frameborder="0" border="0" style="display:none;width:0px;height:0px;"></iframe>
+    <a href="javascript: submit()">提交表单</a>
+</body>
+</html>

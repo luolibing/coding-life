@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mail" class="cn.tim.springsrc.context.processor.Mail">
+        <property name="message" value="${mail.message}" />
+        <property name="recipients" value="${mail.recipients}" />
+        <property name="credit" value="aaaaaaaa"/>
+        <property name="key" value="dfad54vdfd" />
+        <property name="password" value="luo4324234" />
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>context/mail.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8" />
+    </bean>
+
+    <bean id="beanFactoryPostProcessor" class="cn.tim.springsrc.context.processor.SimpleBeanFactoryPostProcessor">
+        <property name="obscenes">
+            <list>
+                <value>password</value>
+                <value>key</value>
+                <value>credit</value>
+            </list>
+        </property>
+    </bean>
+</beans>

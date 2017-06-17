@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tim.com/schema/employee"
+        xmlns:tns="http://www.tim.com/schema/employee" elementFormDefault="qualified">
+    <element name="employee">
+        <complexType>
+            <attribute name="id" type="long" />
+            <attribute name="username" type="string" />
+            <attribute name="email" type="string" />
+        </complexType>
+    </element>
+</schema>

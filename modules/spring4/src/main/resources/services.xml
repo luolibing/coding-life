@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <import resource="dao.xml" />
+
+    <!-- 懒加载,spring不建议懒加载,因为懒加载会隐藏掉初始化错误,等需要时才初始化; autowired方式有4种no,byName,byType,constructor,默认使用的是byName -->
+    <bean id="testDao" class="cn.tim.spring4.ioc722.TestDao" scope="session">
+        <aop:scoped-proxy />
+    </bean>
+
+    <!-- 使用指定的构造函数 -->
+    <bean id="testService1" class="cn.tim.spring4.ioc722.TestService1">
+        <property name="testDao" ref="testDao" />
+    </bean>
+
+    <!-- 别名 -->
+    <!--<alias name="testDao" alias="myappA-testDao" />-->
+    <!--<alias name="testDao" alias="myappB-testDao" />-->
+
+    <!-- 构造方法注入值 -->
+    <bean id="exampleBean" class="cn.tim.spring4.ioc722.ExampleBean" c:ultimateAnswer="2000" c:years="10">
+        <!-- 使用type -->
+        <!--<constructor-arg type="int" value="111"/>-->
+        <!--<constructor-arg type="java.lang.String" value="7500004"/>-->
+
+        <!-- 使用index索引值 -->
+        <!--<constructor-arg index="0" value="10" />-->
+        <!--<constructor-arg index="1" value="75000"/>-->
+
+        <!-- 使用name -->
+        <!--<constructor-arg name="years" value="10" />-->
+        <!--<constructor-arg name="ultimateAnswer" value="20000"/>-->
+
+    </bean>
+
+
+    <bean id="simpleMovieLister" class="cn.tim.spring4.ioc722.SimpleMovieLister" p:testDao-ref="testDao">
+        <!--<property name="testDao" ref="testDao" />-->
+
+        <!-- null值使用 <null />来表示 -->
+        <!--<property name="testDao">-->
+            <!--<null />-->
+        <!--</property>-->
+        <!--<property name="testDao">-->
+            <!--<idref bean="testDao"/>-->
+        <!--</property>-->
+    </bean>
+
+    <bean id="clientServiceLocator" class="cn.tim.spring4.ioc722.ClientServiceLocator"/>
+    <!-- 静态工厂 -->
+    <!--<bean id="clientService" class="cn.tim.spring4.ioc722.ClientService" factory-method="createInstance"/>-->
+    <!-- 工厂方法,depends-on 依赖于另一个类的初始化,里面的对象先于bean对象初始化,同样也先于depends-on的shutdown顺序 -->
+    <bean id="clientService" factory-bean="clientServiceLocator" factory-method="createInstance" depends-on="accountService" />
+    <bean id="accountService" factory-bean="clientServiceLocator" factory-method="createAccountInstance"/>
+
+    <bean id="exampleBean1" class="cn.tim.spring4.ioc722.ExampleBean1" factory-method="createInstance">
+        <constructor-arg ref="clientService"/>
+        <constructor-arg ref="testDao"/>
+        <constructor-arg value="11"/>
+        <!--<constructor-arg>-->
+            <!--<idref bean="testDao"/>-->
+        <!--</constructor-arg>-->
+    </bean>
+
+    <!-- 使用properties配置类 -->
+    <bean id="mapping" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties">
+            <value>
+                jdbc.driver.className=com.mysql.jdbc.Driver
+                jdbc.url=jdbc:mysql://localhost:3306/mydb
+            </value>
+        </property>
+    </bean>
+
+    <!-- 使用parent属性来将父容器里的对象注入到子容器中 -->
+    <bean id="clientServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="testDao" />
+        <!--<property name="target">-->
+            <!--<ref parent="testDao"/>-->
+        <!--</property>-->
+    </bean>
+
+    <!-- 内部类的使用 -->
+    <bean id="outer" class="cn.tim.spring4.ioc722.OutterClass">
+        <property name="target">
+            <bean class="cn.tim.spring4.ioc722.InnerClass" p:name="luolibing" p:age="20">
+                <!--<property name="name" value="luolibing" />-->
+                <!--<property name="age" value="20" />-->
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="collectionsTest" class="cn.tim.spring4.ioc722.CollectionsTest">
+        <property name="adminEmails">
+            <props>
+                <prop key="administrator">397911353@qq.com</prop>
+                <prop key="support">70745354@qq.com</prop>
+                <prop key="development">dvelopment@qq.com</prop>
+            </props>
+        </property>
+
+        <property name="names">
+            <list>
+                <value>luolibing</value>
+                <value>liuxiaoling</value>
+                <value>zhangyi</value>
+            </list>
+        </property>
+
+        <property name="beanMap">
+            <map>
+                <entry key="name" value="luolibing"/>
+                <entry key="age" value="11"/>
+            </map>
+        </property>
+
+        <property name="accounts">
+            <map>
+                <entry key="one" value="3.22"/>
+                <entry key="two" value="3.22"/>
+                <entry key="three" value="3.22"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <!-- 注入方法 method Inject, lookup-method,CommandManager是一个抽象类,需要实现某些方法 -->
+    <bean id="ansyncCommand" class="cn.tim.spring4.ioc722.AnsyncCommand" scope="prototype" />
+    <bean id="commandManager" class="cn.tim.spring4.ioc722.CommandManager">
+        <lookup-method name="createCommand" bean="ansyncCommand"/>
+    </bean>
+
+
+    <bean id="myValueCalculator" class="cn.tim.spring4.ioc723.MyValueCalculator">
+        <replaced-method name="computeValue" replacer="replacementComputeValue">
+            <arg-type>String</arg-type>
+        </replaced-method>
+    </bean>
+
+    <bean id="replacementComputeValue" class="cn.tim.spring4.ioc723.ReplacementComputeValue" />
+</beans>

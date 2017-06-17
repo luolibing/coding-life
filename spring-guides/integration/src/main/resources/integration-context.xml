@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-file="http://www.springframework.org/schema/integration/file"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd
+		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 文件输入适配到target/input文件夹 -->
+	<int-file:inbound-channel-adapter channel="input" directory="target/input" filename-pattern="*">
+		<int:poller fixed-rate="500"/>
+	</int-file:inbound-channel-adapter>
+
+	<!-- 服务催化剂 -->
+	<int:service-activator input-channel="input" ref="greetEndpoint" output-channel="output"/>
+
+	<!-- 输出管道 -->
+	<int:channel id="output"/>
+
+	<!-- 输出适配到target/output文件夹 -->
+	<int-file:outbound-channel-adapter channel="output" directory="target/output"/>
+
+</beans>

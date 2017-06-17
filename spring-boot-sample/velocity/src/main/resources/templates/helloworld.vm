@@ -1,0 +1,119 @@
+## 设置变量使用#set,调用系统函数使用#开头
+#set( $name = "luolibing")
+## 引入外部本地文件，为了安全考虑默认引入templates下的文件
+#include("index.txt")
+## 使用模板引擎VLC进行解析对应的vm文件
+#parse("index.vm")
+<html>
+    <title>hello! $name</title>
+    <body>
+
+    ## 宏引用
+    #head(["aaa", "bbb", "ccc", "ddd"])
+
+    <table>
+        <th>
+            <td>ID</td>
+            <td>标题</td>
+            <td>操作人</td>
+            <td>事件类型</td>
+            <td>内容</td>
+            <td>时间</td>
+        </th>
+        #foreach($it in $data)
+            <tr>
+                <td>$it.id</td>
+                <td>$it.title</td>
+                <td>$name</td>
+                ## 调用it.setContent("zidingyi");可以调用Event.setContent(content)方法
+##                $it.setContent("自定义内容")
+                ## 可以看成hash.get(key), 也可以看成是it.geteventType()方法
+                <td>$it.eventType</td>
+                <td>$!it.content</td>
+                ## 可以使用 #it.getCreateDate()这种方式调用方法
+                <td>$it.getCreateDate()</td>
+                ## 使用$it.size(["a","b"])并没有起作用
+##                <td>$it.size(["a","b"])</td>
+                ## 调用Event.execute()方法
+                $it.execute()
+            </tr>
+        #end
+    </table>
+    <br />
+    <br />
+    <h3>数组操作</h3>
+    \$array.isEmpty = $array.isEmpty() or \$array.empty = $array.empty
+    <br />
+    \$array.get(0) = $array.get(0), $array.size()
+    <br />
+    ## 使用$array[]可以代表从数组中取值，也可以代表从Map中get值
+    $array[0]
+    <table>
+        <th>
+        <td>ID</td>
+        <td>标题</td>
+        <td>操作人</td>
+        <td>事件类型</td>
+        <td>内容</td>
+        <td>时间</td>
+        </th>
+        #foreach($it in $array)
+            <tr>
+                <td>$it.id</td>
+                <td>$it.title</td>
+                <td>$name</td>
+                ## 调用it.setContent("zidingyi");可以调用Event.setContent(content)方法
+                ## $it.setContent($null), 设置null $null
+##                $it.setContent($null)
+                ## 可以看成hash.get(key), 也可以看成是it.geteventType()方法
+                <td>$it.eventType</td>
+                <td>$!it.content</td>
+                ## 可以使用 #it.getCreateDate()这种方式调用方法
+                <td>$it.getCreateDate()</td>
+                ## 使用$!it.content当it.content为blank时，不会直接显示出$it.content字符串
+                <td><input type="text" value="$!it.content" /></td>
+                ## 使用$it.size(["a","b"])并没有起作用
+                ## <td>$it.size(["a","b"])</td>
+                ## 调用Event.execute()方法
+                $it.execute()
+                ## 调用setArray()方法可以传递
+                $it.setArray("aaa","bbb","ccc")
+
+                ## 对于一个非string对象，会自动调用toString()方法
+            </tr>
+        #end
+    </table>
+
+    ## 直接引用不存在的$foo对象，会抛出Exception异常，而如果放在#if当中，则允许，会自动判断foo是否存在
+    #if(!$foo)
+        foo not defined!!!
+    #end
+
+    <h3>等价替换</h3>
+    #set($event = $data.get(0))
+    <ul>
+        <li>$event.getTitle 等价于 $event.getTitle()</li>
+        <li>$event.setTitle("title") 等价于 $set($cn.tim.activiti.listener.Title="title")</li>
+    </ul>
+    </body>
+
+    <h3>foreach</h3>
+    #set($list = ["a", "b", "c", "d", "e"])
+        #foreach($it in $data)
+            ## $foreach代表遍历过程中的状态变量
+            #if($foreach.index % 2 == 0)
+                <br />
+            #end
+            $it
+        #end
+
+    <h3>condition</h3>
+    #set($index = 100)
+    #if($index < 50)
+        < 50
+    #elseif($index < 80)
+        < 80
+    #else
+        <= 100
+    #end
+</html>

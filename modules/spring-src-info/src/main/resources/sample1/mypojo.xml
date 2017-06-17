@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <beans profile="test">
+        <!-- profile="develop" -->
+        <bean id="mypojo1" class="cn.tim.springsrc.ioc.MyPojo" depends-on="myBean1">
+            <property name="name" value="luolibing"/>
+        </bean>
+        <bean id="myBean1" class="cn.tim.springsrc.ioc.MyBean">
+        </bean>
+    </beans>
+
+    <!-- 多环境配置 -->
+    <beans profile="develop">
+        <bean id="mypojo2" class="cn.tim.springsrc.ioc.MyPojo" depends-on="myBean2">
+            <property name="name" value="luolibing"/>
+        </bean>
+        <bean id="myBean2" class="cn.tim.springsrc.ioc.MyBean">
+        </bean>
+    </beans>
+</beans>

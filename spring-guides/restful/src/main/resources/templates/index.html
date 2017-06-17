@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>index</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        /*<![CDATA[*/
+        $(function(){
+            $.ajax({
+                url: "http://localhost:8888/userList",
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // data = [{username:admin, password: pwd, role: admin},{},{}]
+                    for(var i = 0; i < data.length; i++) {
+                        var user = data[i];
+                        $("#tab").append("<tr><td>"+user.username+"</td><td>"+user.password+"</td><td>"+user.role+"</td></tr>")
+                    }
+                }
+            })
+
+            $("#sub").click(function() {
+                var username = $("#username").val()
+                var password = $("#password").val()
+                var tel=$("#tel").val()
+                var radio=$("#radio input:checked")[0].value;
+                $.ajax({
+                    url: "http://localhost:8888/register",
+                    type: 'POST',
+                    data: {username: username, password: password},
+                    dataType: "json",
+                    success: function(data) {
+                        $("#code").val(data.code);
+                        $("#msg").val(data.msg);
+                        $("#roles").val(data.roles);
+                    }
+                })
+            })
+        })
+        /*]]>*/
+    </script>
+</head>
+<body>
+<form action="javascript: void(0)">
+    <input type="text" value="user" id="username"/>
+    <input type="password" id="password" />
+    <input type="tel" id="tel"/>
+    <div id="radio">
+        <input type="radio" name="userType" value="admin"/>
+        <input type="radio" name="userType" value="manager"/>
+    </div>
+    <input type="submit" id="sub"/>
+
+    <input type="text" id="code"/>
+    <input type="text" id="msg"/>
+    <input type="text" id="roles"/>
+
+    <table id="tab">
+        <th>
+        <td>name</td>
+        <td>password</td>
+        <td>code</td>
+        </th>
+    </table>
+</form>
+</body>
+</html>

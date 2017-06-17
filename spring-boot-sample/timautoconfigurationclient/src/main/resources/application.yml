@@ -1,0 +1,6 @@
+#tim:
+#  counting:
+#    enabled: false
+#    initValue: 10
+#    step: 2
+#    maxValue: 10000

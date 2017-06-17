@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<h2>Spring Post/Redirect/Get pattern with FlashMap</h2>
+
+<div class="alert alert-success" role="alert">
+    Thanks ${formResults.name}, updates will be sent to ${formResults.emailAddress}. Your confirmation number is ${formResults.confirmationNumber}
+</div>
+
+<form class="form-inline" name="myform" id="myform" action="/handle" method="post">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" />
+    </div>
+
+    <div class="form-group">
+        <label for="emailAddress">Email</label>
+        <input type="email" class="form-control" id="emailAddress" name="emailAddress" placeholder="jane.doe@example.com" />
+    </div>
+    <input id="mySubmitButton" type="submit" value="Submit" class="btn btn-default" />
+    <input type="hidden" name="token" th:value="${token}"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tim ="http://www.tim.com/schema/employee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.tim.com/schema/employee
+       http://www.tim.com/schema/employee.xsd">
+
+    <tim:employee id="1" username="luolibing" email="397911353@qq.com" />
+</beans>

@@ -1,0 +1,40 @@
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+info:
+  component: Turbine
+
+turbine:
+#  aggregator:
+#    clusterConfig: CRM
+  appConfig: crm,hystrix
+  clusterNameExpression: new String("default")
+
+
+
+
+#turbine:
+#  aggregator:
+#    clusterConfig: tim
+#  appConfig: crm,hystrix
+#  clusterNameExpression: new String("tim")
+
+
+server:
+  port: 8555
+
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/

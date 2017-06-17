@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form method="POST" enctype="multipart/form-data"
+      action="/upload/single">
+    File to upload: <input type="file" name="file"><br /> Name: <input
+        type="text" name="name"><br /> <br /> <input type="submit"
+                                                     value="Upload"> Press here to upload the file!
+</form>
+
+
+<form method="POST" enctype="multipart/form-data"
+      action="/upload/multipart">
+    File to upload: <input type="file" name="files" multiple><br /> Name: <input
+        type="text" name="name"><br /> <br /> <input type="submit"
+                                                     value="Upload"> Press here to upload the file!
+</form>
+</body>
+</html>

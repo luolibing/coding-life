@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>modules</artifactId>
+        <groupId>samples-tim</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>maven</artifactId>
+
+
+    <distributionManagement>
+        <!-- 发布release版本,Release发布一个版本之后不能在改变, 并且版本号里面必须使用RELEASE字样, 同时版本号不允许使用变量 -->
+        <repository>
+            <id>bebase-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://mvnrepo.tim.cn/repository/bebase-releases/</url>
+        </repository>
+
+        <!-- 发布快照, 快照可以多次发布, 并且版本号中必须带SNAPSHOT字样 -->
+        <snapshotRepository>
+            <id>bebase-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://mvnrepo.tim.cn/repository/bebase-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

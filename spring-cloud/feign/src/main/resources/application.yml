@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: feign
+
+server:
+  port: 8555
+
+eureka:
+  instance:
+    preferIpAddress: false
+    leaseRenewalIntervalInSeconds: 10
+    hostname: localhost
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8888/eureka/

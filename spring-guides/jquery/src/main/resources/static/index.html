@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>测试页</title>
+    <script type="application/javascript" src="/webjars/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $.ajax({
+                url: "http://localhost:8080/greeting"
+            }).then(function(data) {
+                $("#id").append(data.id)
+                $("#name").append(data.name)
+                $("#description").append(data.description)
+            });
+
+            var obj = {};
+            obj.id=1;
+            obj.name="luolibing";
+            obj.description="cool";
+
+            alert("put method")
+            $.ajax({
+                url: "http://localhost:8080/greeting",
+                method: "PUT",
+                data: {},
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8"
+            }).then(function(data) {
+                alert(data);
+            })
+        })
+    </script>
+</head>
+<body>
+<p id="id">This Id is </p>
+<p id="name">This name is </p>
+<p id="description">desc: </p>
+</body>
+</html>
