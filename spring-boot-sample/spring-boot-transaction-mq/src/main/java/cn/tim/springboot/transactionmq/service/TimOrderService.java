@@ -25,6 +25,10 @@ public class TimOrderService {
     @Autowired
     private MqProducer mqProducer;
 
+    /**
+     * 这个地方，如果发送mq失败或者最后更新状态失败都没关系，会有定时器来补偿，同时mq那如果消费失败，只要不正常返回ack，都能够重试消息，需要注意的是消息接收方需要保证幂等去重.
+     * @throws Exception
+     */
     public void createOrder() throws Exception {
         TimOrder timOrder = createTimOrder();
         timOrderJpaRepository.save(timOrder);
@@ -32,9 +36,11 @@ public class TimOrderService {
 
         // 先保存
         timOutboundOrderJpaRepository.save(outboundOrder);
+
         // 再发mq
         mqProducer.send("spring-boot", outboundOrder);
 
+        // 最后更新状态
         outboundOrder.setSent(1);
         timOutboundOrderJpaRepository.save(outboundOrder);
     }

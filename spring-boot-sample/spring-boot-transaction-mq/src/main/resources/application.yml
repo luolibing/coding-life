@@ -11,6 +11,7 @@ spring:
     hibernate:
       ddl-auto: create
 
+## 这个地方使用了docker容器的数据库，这样确实会方便一些
   datasource:
     url: jdbc:mysql://localhost:3307/docker?useUnicode=true&characterEncoding=utf8
     username: root
