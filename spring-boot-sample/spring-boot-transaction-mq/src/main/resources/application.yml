@@ -1,0 +1,23 @@
+spring:
+  rabbitmq:
+    host: localhost
+    username: admin
+    password: admin
+    virtual-host: develop
+
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/docker?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+server.port: 8070
+
