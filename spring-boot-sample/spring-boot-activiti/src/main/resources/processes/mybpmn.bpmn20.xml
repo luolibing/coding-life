@@ -1,0 +1,55 @@
+<!-- root根节点为definitions -->
+<definitions
+        xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+        xmlns:activiti="http://activiti.org/bpmn"
+        targetNamespace="Examples">
+
+
+    <!-- 流程，理论上可以在一个流程图中定义多个process，但是一般情况一个xml只定义一个流程 -->
+    <!-- id属性为流程的唯一标识，当启动一个流程的时候需要会用到ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("myProcess") -->
+    <!-- startProcessInstanceById(id) id为key：version, 而startProcessInstanceByKey只会启动最新的工作流程，只有使用key: version才能确定一个唯一的工作流程-->
+    <process id="myProcess" name="demo process"> <!-- name属性，在流程中不会看到，纯粹为了给用户开发者自己看 -->
+        <extensionElements>
+            <activiti:executionListener event="start" class="cn.tim.activiti.myprocess.StartEventListener" />
+            <activiti:executionListener event="end" class="cn.tim.activiti.myprocess.EndEventListener" />
+        </extensionElements>
+
+        <startEvent id="start"  /> <!-- 使用表达式，貌似在这个里面不管用？？？activiti:expression="${startEventListener.startNotify(yearMonth)}" -->
+
+        <!-- 串流程，相当于其中的线 -->
+        <sequenceFlow id="flow1" sourceRef="start" targetRef="writeReportTask" />
+
+        <!-- 用户任务 -->
+        <userTask id="writeReportTask" name="起草报告">
+            <documentation>
+                每月起草报告
+            </documentation>
+
+            <potentialOwner>
+                <resourceAssignmentExpression>
+                    <!-- 资源分配group -->
+                    <expression>accountancy</expression>
+                </resourceAssignmentExpression>
+            </potentialOwner>
+        </userTask>
+
+        <sequenceFlow id="flow2" sourceRef="writeReportTask" targetRef="verifyReportTask" />
+
+        <userTask id="verifyReportTask" name="报告审批">
+            <documentation>
+                每月的报告审批，审批之后，才可以进行披露
+            </documentation>
+
+            <potentialOwner>
+                <resourceAssignmentExpression>
+                    <expression>management</expression>
+                </resourceAssignmentExpression>
+            </potentialOwner>
+        </userTask>
+
+        <sequenceFlow id="flow3" sourceRef="verifyReportTask" targetRef="end" />
+
+        <endEvent id="end" />
+    </process>
+
+</definitions>
