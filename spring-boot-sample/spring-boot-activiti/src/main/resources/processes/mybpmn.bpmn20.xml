@@ -20,7 +20,7 @@
         <sequenceFlow id="flow1" sourceRef="start" targetRef="writeReportTask" />
 
         <!-- 用户任务 -->
-        <userTask id="writeReportTask" name="起草报告">
+        <userTask id="writeReportTask" name="起草报告" activiti:expression="${writeReportTaskListener.writeReport(yearMonth)}">
             <documentation>
                 每月起草报告
             </documentation>
@@ -31,11 +31,12 @@
                     <expression>accountancy</expression>
                 </resourceAssignmentExpression>
             </potentialOwner>
+
         </userTask>
 
         <sequenceFlow id="flow2" sourceRef="writeReportTask" targetRef="verifyReportTask" />
 
-        <userTask id="verifyReportTask" name="报告审批">
+        <userTask id="verifyReportTask" name="报告审批" activiti:expression="${verifyReportTaskListener.verifyReport(verifyReportListener.verifyReport(report))}">
             <documentation>
                 每月的报告审批，审批之后，才可以进行披露
             </documentation>
