@@ -33,8 +33,8 @@ public class WorkflowRestController {
                 .list();
     }
 
-    @PostMapping("/createReport")
-    public void completeTask(String taskId) {
+    @PostMapping("/importReport")
+    public void createReport(String taskId) {
         Report report = new Report();
         report.setId(1L);
         report.setFile(new File("/share/1.report"));
@@ -42,6 +42,14 @@ public class WorkflowRestController {
         report.setReportName(yearMonth + "月份报告");
         Map<String, Object> vars = new HashMap<>();
         vars.put("report", report);
+        processEngine.getTaskService().complete(taskId, vars);
+    }
+
+    @PostMapping("/verifyReport")
+    public void verifyReport(String taskId) {
+        Map<String, Object> vars = new HashMap<>();
+        String yearMonth = new SimpleDateFormat("yyyyMM").format(new Date());
+        vars.put("yearMonth", yearMonth);
         processEngine.getTaskService().complete(taskId, vars);
     }
 
