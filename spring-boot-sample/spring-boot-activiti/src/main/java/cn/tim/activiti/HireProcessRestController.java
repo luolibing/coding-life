@@ -25,13 +25,13 @@ public class HireProcessRestController {
     private ProcessEngine processEngine;
 
     @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(value = "/start-hire-process", method = RequestMethod.POST,
+    @RequestMapping(value = "/start-hire-process", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public void startHireProcess(@RequestBody Map<String, String> data) {
+    public void startHireProcess(String name, String email, String phoneNumber) {
         // 查看当前正在执行的流程
         // Context.getExecutionContext().getProcessDefinition().getId();
 
-        Applicant applicant = new Applicant(data.get("name"), data.get("email"), data.get("phoneNumber"));
+        Applicant applicant = new Applicant(name, email, phoneNumber);
         applicantRepository.save(applicant);
 
         Map<String, Object> vars = Collections.<String, Object>singletonMap("applicant", applicant);

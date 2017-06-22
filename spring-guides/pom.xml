@@ -65,6 +65,7 @@
         <module>liquibase</module>
         <module>mail</module>
         <module>schedule</module>
+        <module>spring-mvc</module>
     </modules>
 
 
