@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by luolibing on 2017/6/22.
  */
-public class UserController extends AbstractController{
+public class UserController extends AbstractController {
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
@@ -25,6 +25,9 @@ public class UserController extends AbstractController{
         userB.setAge(20);
         userList.add(userA);
         userList.add(userB);
+
+        Object name = httpServletRequest.getServletContext().getAttribute("name");
+        System.out.println("name = " + name);
         return new ModelAndView("userlist", "users", userList);
     }
 }

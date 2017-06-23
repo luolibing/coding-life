@@ -12,6 +12,12 @@
         <param-value>classpath:spring/applicationContext.xml</param-value>
     </context-param>
 
+    <!-- 自定义上下文初始化类 -->
+    <context-param>
+        <param-name>contextInitializerClasses</param-name>
+        <param-value>cn.tim.springmvc.listener.MyApplicationContextInitializer</param-value>
+    </context-param>
+
     <!-- springmvc前端控制器, 默认会去WEB-INF下查找springmvc-servlet.xml配置文件 -->
     <servlet>
         <servlet-name>springmvc</servlet-name>
@@ -24,8 +30,12 @@
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
-    <!-- 配置上下文载入器，实际上是实现了ServletContextListener，在上下文初始化的时候会调用这个类 -->
+    <!-- 配置上下文载入器，实际上是实现了ServletContextListener，在上下文初始化的时候会调用这个类， 这个类只负责加载上下文用 -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>cn.tim.springmvc.listener.MyContextListener</listener-class>
     </listener>
 </web-app>
