@@ -30,4 +30,8 @@ public class UserController extends AbstractController {
         System.out.println("name = " + name);
         return new ModelAndView("userlist", "users", userList);
     }
+
+    public static void main(String[] args) {
+
+    }
 }
