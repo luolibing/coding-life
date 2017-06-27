@@ -15,23 +15,18 @@ import java.util.List;
 public class UserController extends AbstractController {
 
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("handleRequestInternal");
         List<User> userList = new ArrayList<>();
-        User userA = new User();
-        User userB = new User();
-        userA.setUsername("luo");
-        userA.setAge(10);
-        userB.setUsername("liu");
-        userB.setAge(20);
-        userList.add(userA);
-        userList.add(userB);
-
-        Object name = httpServletRequest.getServletContext().getAttribute("name");
-        System.out.println("name = " + name);
-        return new ModelAndView("userlist", "users", userList);
+        User user = new User();
+        user.setUsername("luo");
+        user.setAge(18);
+        userList.add(user);
+        ModelAndView modelAndView = new ModelAndView("userlist");
+        modelAndView.addObject("userList", userList);
+        modelAndView.addObject("user", user);
+        return modelAndView;
     }
 
-    public static void main(String[] args) {
 
-    }
 }

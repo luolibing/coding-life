@@ -10,7 +10,23 @@
                 <prop key="/userlist.html">userController</prop>
             </props>
         </property>
+
+        <property name="interceptors">
+            <list>
+                <ref bean="themeChangeInterceptor" />
+                <ref bean="localeChangeInterceptor" />
+            </list>
+        </property>
     </bean>
 
     <bean id="userController" class="cn.tim.springmvc.web.UserController" />
+
+    <!-- 主题拦截器，拦截参数为theme，然后更改为对应的主题 -->
+    <bean id="themeChangeInterceptor" class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
+        <property name="paramName" value="theme" />
+    </bean>
+
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="locale" />
+    </bean>
 </beans>

@@ -10,9 +10,52 @@
     </bean>
 
     <!-- 文件上传解析器 -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSizePerFile" value="102400" />
-        <property name="defaultEncoding" value="UTF-8" />
-        <property name="uploadTempDir" value="/Users/luolibing" />
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+        <!--<property name="maxUploadSizePerFile" value="102400" />-->
+        <!--<property name="defaultEncoding" value="UTF-8" />-->
+        <!--<property name="uploadTempDir" value="/Users/luolibing/temp" />-->
+    <!--</bean>-->
+
+
+
+
+    <!-- 国际化配置, 默认会取名称为localeResolver的bean -->
+    <!-- 1 基于URL参数配置，在Accept-Language中添加国际化参数例如 Accept-Language=zh_CN -->
+    <!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />-->
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames" value="i18/i18" />
+        <property name="defaultEncoding" value="utf-8" />
+    </bean>
+    
+    <!-- 2 基于session的配置， 在用户登录时选择使用统一的语言环境 -->
+    <bean id="sessionLocaleResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
+    <!-- 3 基于cookie的配置 -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+
+
+    <!-- 主题资源 -->
+    <bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+        <property name="basenamePrefix" value="theme.tim-" />
+    </bean>
+
+    <!-- 固定的主题 -->
+    <!--<bean id="themeResolver" class="org.springframework.web.servlet.theme.FixedThemeResolver">-->
+        <!--<property name="defaultThemeName" value="sky" />-->
+    <!--</bean>-->
+
+    <bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver">
+        <property name="defaultThemeName" value="sky" />
+    </bean>
+
+    <bean id="sessionThemeResolver" class="org.springframework.web.servlet.theme.SessionThemeResolver">
+        <property name="defaultThemeName" value="sky" />
+    </bean>
+
+
+    <!-- 主题拦截器，拦截参数为theme，然后更改为对应的主题 -->
+    <bean id="themeChangeInterceptor11" class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
+        <property name="paramName" value="theme" />
     </bean>
 </beans>
