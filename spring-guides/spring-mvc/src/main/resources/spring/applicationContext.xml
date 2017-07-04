@@ -58,4 +58,6 @@
     <bean id="themeChangeInterceptor11" class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
         <property name="paramName" value="theme" />
     </bean>
+
+    <bean id="exceptionHandler" class="cn.tim.springmvc.exception.ExceptionHandler"/>
 </beans>
