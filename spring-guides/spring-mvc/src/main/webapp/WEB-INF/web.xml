@@ -22,15 +22,15 @@
     <servlet>
         <servlet-name>springmvc</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>detectAllHandlerMappings</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        
-        <init-param>
-            <param-name>detectAllHandlerAdapters</param-name>
-            <param-value>false</param-value>
-        </init-param>
+        <!--<init-param>-->
+            <!--<param-name>detectAllHandlerMappings</param-name>-->
+            <!--<param-value>false</param-value>-->
+        <!--</init-param>-->
+        <!---->
+        <!--<init-param>-->
+            <!--<param-name>detectAllHandlerAdapters</param-name>-->
+            <!--<param-value>false</param-value>-->
+        <!--</init-param>-->
         <load-on-startup>1</load-on-startup>
     </servlet>
 

@@ -22,7 +22,7 @@ import javax.servlet.Filter
 @EnableCaching
 class Application extends SpringBootServletInitializer {
 
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         println "aaaaaaaaaaaaaa"
         SpringApplication.run(Application.class, args)
         log.info "测试日志11111"
@@ -43,8 +43,8 @@ class Application extends SpringBootServletInitializer {
         return new ConcurrentMapCacheManager("findOne")
     }
 
-    public static void main(String[] args) {
-        def join = String.join(",", "a", "b")
-        println join
-    }
+//    public static void main(String[] args) {
+//        def join = String.join(",", "a", "b")
+//        println join
+//    }
 }
