@@ -1,8 +1,11 @@
 package cn.tim.restful.controller
+
 import cn.tim.restful.entity.Greeting
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import groovy.util.logging.Slf4j
+import org.springframework.beans.propertyeditors.StringTrimmerEditor
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.WebDataBinder
 import org.springframework.web.bind.annotation.*
 
 import java.util.concurrent.atomic.AtomicLong
@@ -16,6 +19,20 @@ class GreetingController {
 
     private static final String template = "hello, %s!"
     private final static AtomicLong counter = new AtomicLong()
+
+    /**
+     * 将spring mvc中的参数纳入spring管理，可以定义各种Editor
+     * @param binder
+     */
+    @InitBinder
+    void initDataBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true) {
+            @Override
+            void setAsText(String text) {
+                super.setAsText(text + "luolibing")
+            }
+        })
+    }
 
 
     @RequestMapping("/greeting")
