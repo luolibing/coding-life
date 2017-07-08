@@ -1,5 +1,7 @@
 package cn.tim.restful.controller
 
+import cn.tim.restful.annoction.MyWrapper
+import cn.tim.restful.annoction.ResponseWrapper
 import cn.tim.restful.entity.Greeting
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import groovy.util.logging.Slf4j
@@ -36,8 +38,9 @@ class GreetingController {
 
 
     @RequestMapping("/greeting")
+    @ResponseWrapper
     @JsonIgnoreProperties(ignoreUnknown = true, value = "content")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "world") String name) {
+    public Greeting greeting(@MyWrapper(value = "wrapper", ifEmpty = "default") String name) {
         return new Greeting(12,
                 String.format(template, name));
     }
