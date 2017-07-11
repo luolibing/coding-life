@@ -8,6 +8,14 @@ log-slow-queries = /usr/local/mysql/var/slowquery.log
 long_query_time = 1  #单位是秒
 log-queries-not-using-indexes
 
+开启慢sql查询日志: 
+set global slow_query_log='ON';
+set GLOBAL long_query_time=20;
+set GLOBAL slow_query_log_file='/var/lib/mysql/slow.log'
+
+不重启mysql，开启慢sql
+SET GLOBAL slow_query_log = 'ON'; FLUSH LOGS;
+
 > 查询slow_query_log的相关配置
 show variables like '%slow_query_log%'
 有两个参数： slow_query_log（是否开启），slow_query_log_file(日志文件位置)
