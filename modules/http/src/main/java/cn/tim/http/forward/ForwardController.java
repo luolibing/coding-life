@@ -1,7 +1,11 @@
 package cn.tim.http.forward;
 
+import cn.tim.http.utils.EnumValidator;
+import cn.tim.http.utils.Functions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +32,8 @@ public class ForwardController {
         return ResponseEntity.ok().header("via", "BJ-Y-NX-103(HIT)").build();
     }
 
-    @RequestMapping(value = "/detail")
-    public Object detail(@Valid ValidationForm validationForm, BindingResult bindingResult) {
+    @PostMapping(value = "/detail")
+    public Object detail(@Valid @RequestBody ValidationForm validationForm, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
@@ -42,6 +46,9 @@ class ValidationForm {
     @NotNull(message = "id不能为空")
     private Long id;
 
+    @EnumValidator(message = "不存在的枚举", enumClazz = ROLE.class, valueFunction = ROLE.Function.class)
+    private int role;
+
     public ValidationForm() {
     }
 
@@ -51,5 +58,30 @@ class ValidationForm {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+}
+
+enum ROLE {
+    ADMIN(1), EMPLOYEE(2), MANAGER(3);
+
+    private int value;
+
+    ROLE(int value) {
+        this.value = value;
+    }
+
+    class Function implements Functions {
+        @Override
+        public Object apply(Enum type) {
+            return ((ROLE)type).value;
+        }
     }
 }
