@@ -78,7 +78,7 @@ enum ROLE {
         this.value = value;
     }
 
-    class Function implements Functions {
+    public static class Function implements Functions {
         @Override
         public Object apply(Enum type) {
             return ((ROLE)type).value;

@@ -25,5 +25,7 @@ public @interface EnumValidator {
 
     Class<? extends Payload>[] payload() default {};
 
+    Class<?>[] groups() default { };
+
     Class<? extends Functions> valueFunction() default Functions.class;
 }

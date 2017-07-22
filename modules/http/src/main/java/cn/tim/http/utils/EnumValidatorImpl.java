@@ -43,7 +43,7 @@ public class EnumValidatorImpl implements ConstraintValidator<EnumValidator, Obj
                 functions = functionsClass.newInstance();
             }
         } catch (InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+
         }
 
 

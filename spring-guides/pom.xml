@@ -66,6 +66,7 @@
         <module>mail</module>
         <module>schedule</module>
         <module>spring-mvc</module>
+        <module>state-machine</module>
     </modules>
 
 
