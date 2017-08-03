@@ -16,12 +16,12 @@ import java.util.EnumSet;
 public class StateMachineConfiguration {
 
 
-    public StateMachine<States, Events> buildMachine() throws Exception {
+    public StateMachine<States, Events> buildMachine(States initState) throws Exception {
         StateMachineBuilder.Builder<States, Events> builder = StateMachineBuilder.builder();
 
         builder.configureStates()
                 .withStates()
-                .initial(States.CREATE)
+                .initial(initState)
                 .states(EnumSet.allOf(States.class));
 
         builder.configureTransitions()
