@@ -41,6 +41,7 @@ public class PublisherApplication implements CommandLineRunner, ApplicationEvent
         for(int i = 0; i < 100; i++) {
             Message message = new Message();
             applicationEventMulticaster.multicastEvent(new CreateEvent(message));
+            applicationEventPublisher.publishEvent(new CreateEvent(message));
         }
     }
 

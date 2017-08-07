@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.state.State;
 
-import static cn.tim.state.machine.enums.Events.CUSTOMER_SUBMIT;
 import static cn.tim.state.machine.enums.Events.SERVE_PASS;
 
 /**
@@ -29,9 +28,8 @@ public class StateMachineApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        StateMachine<States, Events> stateMachine = configuration.buildMachine();
+        StateMachine<States, Events> stateMachine = configuration.buildMachine(States.WAIT_SERVE_AUDIT);
         stateMachine.start();
-        stateMachine.sendEvent(CUSTOMER_SUBMIT);
         stateMachine.sendEvent(SERVE_PASS);
         State<States, Events> state = stateMachine.getState();
         System.out.println(state.getId());
