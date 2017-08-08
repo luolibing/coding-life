@@ -15,6 +15,7 @@
         <module>mq-rabbitmq</module>
         <module>docker</module>
         <module>zookeeper</module>
+        <module>redisson</module>
     </modules>
 
 

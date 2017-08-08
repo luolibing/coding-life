@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * User: luolibing
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Aspect
 @EnableAspectJAutoProxy(exposeProxy = true)
 @SpringBootApplication
+@EnableScheduling
 public class InterceptorApplication implements CommandLineRunner {
 
     @AfterReturning(value = "@annotation(Handler)")
@@ -29,8 +31,13 @@ public class InterceptorApplication implements CommandLineRunner {
     @Autowired
     private Service service;
 
+    @Autowired
+    private GLockService gLockService;
+
     @Override
     public void run(String... args) throws Exception {
         service.sayGood();
+
+//        LongStream.range(0, 500).forEach(i -> gLockService.lockTest(i));
     }
 }
