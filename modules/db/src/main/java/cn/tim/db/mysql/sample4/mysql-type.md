@@ -87,3 +87,11 @@ update my_summary_old as c
 	
 并且删除掉其他行，这样就只剩下这一天的一个总数
 delete from my_summary_old where hour<>0 and count=0
+
+
+alter table对于大表会是一个大问题，有2种方式能够加快alter table
+1 先在一台不提供服务的机器上执行alter table操作，然后和提供服务的主库进行切换
+2 影子拷贝
+
+只修改.frm文件时很快的，一般的alter table可能都需要重建表，重建表的代价会比较高。
+移除一个列的auto_increment属性， 增加移除或者更改enum或者set常量并不会重建表
