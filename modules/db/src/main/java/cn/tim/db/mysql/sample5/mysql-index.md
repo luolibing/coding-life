@@ -66,3 +66,42 @@ MyISAM支持R-Tree，空间索引，可以作为地理数据存储。GIS
 同时有较好的区分度，最好为1，一般在0-1之间，区分度=不重复数/总数。唯一索引的区分度为1。在性别上创建索引就完全没有必要，因为区分度为2/总数
 数据再大一点，可以使用分区技术（不过这个有技术说不使用这个技术？这个有待研究）
 如果再往上，就可以考虑使用分表分库技术，这个时候可以建立一个元数据表，例如哪个用户存储的哪个库的哪个表里面。
+
+高性能索引策略
+1 独立的列，索引列不能是表达式的一部分。即不能使用表达式作为查询条件，explain select * from my_content where crc32+2=2528782775
+2 前缀索引和索引选择性。前缀索引的长度对于性能的影响较大，当长度过大时会导致性能大幅降低。索引选择性=不重复数量/总数。比值在1/#T到1之间。唯一索引为1
+  有时候还得需要考虑到索引列重复读分配情况，如果分配不均匀。需要按照实际情况来选择，索引的前缀长度。选择性等于0.031左右，就基本上可以使用了。
+  MYSQL无法使用前缀索引做ORDER BY和GROUP BY,也无法使用覆盖索引。有时候后缀索引页有用途，但是MYSQL并不支持反向索引，可以将原本正向的反转之后存入字段。
+    select count(distinct crc32)/count(*) from my_content
+    select crc32,count(*) from my_content group by crc32
+    explain select count(*) as cnt,left(name, 12) as pref from work_excel group by pref order by cnt desc limit 100
+    
+    select 
+    count(distinct left(name,7))/count(*),
+    count(distinct left(name,8))/count(*),
+    count(distinct left(name,9))/count(*),
+    count(distinct left(name,10))/count(*),
+    count(distinct left(name,11))/count(*),
+    count(distinct left(name,12))/count(*),
+    count(distinct left(name,13))/count(*),
+    count(distinct left(name,14))/count(*),
+    count(distinct left(name,15))/count(*)
+    from work_excel
+3 多列索引
+    多个单列索引，在mysql中5.0以上引入了一种叫"索引合并"的优化策略。以下查询，虽然在2个列上创建了索引，但是并不能很好的使用索引。Using union(IDX_SHEET_ID,IDX_CRC32); Using where
+    explain select * from my_content where sheet_id=10 or crc32=1409898321
+    当出现服务器对多个索引做相交操作时（多个条件AND），通常意味着需要一个包含所有相关列的多列索引。
+    当出现多个索引做联合操作时，（多个条件OR）,需要大量的CPU和内存资源在算法的缓存、排序和合并操作上。
+    
+4 选择合适的索引列顺序
+    正确的顺序依赖于使用该索引的查询，并且同时需要考虑如何更好地满足排序和分组的需要。将选择性最高的列放在索引的最前面，前提是不需要考虑排序和分组时。
+    select 
+    count(distinct word)/count(*),
+    count(distinct image_name)/count(*) 
+    from maintable
+    
+    
+## 聚族索引
+聚族索引并不是一种单独的索引类型，而是一种数据存储方式。具体的细节依赖于实现方式，InnoDB的聚族索引实际上在同一个结构中保存了B-Tree索引和数据行。
+    
+    
