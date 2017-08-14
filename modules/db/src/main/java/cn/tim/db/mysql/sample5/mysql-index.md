@@ -133,5 +133,32 @@ InnoDB表中按照主键顺序插入值
 
 顺序的主键什么时候造成更坏的结果
 对于高并发的工作负载，在InnoDB中按照主键顺序插入可能会造成明显的争用。主键的上界会成为热点。
+
+
+覆盖索引
+好的索引应该考虑到整个查询，而不单单是where条件部分。MySQL也可以使用索引来直接获取列的数据。如果一个索引包含或者说覆盖所有需要查询的字段的值，我们就称为覆盖索引。
+覆盖索引能够极大的提高性能。查询只扫描索引而无需回表，会带来很多好处
+1 索引条目通常远小于数据列大小，所以如果只需要读取索引，那么会及大地减少数据访问量
+2 因为索引是按照列值顺序存储的，可以降低很多随机访问。
+3 一些存储引擎（MyISAM）在内存中只缓存索引，数据则依赖于操作系统来缓存，因此访问数据需要一次系统调用。
+4 InnoDB的二级索引在叶子节点中保存了行的主键值，所以二级主键能够覆盖查询，则可以避免对主键索引的二次查询。
+5 MySQL只能使用B-Tree索引做覆盖索引。
+6 覆盖索引中可以使用Id主键，进行查询。
+
+当使用覆盖索引查询时，使用EXPLAIN做查询计划查询的时候，在Extra中是Using Index。type为index的意思是使用索引查询，并不代表使用的覆盖索引。
+explain select * from work_cell join(
+select id from work_cell where sheet_id=1000 and row=1) as w
+on (w.id=work_cell.id)
+
+
+## 排序的实现
+1 使用文件排序Using filesort
+  
+2 使用索引顺序排序 Using index
+  explain select sheet_id from work_cell order by sheet_id desc 当type为index的时候，表明使用的是索引排序
+
+
+
+
     
     
