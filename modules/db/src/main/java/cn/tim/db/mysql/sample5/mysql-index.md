@@ -156,7 +156,35 @@ on (w.id=work_cell.id)
   
 2 使用索引顺序排序 Using index
   explain select sheet_id from work_cell order by sheet_id desc 当type为index的时候，表明使用的是索引排序
+  只有当索引列的顺序和ORDER BY子句的顺序完全一致，并且所有列的排序方向都一样时，MYSQL才能使用索引来对结果做排序。如果查询需要关联多张表，则只有当ORDER BY子句引用的字段全部为第一张表时，才能使用索引做排序。
+  有一种情况下ORDER BY子句可以不满足索引的最左前缀要求，即前导列为常量的时候。
+  explain select * from work_cell where sheet_id=1000 order by row,col
+  
+## 其他索引
+1 压缩（前缀压缩）索引
+  MyISAM使用前缀压缩来减少索引的大小，从而让更多的索引可以存放到内存当中。压缩块使用更少的空间，代价是某些操作可能更慢。
+  
+2 冗余和重复索引
+  应该尽量避免使用冗余重复的索引。索引越多，插入的速度会越慢，因为需要维护索引需要开销。
+  
+## 索引和锁
+1 索引可以让查询锁定更少的行，锁定超过需要的行会增加锁争用并减少并发性。当咋Extra中为Using Where时，表示MySQL的服务器将存储引擎返回行以后再应用where过滤条件，这个时候都已经锁定这些行了，尽管可能有些行不需要。
+  InnoDB在二级索引上使用共享锁，而在主键索引上使用排他锁。
+  
+## 好的索引原则
+1 IN子句不能太长，而且最好在索引的后面。当多个列使用in的时候，查询行数会呈现指数级增长。
+2 避免多个范围查询select * from work_cell where sheet_id>100，范围查询, explain select * from work_cell where sheet_id in(20000,100)多个等值条件查询。
 
+## 维护索引和表
+1 找到并修复损坏的表 check table, repair table能够修复这个表。使用一个无操作语句可以重建表alter table t engine=innodb
+2 更新索引统计信息，因为MySQL优化器是基于成本模型进行优化的，所以统计信息十分的重要。 会在首次打开，或者执行ANALYZE TABLE，或者表的大小发生非常大的变化时计算索引的统计信息。
+  show index from work_cell可以查看一个表的索引，可以查看索引的基数Cardinality表示索引值的不同值的个数。这个能看出这个索引的可选择性。
+3 减少索引和数据的碎片
+  1 行碎片，数据行被存储在多个地方的多个片段中
+  2 行间碎片，逻辑上顺序的行，存储在不同的地方
+  3 剩余空间碎片，数据页中有大量的空余空间。
+  可以使用OPTIMIZE TABLE进行表碎片优化。也可以到处数据再重新导入，或者使用一个无操作的alter语句。
+  
 
 
 
