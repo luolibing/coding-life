@@ -1,5 +1,6 @@
 package cn.tim.interceptor;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.math.BigDecimal;
 
 /**
  * User: luolibing
@@ -17,6 +22,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAspectJAutoProxy(exposeProxy = true)
 @SpringBootApplication
 @EnableScheduling
+@RestController
 public class InterceptorApplication implements CommandLineRunner {
 
     @AfterReturning(value = "@annotation(Handler)")
@@ -34,10 +40,19 @@ public class InterceptorApplication implements CommandLineRunner {
     @Autowired
     private GLockService gLockService;
 
+    @GetMapping(value = "/jsonDto")
+    public JsonDto getOne() {
+        JsonDto jsonDto = new JsonDto();
+        jsonDto.setPercent(new BigDecimal(0.75));
+        return jsonDto;
+    }
+
     @Override
     public void run(String... args) throws Exception {
+        JsonDto jsonDto = new JsonDto();
+        jsonDto.setPercent(new BigDecimal(0.75));
+        String s = new ObjectMapper().writeValueAsString(jsonDto);
+        System.out.println(s);
         service.sayGood();
-
-//        LongStream.range(0, 500).forEach(i -> gLockService.lockTest(i));
     }
 }
