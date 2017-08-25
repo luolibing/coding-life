@@ -15,7 +15,9 @@ public class NioDemo2 {
 
     /**
      * Scatter/Gather
-     *
+     * 分散和聚集
+     * 分散（scatter）将从Channel中读取的数据写入到多个buffer当中
+     * 聚集（gather）将多个buffer中的数据汇总后发送到channel当中
      */
     @Test
     public void server() throws IOException {
@@ -26,8 +28,11 @@ public class NioDemo2 {
             ByteBuffer header = ByteBuffer.allocateDirect(1024);
             ByteBuffer body = ByteBuffer.allocateDirect(1024);
             ByteBuffer[] buffers = {header, body};
+            // 发散到各个buffers当中
             request.read(buffers);
-//            System.out.println(header.getShort(0));
+//            header.flip();
+//            body.flip();
+            System.out.println(header.getShort(0));
             switch (header.getShort(0)) {
                 case 24845: // ping
                     System.out.println("ping");
@@ -37,6 +42,7 @@ public class NioDemo2 {
                     // 重新写回
                     body.put("luolibing".getBytes()).flip();
                     header.putShort((short) 20565).putLong(body.limit()).flip();
+                    // 聚集
                     request.write(buffers);
                     System.out.println("client");
                     break;

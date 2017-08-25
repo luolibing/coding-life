@@ -100,7 +100,9 @@ public class NioDemo1 {
         FileChannel
                 in = new FileInputStream("data.txt").getChannel(),
                 out = new FileOutputStream("data_bak.txt").getChannel();
+        // 将in中的数据写入到out当中
         in.transferTo(0, in.size(), out);
+        // 从in中读取数据到out当中，效果与transferTo一致
         // out.transferFrom(in, 0, in.size());
     }
 
