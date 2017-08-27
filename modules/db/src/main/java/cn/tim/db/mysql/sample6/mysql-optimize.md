@@ -96,6 +96,98 @@ mysql的动态优化
 10列表In()的比较。 mysql会对in中的集合进行排序。
 
 
+MYSQL如何执行关联查询
+MYSQL认为任何一个查询都是一次"关联"。对于UNION查询，Mysql先将一系列单个查询结果放到一个临时表中，然后再重新读出临时表数据来完成UNION查询。
+MYSQL对任何关联都执行嵌套循环关联操作，即MYSQL先在一个表中循环取出单条数据，然后再嵌套循环到下一个表中寻找匹配的行，依次下去，直到找到所有表中匹配的行为止。
+
+
+执行计划
+关联查询的最重要的一部分，就是使用一个左侧深度优先的树来进行查询，同时表关联的顺序不同，成本也会不同。可以使用一个贪心算法，来得出相对较低的成本。
+explain
+select c.col,c.row,c.content,s.name from work_cell c inner join work_sheet s on c.sheet_id=s.id
+where c.sheet_id=100
+关联查询，这个时候会先使用work_sheet
+强制使用自己指定的关联顺序，进行关联straight_join。当超过optimizer_search_depth表数量时，会使用贪心算法进行成本核算，选择最优的结果。
+
+数据排序
+无论如何排序都是一个成本很高的操作，应该尽量避免对大量数据进行排序。数量量较少时，在内存中排序，数据量大时使用文件io排序，不过都统称为filesort。
+当数据量少于"排序缓冲区"时，MYSQL在内存中使用"快速排序"操作。如果内存不够排序，则先将数据分块，分别使用快速排序，然后再讲排好序的快合并起来。
+max_length_for_sort_data可以控制，当未超过这个大小时，使用单次传输排序。
+
+通常使用in()加子查询，性能经常会非常糟糕，所以通常建议使用exists()等效地改写来获取更好的效率
+explain 
+(select * from my_content
+order by sheet_id desc limit 20)
+union all
+(select c.*,"asfds" from work_cell c
+order by c.sheet_id desc limit 20)
+limit 20
+
+
+select count(*) from tb1;该查询并不是我们想象的那样，扩展到所有列，它会忽略所有列的值而直接统计所有的行数。如果使用count(col1)查询时，只会统计col1不为空的列。
+对count()的优化，可以使用count(*) - 更小的扫描行数
+explain select ((select count(*) from work_cell)-count(*)) from work_cell where id<=10;这样查询的性能会更高吗？
+如果对于统计结果并不是要求的那么精确，可以使用一个近似值，可以使用explain来获取，explain并不会真正执行查询，所以成本很低
+
+优化关联查询
+1 确保on和using子句的列上有索引
+2 确保任何group by和order by中的表达式只涉及到一个表中的列
+
+优化子查询：尽量使用关联查询进行优化
+
+优化group by和distinct
+在无法使用索引的时候，group by使用临时表或者文件排序来进行分组。采用标识符进行分组效率会更高一些。
+
+
+
+limit分页优化
+explain select * from work_cell limit 4000000,20；这个查询会查出400万20条数据，然后丢弃400万。
+优化这种查询的思路是尽可能的使用索引覆盖扫描，而不是查询所有列，然后根据需要做一次关联查询返回所需的列。
+使用下面的索引缩小扫描的范围，然后再进行排序，limit效率会高很多
+explain select * from work_cell where id<3000000 order by id desc limit 20;
+
+
+优化UNION查询
+除非需要去重，不然可以使用UNION ALL代替UNION查询，这一点很重要。
+
+
+用户自定义变量
+set @last_week 	:= CURRENT_DATE-INTERVAL 1 WEEK;
+set @min_id 	:= (select min(id) from work_cell);
+
+select @last_week,@min_id from dual;
+用户自定义变量的一个好处是，可以在查询值的同时，更改值。
+
+更新值的同时，返回值的结果，避免重复查询.
+update my_content set update_time=now() where id=100 and @now := NOW();
+select @now;
+
+当使用insert on duplicate key update语法时，有时候需要知道更新了多少条数据，可以使用自定义变量
+set @x	:= 0
+
+insert into work_cell(row,col,content,sheet_id) values(3,3,"3333",1),(3,3,"3333",2),(3,3,"3333",2000)
+on duplicate key
+update
+content=content+"_10000" + (0*(@x:=@x+1))
+
+select @x
+
+
+偷懒的UNION写法
+select * from tb1 where id=1
+union all
+select * from tb2 where id=1
+这个查询，当id=1的时候union all还是会继续去扫描tb2这个查询，如果要避免继续扫描tb2这个表，使用下面的sql语句可以使用.
+
+// greatest返回这个数组中的最大值。
+explain
+select greatest(@found:=-1,id) as id, content
+from my_content where id=1
+union all
+select id, content from work_cell where id=1 and @found is null
+union all
+select 1,'reset' from dual where (@found := NULL) is not null;
+
 
 
 
