@@ -283,4 +283,49 @@ public class ConcurrentTest implements Exercise {
         });
     }
 
+
+    @Test
+    public void peek() {
+        class Person {
+            private int id;
+
+            private boolean flag;
+
+            public Person(int id, boolean flag) {
+                this.id = id;
+                this.flag = flag;
+            }
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public boolean isFlag() {
+                return flag;
+            }
+
+            public void setFlag(boolean flag) {
+                this.flag = flag;
+            }
+
+            @Override
+            public String toString() {
+                return "Person{" +
+                        "id=" + id +
+                        ", flag=" + flag +
+                        '}';
+            }
+        }
+
+
+        List<Person> list = Arrays.asList(new Person(1, true), new Person(2, true));
+        // stream()的不可变性
+        list.stream().peek(p -> p.setFlag(false));
+        list.forEach(System.out::println);
+    }
+
 }
