@@ -1,6 +1,6 @@
 package cn.tim.thinking.access;
 
-import java.util.ArrayListUtils;
+import cn.tim.thinking.ArrayListUtils;
 
 /**
  * Created by LuoLiBing on 16/12/13.

@@ -58,6 +58,7 @@
         <module>swagger</module>
         <module>validation</module>
         <module>activiti</module>
+        <module>jetty</module>
     </modules>
 
 
