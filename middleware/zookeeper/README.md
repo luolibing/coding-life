@@ -41,3 +41,15 @@ zxid实现由64位数字组成，高32位为epoch和低32位是counter，epoch�
 zookeeper消息分为2个阶段
 1 领导激活阶段，领导建议一个正确的系统状态，并且准备开始提出提案
 2 激活消息阶段，领导接收消息，提出并且协调消息传递
+
+leader激活（包含了Leader选举）
+选举算法：LeaderElection和FastLeaderElection（AuthFastLeaderElection是Fast的一种变种），zookeeper并不关心选举算法的实现，只要满足以下要求即可
+1 leader已经看到所有追随者的最高zxid（必须）
+2 leader拥有一个法定quorum数量的追随者（数量大于quorum即可，如果故障在选举的时候或者之后发生,quorum丢失，发起下一次选举）
+
+leader选举之后，将有一个单一的server被指定为leader，等待其他的追随者来连接leader。leader将发送跟随者错过的所有提案来同步，如果有跟随者有大量的提案未同步，则发送整个状态给这个追随者。
+如果有一个追随者的提案U还没来得及让leader看到，因为提案的顺序到达，所以U提案的zxid会比leader的还会更高。这个时候leader会告诉这个追随者，丢弃提案U
+新leader在新协议中使用第一个zxid设置为(e+1,0)，e是最大zxid中epoch。在同步之后，leader会提出一个NEW_LEADER协议，一旦这个协议被提交，新的leader被激活就可以开始接收和发起提案了。
+
+活动消息传递
+
