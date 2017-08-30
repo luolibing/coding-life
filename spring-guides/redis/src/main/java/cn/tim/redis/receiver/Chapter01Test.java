@@ -1,15 +1,15 @@
-package redis;
+package cn.tim.redis.receiver;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Transaction;
 
-import java.util.BitSet;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -165,9 +165,50 @@ public class Chapter01Test {
     }
 
     @Test
-    public void test() {
+    public void watch() {
         Jedis jedis = new Jedis();
-        String num = jedis.watch("num");
+        // 乐观锁 CAS, 乐观重试
+        while (true) {
+            // 监视键num在提交事务的时候，是否被修改，如果被修改，事务提交失败
+            jedis.watch("num");
+            String s = jedis.get("num");
+            int num = Integer.parseInt(s);
+            Transaction multi = jedis.multi();
+            multi.set("num", Integer.toString((num + 1)));
+            // 当exec时，不管事务是否成功,watch都会被取消，所以重试需要重新watch
+            List<Object> exec = multi.exec();
+            // CAS如果没有失败，表明没有被锁，正常返回
+            if(exec != null) {
+                jedis.unwatch();
+                break;
+            }
+        }
+    }
 
+    /**
+     * 实现原子性zpop指令
+     */
+    @Test
+    public void zPop() {
+        Jedis jedis = new Jedis();
+        final String[] popElement = new String[1];
+        while (true) {
+            jedis.watch("set");
+            Set<String> set = jedis.zrange("set", 0, 0);
+            if(CollectionUtils.isEmpty(set)) {
+                throw new NullPointerException();
+            }
+
+            Transaction multi = jedis.multi();
+            multi.zrem("set", set.toArray(new String[]{}));
+            List<Object> exec = multi.exec();
+            if(exec != null) {
+                set.stream().findFirst().ifPresent((val) -> popElement[0] = val);
+                jedis.unwatch();
+                break;
+            }
+        }
+
+        System.out.println(Arrays.toString(popElement));
     }
 }
