@@ -211,4 +211,12 @@ public class Chapter01Test {
 
         System.out.println(Arrays.toString(popElement));
     }
+
+    @Test
+    public void blpop() {
+        Jedis jedis = new Jedis();
+        // 阻塞blpop
+        List<String> list = jedis.blpop(Integer.MAX_VALUE,"list");
+        System.out.println(list);
+    }
 }

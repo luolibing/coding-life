@@ -34,6 +34,7 @@
         <module>spring-boot-activiti</module>
         <module>spring-boot-transaction-mq</module>
         <module>spring-boot-interceptor</module>
+        <module>spring-boot-elasticsearch</module>
     </modules>
 
 
