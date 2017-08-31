@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>docker</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>spring-boot-docker-compose</module>
+    </modules>
 
 
 </project>

@@ -1,0 +1,18 @@
+version : '2'
+services:
+
+  springappserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/vol/development
+    links:
+        - redis:redis
+
+  redis:
+    image: tim/redis:latest
+    ports:
+      - "27017:27017"
