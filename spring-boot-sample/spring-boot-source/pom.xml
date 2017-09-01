@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--<parent>-->
+        <!--<artifactId>spring-boot-sample</artifactId>-->
+        <!--<groupId>samples-tim</groupId>-->
+        <!--<version>1.0-SNAPSHOT</version>-->
+    <!--</parent>-->
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>samples-tim</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <artifactId>spring-boot-source</artifactId>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- parent本身也是继承自dependencies -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>1.5.6.RELEASE</version>
+                <!-- 使用type(pom)和scope(import)这样本身的pom能够解决多继承问题 -->
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+
+        <!-- optional 为true时，依赖不会出现跨越传递，即如果proA依赖于D，D如果声明为optional true，当proB依赖于proA的时候并不会把D也依赖过来，避免了jar包冲突 -->
+        <!-- dependencies 依赖提供了大量的包版本，这样当继承时，可以省略掉版本号，保持版本一致 -->
+        <!--<dependencies>-->
+            <!--<dependency>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-dependencies</artifactId>-->
+                <!--<version>1.5.2.RELEASE</version>-->
+                <!--<type>pom</type>-->
+                <!--<scope>import</scope>-->
+            <!--</dependency>-->
+        <!--</dependencies>-->
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>samples-tim</groupId>
+            <artifactId>tim-autoconfiguration</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>

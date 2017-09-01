@@ -12,11 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty(prefix = "tim.counting", name = "enabled", havingValue = "true") //matchIfMissing = true
 public class CountingProperties {
 
-    private long initValue = 0;
+    private long initValue;
 
-    private long maxValue = 10000;
+    private long maxValue;
 
-    private long step = 1;
+    private long step;
 
     private boolean enable;
 

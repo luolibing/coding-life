@@ -1,8 +1,9 @@
 package cn.tim.springboot.returnvalue.handler.advice;
 
 import cn.tim.springboot.returnvalue.handler.exception.BaseException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 异常统一处理
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * Date: 2017/5/4 12:59
  * Email: 397911353@qq.com
  */
-@RestControllerAdvice
+@ControllerAdvice(annotations = RestController.class)
 public class ExceptionHandlerAdvice {
 
     /**

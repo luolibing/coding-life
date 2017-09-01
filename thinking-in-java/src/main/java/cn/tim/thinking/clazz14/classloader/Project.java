@@ -12,4 +12,10 @@ public class Project {
         System.out.println("Project get World");
         return word;
     }
+
+    public static void main(String[] args) {
+        Integer a = 200;
+        Integer b = 200;
+        System.out.println(a== b);
+    }
 }

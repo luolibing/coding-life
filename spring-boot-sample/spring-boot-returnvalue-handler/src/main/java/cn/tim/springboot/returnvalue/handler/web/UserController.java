@@ -21,4 +21,9 @@ public class UserController {
         person.setAge(30);
         return new ModelAndView("person", "person", person);
     }
+
+    @GetMapping("/person/throw")
+    public Object throwPerson() {
+        throw new RuntimeException("aaaaa");
+    }
 }
