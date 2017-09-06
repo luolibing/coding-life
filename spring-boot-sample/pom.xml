@@ -35,6 +35,8 @@
         <module>spring-boot-transaction-mq</module>
         <module>spring-boot-interceptor</module>
         <module>spring-boot-elasticsearch</module>
+        <module>spring-boot-source</module>
+        <module>tim-starter</module>
     </modules>
 
 

@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Created by luolibing on 2017/4/5.
  */
-
 public class AtomicCounting implements Counting {
 
     private AtomicLong atomicLong;

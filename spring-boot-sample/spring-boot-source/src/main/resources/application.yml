@@ -1,0 +1,14 @@
+tim:
+  data:
+    host: 127.0.0.1
+    user: admin
+    pass: admin
+
+  counting:
+    enable: true
+    max-value: 100
+    init-value: 10
+
+server:
+  port: 8080
+
