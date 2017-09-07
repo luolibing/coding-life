@@ -28,6 +28,14 @@ public class Test1 {
     }
 
     @Test
+    public void stack() {
+        StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+        for(StackTraceElement stack: stackTrace) {
+            System.out.println(stack);
+        }
+    }
+
+    @Test
     public void threadClassload() {
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         System.out.println(contextClassLoader);

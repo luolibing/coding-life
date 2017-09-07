@@ -13,6 +13,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.List;
 
 /**
+ * mybatis需要创建出SqlSessionFactory，默认可以使用SqlSessionFactoryBuilder来进行build
+ * 使用spring-mybatis，原理则是，spring使用SqlSessionFactoryBean来buildSqlSessionFactory()
+ * 使用spring-boot-mybatis，原理是autoconfig根据约定以及配置来创建出SqlSessionFactoryBean
+ * 所以研究mybatis重点是研究sqlSessionFactory
  * Created by LuoLiBing on 17/3/22.
  */
 @SpringBootApplication

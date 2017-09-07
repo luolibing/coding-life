@@ -97,4 +97,9 @@ public class CollectionDemo1 {
         System.out.println(new ArrayList<>(CollectionData.list(new TestArrayData.RandomGenerator.Integer(), 10)));
         System.out.println(new HashSet<>(CollectionData.list(new TestArrayData.RandomGenerator.Boolean(), 10)));
     }
+
+    @Test
+    public void stamp() {
+        System.out.println(System.currentTimeMillis());
+    }
 }
