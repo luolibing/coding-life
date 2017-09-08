@@ -5,11 +5,14 @@ import cn.tim.mybatis.entity.City;
 import cn.tim.mybatis.entity.Hotel;
 import cn.tim.mybatis.mapper.CityMapper;
 import cn.tim.mybatis.mapper.HotelMapper;
+import cn.tim.mybatis.scan.MyImportBeanDefinitionRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,15 +23,16 @@ import java.util.List;
  * Created by LuoLiBing on 17/3/22.
  */
 @SpringBootApplication
+@Import({MyImportBeanDefinitionRegistrar.class})
 public class Application implements CommandLineRunner {
 
     @Autowired
     private HotelDao hotelDao;
 
-    @Autowired
+    @Resource
     private HotelMapper hotelMapper;
 
-    @Autowired
+    @Resource
     private CityMapper cityMapper;
 
     public static void main(String[] args) {
@@ -39,6 +43,8 @@ public class Application implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         City city = cityMapper.selectCityById(1L);
         System.out.println(city);
+        City city1 = cityMapper.selectCityById(1L);
+        System.out.println("two selectCityById is same object? " + (city == city1));
 
         /**
          * 当查询结果为空时，mybatis返回emptyList而不是null
