@@ -4,7 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.tim.mybatis.mapper.CityMapper">
-    <select id="selectCityById" resultType="City">
+
+    <resultMap id="BaseMap" type="cn.tim.mybatis.entity.City">
+        <id column="ID" jdbcType="BIGINT" property="id" />
+        <result column="NAME" jdbcType="VARCHAR" property="name" />
+        <result column="STATE" jdbcType="VARCHAR" property="state" />
+        <result column="COUNTRY" jdbcType="VARCHAR" property="country" />
+        <result column="status" property="cityStatus" typeHandler="cn.tim.mybatis.handler.CityStatusHandler" />
+
+        <collection property="hotelList" column="{city = id}" ofType="Hotel"
+                    select="cn.tim.mybatis.mapper.HotelMapper.selectByCityId" />
+    </resultMap>
+
+    <select id="selectCityById" resultMap="BaseMap">
         SELECT * FROM city where id = #{id}
     </select>
 

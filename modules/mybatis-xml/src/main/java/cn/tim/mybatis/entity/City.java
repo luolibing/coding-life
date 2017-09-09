@@ -1,7 +1,10 @@
 package cn.tim.mybatis.entity;
 
+import cn.tim.mybatis.entity.enums.CityStatus;
 import cn.tim.mybatis.scan.Tim;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * Created by LuoLiBing on 17/3/22.
@@ -17,4 +20,8 @@ public class City {
     private String state;
 
     private String country;
+
+    private CityStatus cityStatus;
+
+    private List<Hotel> hotelList;
 }
