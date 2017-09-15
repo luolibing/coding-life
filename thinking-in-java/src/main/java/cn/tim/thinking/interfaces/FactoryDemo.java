@@ -75,4 +75,32 @@ public class FactoryDemo {
             playGame(new CheckerFactory());
         }
     }
+
+    static class MessageHolder {
+        enum Message {
+            MSG1("发放%s"),
+            MSG2("fagg%s");
+
+            private String template;
+
+
+            Message(String s) {
+                this.template = s;
+            }
+
+            public String getMessage() {
+                return template;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        MessageHolder holder = new MessageHolder() {
+            @Override
+            protected Object clone() throws CloneNotSupportedException {
+                return super.clone();
+            }
+        };
+    }
+
 }

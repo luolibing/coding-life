@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -97,9 +99,9 @@ public class Application {
         RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(jedisConnectionFactory);
         // key的序列化
-        //redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
         // value的序列化
-        //redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
         return redisTemplate;
     }
 

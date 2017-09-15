@@ -28,7 +28,8 @@ public class ScheduleConfig {
         return jobFactory;
     }
 
-    @Bean
+//    @Bean
+//    @ConditionalOnMissingBean(SchedulerFactoryBean.class)
     public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, JobFactory jobFactory) throws Exception {
         SchedulerFactoryBean factoryBean = new SchedulerFactoryBean();
         factoryBean.setOverwriteExistingJobs(true);

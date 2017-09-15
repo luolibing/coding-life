@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- job detail -->
+    <bean id="myTaskJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="myTask" />
+        <property name="targetMethod" value="task1" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <bean id="myTaskTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="myTaskJobDetail" />
+        <property name="startDelay" value="1000" />
+        <property name="repeatInterval" value="1000" />
+    </bean>
+
+    <bean id="mySchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="autoStartup" value="true" />
+        <property name="triggers">
+            <list>
+                <ref bean="myTaskTrigger" />
+            </list>
+        </property>
+    </bean>
+</beans>

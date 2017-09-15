@@ -40,4 +40,5 @@ public class CastClassTest {
         BeanUtils.copyProperties(new Employee(), beanMap);
         System.out.println(target);
     }
+
 }
