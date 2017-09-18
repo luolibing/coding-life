@@ -328,4 +328,11 @@ public class ConcurrentTest implements Exercise {
         list.forEach(System.out::println);
     }
 
+
+    @Test
+    public void testPeek() {
+        // 这样并不会执行
+        Stream.of("a", "b").peek(System.out::println);
+    }
+
 }

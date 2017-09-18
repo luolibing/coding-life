@@ -1,5 +1,6 @@
 package cn.tim.web;
 
+import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +17,7 @@ import java.util.Map;
  * Created by luolibing on 2017/5/12.
  */
 @RestController
+@EnableAdminServer
 @SpringBootApplication
 public class WebApplication implements CommandLineRunner, ApplicationContextAware {
 
