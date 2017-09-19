@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -46,5 +47,11 @@ public class WebApplication implements CommandLineRunner, ApplicationContextAwar
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    @GetMapping("/")
+    public void accept(HttpServletRequest request) {
+        System.out.println(request);
+        request.getParameterMap();
     }
 }
