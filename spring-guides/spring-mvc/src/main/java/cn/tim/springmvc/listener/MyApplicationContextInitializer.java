@@ -11,5 +11,7 @@ public class MyApplicationContextInitializer implements ApplicationContextInitia
     @Override
     public void initialize(XmlWebApplicationContext applicationContext) {
         System.out.println("初始化applicationContext");
+        String applicationName = applicationContext.getDisplayName();
+        System.out.println("applicationName = " + applicationName);
     }
 }

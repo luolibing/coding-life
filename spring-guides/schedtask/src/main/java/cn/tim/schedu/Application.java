@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,20 +16,17 @@ import java.util.Date;
 @EnableScheduling
 public class Application {
 
-    private final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-
     @Scheduled(fixedDelay = 5000)
     public void tick() {
-        System.out.println("The time is now " + df.format(new Date()));
+        System.out.println("The time is now " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
     }
 
     //@Scheduled(cron = "")
     public void tick1() {
-        System.out.println("The time is now " + df.format(new Date()));
+        System.out.println("The time is now " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
     }
 }

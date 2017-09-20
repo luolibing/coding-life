@@ -19,7 +19,7 @@ import java.math.BigDecimal;
  * Date: 2017/8/3 14:09
  */
 @Aspect
-@EnableAspectJAutoProxy(exposeProxy = true)
+@EnableAspectJAutoProxy(exposeProxy = true, proxyTargetClass = true)
 @SpringBootApplication
 @EnableScheduling
 @RestController
@@ -35,7 +35,7 @@ public class InterceptorApplication implements CommandLineRunner {
     }
 
     @Autowired
-    private Service service;
+    private IService service;
 
     @Autowired
     private GLockService gLockService;

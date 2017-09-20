@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
  * Date: 2017/8/3 14:10
  */
 @Component
-public class Service {
+public class IServiceImpl implements IService {
 
     @Handler
-    protected void sayHello() {
+    public void sayHello() {
         System.out.println("service hello");
     }
 
     public void sayGood() {
-        ((Service)AopContext.currentProxy()).sayHello();
+        ((IService)AopContext.currentProxy()).sayHello();
         System.out.println("sayGood");
     }
 }
