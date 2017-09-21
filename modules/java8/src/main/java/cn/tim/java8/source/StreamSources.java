@@ -3,8 +3,10 @@ package cn.tim.java8.source;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Spliterator;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +24,10 @@ public class StreamSources {
     /**
      * Stream的原理，几个重要的组成
      * Spliterator  分割
+     * Pipeline     管道，管道上的每个节点都指向了上下游节点，以及源头节点
+     * Op           操作，分无状态操作与有状态操作
+     * 函数式过程
+     * Stream       本身并不包含数据结构，只是一个pipeline配备一下函数
      */
     @Test
     public void spliterator1() throws InterruptedException {
@@ -134,6 +140,42 @@ public class StreamSources {
         // 事实证明，stream中并不是说其中的对象在forEach或者collect之后并不是值不可变，而是对象不可变，还是同一个对象，同一个地址
         // 所以在使用collect时并不需要担心它的性能会降低。只是其中的list集合会发生变化，这个时候重新new了对象。
         System.out.println(person2.get(9) == persons.get(9));
+    }
+
+    @Test
+    public void stream4() {
+        IntStream stream = IntStream.range(0, 10);
+        // 使用map()其实是创建了一个无状态的ReferencePipeline.StatelessOp操作
+        Stream<Person> mapStream = stream.mapToObj(i -> new Person());
+        // stream分中间过程，和结束式（中断试）阶段。
+        List<Person> persons = mapStream.collect(Collectors.toList());
+    }
+
+    @Test
+    public void stream5() {
+        List<String> words = mockList();
+        List<String> list = words.stream()
+                .filter(s -> {
+                    return s.length() > 32;
+                })
+                .map(s -> {
+                    return "md5_" + s;
+                })
+                .peek(word -> {
+                    System.out.println(word);
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Test
+    public void parallelStream1() {
+        Map<Long, Integer> counter = new ConcurrentHashMap<>();
+        mockList().parallelStream().
+                forEach((word) -> {
+                    long key = Thread.currentThread().getId();
+                    counter.compute(key, (k, v) -> v == null ? 1 : (v + 1));
+                });
+        counter.forEach((k, v) -> System.out.println("thread-" + k + ", count = " + v));
     }
 
     static class Person {
