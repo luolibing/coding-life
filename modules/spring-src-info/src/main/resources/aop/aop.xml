@@ -22,5 +22,5 @@
 
     <bean id="testBean" class="cn.tim.springsrc.aop.simple.TestBean" />
 
-    <bean id="aServiceImpl1" class="cn.tim.springsrc.aop.simple.AServiceImpl1" />
+    <bean id="aService" class="cn.tim.springsrc.aop.simple.AServiceImpl1" />
 </beans>

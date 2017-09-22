@@ -23,7 +23,7 @@ public class Test {
 //        TestBean bean = context.getBean(TestBean.class);
 //        bean.test();
 
-        AServiceImpl1 bean1 = context.getBean(AServiceImpl1.class);
+        AService bean1 = context.getBean(AService.class);
         bean1.a();
     }
 }

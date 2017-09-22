@@ -1,6 +1,8 @@
 package cn.tim.springmvc.web;
 
 import cn.tim.springmvc.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -13,6 +15,11 @@ import java.util.List;
  * Created by luolibing on 2017/6/22.
  */
 public class UserController extends AbstractController {
+
+    @Autowired
+    public void setApplicationContexts(List<ApplicationContext> applicationContexts) {
+        System.out.println(applicationContexts);
+    }
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -27,6 +34,4 @@ public class UserController extends AbstractController {
         modelAndView.addObject("user", user);
         return modelAndView;
     }
-
-
 }
