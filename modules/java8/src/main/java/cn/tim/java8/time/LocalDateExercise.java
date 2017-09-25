@@ -176,4 +176,10 @@ public class LocalDateExercise {
         ).toInstant();
         return Duration.between(startInstant, endInstant);
     }
+
+    @Test
+    public void compactString() {
+        String str = "world";
+        System.out.println(str.getBytes().length);
+    }
 }

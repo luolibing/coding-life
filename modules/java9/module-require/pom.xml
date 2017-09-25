@@ -3,23 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>modules</artifactId>
+        <artifactId>java9</artifactId>
         <groupId>samples-tim</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>java9</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>module-export</module>
-        <module>module-require</module>
-        <module>coin</module>
-    </modules>
-
-    <properties>
-        <java.version>1.9</java.version>
-    </properties>
+    <artifactId>module-require</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>samples-tim</groupId>
+            <artifactId>module-export</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

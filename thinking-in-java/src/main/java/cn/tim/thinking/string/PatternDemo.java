@@ -219,4 +219,11 @@ public class PatternDemo {
         JGrep.grepClassByPath("/Users/tim/Documents/samples-tim/thinking-in-java/src/main/java/");
     }
 
+
+    @Test
+    public void compactString() {
+        String str = "world";
+        System.out.println(str.getBytes().length);
+    }
+
 }
