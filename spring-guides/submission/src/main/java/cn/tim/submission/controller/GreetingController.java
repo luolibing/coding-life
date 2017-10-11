@@ -1,18 +1,27 @@
 package cn.tim.submission.controller;
 
 import cn.tim.submission.entity.Greeting;
-import org.springframework.stereotype.Controller;
+import cn.tim.submission.service.GreetingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by LuoLiBing on 15/10/26.
  */
-@Controller
+@Validated
+@RestController
 public class GreetingController {
+
+    @Autowired
+    private GreetingService greetingService;
 
     @RequestMapping(value = "/greeting", method = RequestMethod.GET)
     public String greetingForm(@ModelAttribute(name = "name") String name, @ModelAttribute Greeting greeting) {
@@ -45,4 +54,23 @@ public class GreetingController {
         System.out.println("name = " + name);
         return Collections.singletonMap("success", "y");
     }
+
+    /**
+     * 方法级别的参数验证，实现方式
+     * 使用@Validated注解配合MethodValidationPostProcessor，另外需要捕获ConstraintViolationException异常
+     * @param name
+     * @param page
+     * @return
+     */
+    @GetMapping("/validate")
+    public Object validate(
+            @NotNull(message = "不能为空")
+            @Size(message = "长度在1-10之间", min = 1, max = 10)
+            @RequestParam("name") String name,
+            @Min(value = 3, message = "页面不能小于3") int page) {
+        greetingService.validate(page, 100);
+        return Collections.singletonMap("success", "y");
+    }
+
+
 }
