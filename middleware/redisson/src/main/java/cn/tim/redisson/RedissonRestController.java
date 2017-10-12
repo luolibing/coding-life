@@ -1,5 +1,6 @@
 package cn.tim.redisson;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,5 +30,10 @@ public class RedissonRestController {
     public Object gLock(@PathVariable String key) throws InterruptedException {
         lockService.gLockExecute(key);
         return ResponseEntity.ok().build();
+    }
+
+    @Test
+    public void t() {
+        System.out.println(7 & 3);
     }
 }

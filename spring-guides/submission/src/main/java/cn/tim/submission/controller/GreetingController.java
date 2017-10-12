@@ -23,6 +23,10 @@ public class GreetingController {
     @Autowired
     private GreetingService greetingService;
 
+    public GreetingController() {
+        System.out.println("init GreetingController");
+    }
+
     @RequestMapping(value = "/greeting", method = RequestMethod.GET)
     public String greetingForm(@ModelAttribute(name = "name") String name, @ModelAttribute Greeting greeting) {
         System.out.println(name);

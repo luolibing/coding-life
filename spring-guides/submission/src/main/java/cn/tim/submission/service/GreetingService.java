@@ -14,6 +14,10 @@ import javax.validation.constraints.Min;
 @Service
 public class GreetingService {
 
+    public GreetingService() {
+        System.out.println("init GreetingService");
+    }
+
     public void validate(
             @Min(message = "service中的page不能小于5", value = 5) int page,
             @Max(message = "service中的size不能大于20", value = 20) int size) {
