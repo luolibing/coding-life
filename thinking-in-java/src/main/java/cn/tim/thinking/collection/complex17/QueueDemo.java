@@ -30,6 +30,7 @@ public class QueueDemo {
                 System.out.print(queue.remove() + " ");
             }
             System.out.println();
+            
         }
 
         static class Gen implements TestArrayData.Generator<String> {
