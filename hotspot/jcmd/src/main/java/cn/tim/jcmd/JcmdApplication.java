@@ -106,4 +106,38 @@ public class JcmdApplication {
     public void jinfo() {
 
     }
+
+    /**
+     * jstat 对java应用程序的资源和性能进行实时监控
+     *
+     * jstat -gc 804 1000 5 每秒显示当前pid应用程序的gc使用情况
+     *
+     * jstatd 提供远程RMI接口来访问jstat进行监控
+     */
+    public void jstat() {
+
+    }
+
+    /**
+     * java mission control功能十分强大
+     */
+    public void missionControl() {
+
+    }
+
+
+    /**
+     * java5  2004
+     * 泛型，注解，并发容器，枚举类型，for-each，静态导入
+     * java6  2006
+     * 性能优化，更好的xml解析和第一个脚本api
+     * java7  2011 oracle
+     * 大量语法糖，invokeDynamic，forkJoin，更好的IO
+     * java8  2014
+     * lambda，date API，默认方法，metaspace，Nashorn，JavaFX，CompletableFuture
+     *
+     */
+    public void java() {
+
+    }
 }
