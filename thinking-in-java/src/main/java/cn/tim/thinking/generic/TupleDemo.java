@@ -41,4 +41,9 @@ public class TupleDemo {
             }
         }
     }
+
+    @Test
+    public void testFloat() {
+        System.out.println((int) (1.04f * 100));
+    }
 }
