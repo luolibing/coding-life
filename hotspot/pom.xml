@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>jcmd</module>
+        <module>appcds</module>
     </modules>
 
 
