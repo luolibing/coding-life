@@ -10,6 +10,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hotspot</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>jcmd</module>
+        <module>appcds</module>
+    </modules>
 
 
 </project>
