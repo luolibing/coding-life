@@ -20,6 +20,9 @@ public class CsvUtils {
             file.delete();
         }
 
+
+        byte[] bom ={(byte) 0xEF,(byte) 0xBB,(byte) 0xBF};
+
         file.createNewFile();
         StringBuilder builder = new StringBuilder();
         builder.append(title);
@@ -28,12 +31,14 @@ public class CsvUtils {
             builder.append(toStringNullToEmpty("44142419920818585")).append(",");
             builder.append(toStringNullToEmpty(4.142419920818585f)).append(",");
             builder.append(convert("0.1元/条."));
+            builder.append(convert("翁玥佳宋垚余燚\n"));
             builder.append("\n");
         }
 
-        FileOutputStream fs = new FileOutputStream(file);
+        FileOutputStream fs = new FileOutputStream(file, true);
         FileChannel channel = fs.getChannel();
-        channel.write(ByteBuffer.wrap(builder.toString().getBytes("GBK")));
+        channel.write(ByteBuffer.wrap(bom));
+        channel.write(ByteBuffer.wrap(builder.toString().getBytes("UTF-8")));
         channel.close();
     }
 
