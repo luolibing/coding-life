@@ -62,6 +62,21 @@ public class AppcdsApplication {
     /**
      * 如何使用appcds
      * 创建一个class列表，和存档文件在试着启动的时候
+     * https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#app_class_data_sharing
+     *
+     * 1 创建一个共享类的列表
+     *   java -Xshare:off -XX:+UnlockCommercialFeatures -XX:DumpLoadedClassList=hello.classlist -XX:+UseAppCDS -cp jcmd-1.0-SNAPSHOT.jar
+     *
+     * 2 创建一个共享归档
+     *   java -XX:+UnlockCommercialFeatures -Xshare:dump -XX:+UseAppCDS -XX:SharedArchiveFile=hello.jsa -XX:SharedClassListFile=hello.classlist -cp -jar jcmd-1.0-SNAPSHOT.jar
+     *
+     * 3 使用共享归档进行启动
+     *   java -XX:+UnlockCommercialFeatures -Xshare:on -XX:+UseAppCDS -XX:SharedArchiveFile=hello.jsa -cp -jar jcmd-1.0-SNAPSHOT.jar
+     *
+     * 4 验证类加载时从共享归档中进行的
+     *   java -XX:+UnlockCommercialFeatures -Xshare:on -XX:+UseAppCDS -XX:SharedArchiveFile=hello.jsa -cp jcmd-1.0-SNAPSHOT.jar -verbose:class java.util.regex.Matcher
+     *   结果显示: Loaded java.lang.Cloneable from shared objects file
+     *
      */
     public void howToUse() {
 
