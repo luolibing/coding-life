@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,10 +28,19 @@ public class WebApplication implements CommandLineRunner, ApplicationContextAwar
         SpringApplication.run(WebApplication.class, args);
     }
 
+    @Autowired
+    private B1 b1;
+
     @GetMapping("/hello")
     public Map<String, Object> hello() {
         //return Collections.singletonMap("hello", "world");
+        b1.sayHello();
         throw new RuntimeException("aaaaaaaaaaaaa");
+    }
+
+    @PostMapping("/hello")
+    public Object hello1(@RequestBody Map<String, Object> body) {
+        return body;
     }
 
     @Autowired
