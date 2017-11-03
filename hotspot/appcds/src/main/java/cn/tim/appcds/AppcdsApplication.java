@@ -1,15 +1,21 @@
 package cn.tim.appcds;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  * Created by luolibing on 2017/11/1.
  */
+@SpringBootApplication
 public class AppcdsApplication {
 
     public static void main(String[] args) {
-
+        SpringApplication.run(AppcdsApplication.class, args);
     }
 
     /**
+     *
+     * https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html#app_class_data_sharing
      * cds = class data sharing
      * 目标
      * 1 加快app启动时间
@@ -81,4 +87,63 @@ public class AppcdsApplication {
     public void howToUse() {
 
     }
+
+    /**
+     * 深度挖掘
+     * built-in class Loader
+     * bootstrap, ext classLoader, appClassLoader可以规定和共享运行时内存
+     * 任何归档的class都可以被标记，这样就可以在运行时被正确的类加载器加载，类加载器委托顺序被保存下来，
+     *
+     * 类的继承和层次关系并没有改变
+     * 更新jar文件，将使得共享的归档文件失效
+     * 
+     * java9支持用户自定义classLoader共享归档
+     *
+     * 归档字符串对象
+     * gc不会对这类共享的字符串对象进行回收，映射的归档类内存区域被钉住。字符串的hashcode都是事先进行计算
+     *
+     *
+     */
+    public void deepDive() {
+
+    }
+
+
+    /**
+     * 共享的步骤
+     * 1 创建共享的class list hello.classlist
+     * java -Xshare:off -XX:+UnlockCommercialFeatures -XX:DumpLoadedClassList=hello.classlist -XX:+UseAppCDS -cp jcmd-1.0-SNAPSHOT.jar cn.tim.jcmd.JcmdApplication
+     *
+     * 2 将共享的class list创建成共享归档 生成hello.jsa
+     * java -XX:+UnlockCommercialFeatures -Xshare:dump -XX:+UseAppCDS -XX:SharedArchiveFile=hello.jsa -XX:SharedClassListFile=hello.classlist -cp jcmd-1.0-SNAPSHOT.jar
+     *
+     * 3 利用归档jsa，运行程序
+     * java -XX:+UnlockCommercialFeatures -Xshare:on -XX:+UseAppCDS -XX:SharedArchiveFile=hello.jsa -jar -cp jcmd-1.0-SNAPSHOT.jar
+     *
+     * 4 验证这些类是通过加载共享归档加载
+     * java -XX:+UnlockCommercialFeatures -Xshare:on -XX:+UseAppCDS -XX:SharedArchiveFile=hello.jsa -cp jcmd-1.0-SNAPSHOT.jar -verbose:class cn.tim.jcmd.JcmdApplication
+     * [Loaded java.lang.System from shared objects file]
+     *
+     *
+     * java -XX:+UnlockCommercialFeatures -Xshare:on -XX:SharedArchiveFile=/Users/luolibing/Documents/github/coding-life/hotspot/jcmd/target/hello.jsa -XX:+UseAppCDS -jar appcds-1.0-SNAPSHOT.jar
+     *
+     * 共享的归档
+     *   VERSION: 1.0
+         @SECTION: String
+         0:
+         4: Java
+         10: StringLock
+         @SECTION: Symbol
+         0 -1:
+         19 -1: java/io/InputStream
+         27 -1: (C)Ljava/lang/StringBuffer;
+     *
+     *
+     */
+    public void shareOnMultipartJvm() {
+
+    }
+
+
+
 }
