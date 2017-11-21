@@ -1,0 +1,5 @@
+speedment:
+  mysql:
+    username: root
+    password: root
+    schema: sys

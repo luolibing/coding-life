@@ -61,6 +61,7 @@
         <module>jetty</module>
         <module>java9</module>
         <module>reactiveX</module>
+        <module>javaone-2017</module>
     </modules>
 
 
