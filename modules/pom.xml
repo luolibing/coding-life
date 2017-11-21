@@ -60,6 +60,7 @@
         <module>activiti</module>
         <module>jetty</module>
         <module>java9</module>
+        <module>reactiveX</module>
     </modules>
 
 
