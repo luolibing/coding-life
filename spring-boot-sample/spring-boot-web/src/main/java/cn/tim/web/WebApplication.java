@@ -1,5 +1,6 @@
 package cn.tim.web;
 
+import cn.tim.web.cycle.B1;
 import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
