@@ -13,3 +13,8 @@
 > 11月份：温故知新（重读thinking in java, jvm虚拟机）
 
 > 下半年必读书籍：zookeeper，高性能mysql，DDD设计思想，Redis实战（Redis深入分析）,cleaningCode
+
+## 12月学习计划
+> reactor 编程，spring flux的用法
+> Nginx 掌握nginx的基本用法与原理，负载均衡用法，
+
