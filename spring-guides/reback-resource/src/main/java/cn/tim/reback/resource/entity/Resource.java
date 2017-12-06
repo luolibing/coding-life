@@ -1,7 +1,5 @@
 package cn.tim.reback.resource.entity;
 
-import cn.tim.reback.resource.utils.FileUtils;
-
 import javax.persistence.*;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -69,7 +67,8 @@ public class Resource {
 
     /***********Jackrabbit库恢复******/
     public boolean rename() throws IOException {
-        return FileUtils.copyFile(createSourcePath(), createTargetPath(), type, checksum);
+//        return FileUtils.copyFile(createSourcePath(), createTargetPath(), type, checksum);
+        return true;
     }
 
     public Path createSourcePath() {
@@ -109,6 +108,7 @@ public class Resource {
 
 
     public boolean redata() throws IOException {
-        return FileUtils.copyFile(getDataSourcePath(), createTargetPath(), type, checksum);
+//        return FileUtils.copyFile(getDataSourcePath(), createTargetPath(), type, checksum);
+        return true;
     }
 }

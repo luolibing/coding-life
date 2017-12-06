@@ -99,7 +99,7 @@ class Interface1Impl implements Interface1 {
     }
 
     public static void main(String[] args) {
-        Interface1.Outer.k(new Interface1Impl());
+        Outer.k(new Interface1Impl());
     }
 }
 

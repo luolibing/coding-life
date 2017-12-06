@@ -398,7 +398,7 @@ public class PerformanceMapDemo1 {
 
 
         // 自定义EntrySet内部类, 直接操作keys和values
-        private class EntrySet extends AbstractSet<Map.Entry<K, V>> {
+        private class EntrySet extends AbstractSet<Entry<K, V>> {
 
             @Override
             public Iterator<Entry<K, V>> iterator() {

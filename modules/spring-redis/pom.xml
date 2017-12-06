@@ -11,6 +11,9 @@
 
     <artifactId>spring-redis</artifactId>
 
+    <properties>
+        <tomcat.version>7.0.63</tomcat.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -21,6 +24,11 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
             <version>1.6.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
         </dependency>
 
     </dependencies>
@@ -35,28 +43,6 @@
                     <contextFile>src/main/conf/context.xml</contextFile>
                     <useBodyEncodingForURI>true</useBodyEncodingForURI>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.tomcat.embed</groupId>
-                        <artifactId>tomcat-embed-core</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat.embed</groupId>
-                        <artifactId>tomcat-embed-logging-log4j</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency>
-                    <!--<dependency>-->
-                    <!--<groupId>com.alibaba</groupId>-->
-                    <!--<artifactId>druid</artifactId>-->
-                    <!--<version>${druid.version}</version>-->
-                    <!--</dependency>-->
-                    <!--<dependency>-->
-                    <!--<groupId>mysql</groupId>-->
-                    <!--<artifactId>mysql-connector-java</artifactId>-->
-                    <!--<version>${mysql.version}</version>-->
-                    <!--</dependency>-->
-                </dependencies>
             </plugin>
         </plugins>
     </build>

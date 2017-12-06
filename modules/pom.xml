@@ -21,7 +21,7 @@
         <module>groovy</module>
         <module>test-samples</module>
         <module>websocket</module>
-        <module>rabbitmq</module>
+        <module>rabbitmq-module</module>
         <module>spring-redis</module>
         <module>clojure</module>
         <module>groovy-actor</module>
@@ -39,7 +39,6 @@
         <module>servlet</module>
         <module>counter</module>
         <module>excel-annotation</module>
-        <module>tim-security-api</module>
         <module>vertx</module>
         <module>osgi</module>
         <module>db</module>

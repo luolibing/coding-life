@@ -72,6 +72,6 @@ public class NestInnerClassDemo1 {
         Destination d = destination("Tasmania");
         NestInnerClassDemo1 n = new NestInnerClassDemo1();
         // n.new ParcelDestination("aaa");
-        NestInnerClassDemo1.ParcelDestination d1 = new NestInnerClassDemo1.ParcelDestination("aaa");
+        ParcelDestination d1 = new ParcelDestination("aaa");
     }
 }

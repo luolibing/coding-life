@@ -67,7 +67,6 @@
         <module>schedule</module>
         <module>spring-mvc</module>
         <module>state-machine</module>
-        <module>spring5</module>
     </modules>
 
 

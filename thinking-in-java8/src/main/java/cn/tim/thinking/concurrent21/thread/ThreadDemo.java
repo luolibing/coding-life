@@ -231,7 +231,7 @@ public class ThreadDemo {
     }
 
 
-    @org.junit.Test
+    @Test
     public void test() throws InterruptedException {
         ExecutorService exec = Executors.newCachedThreadPool();
         for(int i = 0; i < 100; i++) {

@@ -111,7 +111,7 @@ public class DelayQueueDemo {
                 for(int i = 0; i < 20; i++) {
                     queue.put(new DelayedTask(rand.nextInt(5000)));
                 }
-                queue.add(new DelayedTask.EndSentinel(5000, exec));
+                queue.add(new EndSentinel(5000, exec));
                 exec.execute(new DelayedTaskConsumer(queue));
             }
         }

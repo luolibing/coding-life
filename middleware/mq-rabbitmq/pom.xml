@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>rabbitmq</artifactId>
+    <artifactId>mq-rabbitmq</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>tutorials</module>
+        <module>rabbitmq-tutorials</module>
     </modules>
 
 

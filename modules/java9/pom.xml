@@ -12,14 +12,24 @@
     <artifactId>java9</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>module-export</module>
-        <module>module-require</module>
-        <module>coin</module>
+        <!-- java9 暂时不兼容 -->
+        <!--<module>module-export</module>-->
+        <!--<module>module-require</module>-->
+        <!--<module>coin</module>-->
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
-
+    <profiles>
+        <profile>
+            <id>expensive-modules-to-build</id>
+            <modules>
+                <!--<module>module-export</module>-->
+                <!--<module>module-require</module>-->
+                <!--<module>coin</module>-->
+            </modules>
+        </profile>
+    </profiles>
 </project>

@@ -2,7 +2,7 @@ package cn.tim.session.redis;
 
 import org.junit.Test;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.test.ServerPortInfoApplicationContextInitializer;
+import org.springframework.boot.context.embedded.ServerPortInfoApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
