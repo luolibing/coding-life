@@ -9,8 +9,28 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>samples-tim</groupId>
     <artifactId>maven</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>maven-plugin</packaging>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-annotations</artifactId>
+            <version>3.2</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <distributionManagement>
         <!-- 发布release版本,Release发布一个版本之后不能在改变, 并且版本号里面必须使用RELEASE字样, 同时版本号不允许使用变量 -->
@@ -27,4 +47,5 @@
             <url>http://mvnrepo.tim.cn/repository/bebase-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+
 </project>

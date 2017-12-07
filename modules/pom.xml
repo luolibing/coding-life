@@ -62,6 +62,7 @@
         <module>javaone2016</module>
         <module>reactiveX</module>
         <module>javaone-2017</module>
+        <module>maven-demo</module>
     </modules>
 
 

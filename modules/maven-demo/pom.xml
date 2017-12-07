@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--
+        maven包含两部分project object model 和 repository仓库，目标为plugins或者是maven项目
+        pom由三部分组成
+        1 项目管理部分包括项目组织，开发人员，源码未知错误跟踪url等
+        2 项目相关性部分包括相关相关的信息
+        3 项目构建和报告部分包括项目构建信息（源代码目录单元测试目录）和要生成的报告
+    -->
+
+    <parent>
+        <artifactId>modules</artifactId>
+        <groupId>samples-tim</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 组id, 即在仓库中的项目目录 -->
+    <groupId>samples-tim</groupId>
+
+    <!-- 项目唯一标识，与版本号一起构成一个唯一目录 -->
+    <artifactId>maven</artifactId>
+
+    <!-- idea中maven选项项目显示的名称，不配置默认和artifactId一致 -->
+    <name>maven project</name>
+
+    <description>这是一个maven项目的描述</description>
+
+    <!-- 当前版本号，有SNAPSHOT和RELEASE之分 -->
+    <version>1.2-RELEASE</version>
+
+    <packaging>jar</packaging>
+
+
+
+    <!-- 项目管理选项 -->
+    <!-- 获取开发人员名单，change Log, 和开发活动 Development Activity -->
+    <organization>
+        <name>搞笑组织</name>
+        <url>https://github.com/luolibing</url>
+    </organization>
+
+    <!-- 创建年份日期 -->
+    <inceptionYear>2016</inceptionYear>
+
+    <!-- 项目地址 -->
+    <url>https://github.com/luolibing/coding-life</url>
+
+    <!-- issue管理地址-->
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/issues</url>
+    </issueManagement>
+
+    <!-- 执照 -->
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- 开发者 -->
+    <developers>
+        <developer>
+            <id>luolibing</id>
+            <name>罗立兵</name>
+            <email>397911353@qq.com</email>
+            <timezone>China/Beijing</timezone>
+        </developer>
+    </developers>
+
+    <!-- 贡献者 -->
+    <contributors>
+        <contributor>
+            <name>luolibing</name>
+            <email>397911353@qq.com</email>
+            <timezone>China/Beijing</timezone>
+        </contributor>
+    </contributors>
+
+    <scm>
+        <connection>scm:git:https://github.com/luolibing/coding-life.git</connection>
+        <developerConnection>scm:git:https://github.com/luolibing/coding-life.git</developerConnection>
+        <url>https://github.com/luolibing/coding-life.git</url>
+    </scm>
+
+    <!--私服配置-->
+    <distributionManagement>
+    </distributionManagement>
+
+
+
+    <!-- 项目依赖选项 -->
+    <dependencyManagement>
+        <dependencies></dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
+            <scope>pom</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-eureka</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+
+
+    <!-- 项目构建和报告选项 -->
+    <build>
+        <sourceDirectory>./src/main/java</sourceDirectory>
+        <testSourceDirectory>./src/test/java</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>./src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reports>
+        <project></project>
+    </reports>
+
+    <!-- 检查插件 -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <configuration>
+                    <!-- 通过goal关联maven的lifecycle中的一个阶段phase，每个plugin都会有一些默认的配置 -->
+                    <!--<goal></goal>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+
+    <!-- 指定repository的位置 -->
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- 指定插件的位置 -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!--
+        Lifecycle生命周期，定义一套规范流程，但是不指定具体实现，具体实现通过goal来指定，goal通过plugin来实现。
+        validate -> initialize -> compile -> test -> package ... -> install -> deploy
+    -->
+    <!-- effective pom packaging为pom，不会打jar包，只提供管理子项目（modules，方便子项目执行指令）和管理集成属性的作用 -->
+    <!-- 获取真正有效执行的effective pom指令 mvn help:effective-pom -->
+</project>

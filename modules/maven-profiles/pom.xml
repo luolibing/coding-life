@@ -18,6 +18,9 @@
             <id>develop</id>
             <properties>
                 <profiles.active>develop</profiles.active>
+                <maven.config.host>127.0.0.1</maven.config.host>
+                <maven.config.url>http://tim.github.com</maven.config.url>
+                <maven.config.user>luolibing</maven.config.user>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -28,6 +31,9 @@
             <id>test</id>
             <properties>
                 <profiles.active>test</profiles.active>
+                <maven.config.host>127.0.0.2</maven.config.host>
+                <maven.config.url>http://test.github.com</maven.config.url>
+                <maven.config.user>luolibing</maven.config.user>
             </properties>
         </profile>
         <profile>
@@ -35,6 +41,9 @@
             <id>production</id>
             <properties>
                 <profiles.active>production</profiles.active>
+                <maven.config.host>127.0.0.3</maven.config.host>
+                <maven.config.url>http://pro.github.com</maven.config.url>
+                <maven.config.user>luolibing</maven.config.user>
             </properties>
         </profile>
     </profiles>
@@ -45,4 +54,47 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.4.5.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>cn.tim.maven.profiles.MavenProfilesApplication</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>samples-tim</groupId>
+                <artifactId>maven</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <configuration>
+                    <goalPrefix>co</goalPrefix>
+                    <skipErrorNoDescriptorsFound>false</skipErrorNoDescriptorsFound>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>mojo-descriptor</id>
+                        <goals>
+                            <goal>descriptor</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>help-goal</id>
+                        <goals>
+                            <goal>helpmojo</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
