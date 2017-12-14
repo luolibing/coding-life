@@ -1,10 +1,13 @@
 package cn.tim.customer.tag;
 
 import cn.tim.customer.tag.entity.Employee;
+import cn.tim.customer.tag.entity.TsfConsumer;
+import cn.tim.customer.tag.entity.TsfProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * Created by luolibing on 2017/4/17.
@@ -18,22 +21,30 @@ import org.springframework.core.io.ClassPathResource;
  * 5 编写spring.schemas指定要导入的命名空间或者说schema文件
  * 6 在编写spring.xml文件时，需要声明命名空间，标签的前缀等，例如<jsf:provider />
  */
-//@SpringBootApplication
-//@ImportResource("classpath:META-INF/customer.xml")
+@SpringBootApplication
+@ImportResource("classpath:META-INF/customer.xml")
 public class CustomerTagApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
-//        SpringApplication.run(CustomerTagApplication.class, args);
-        XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(new ClassPathResource("META-INF/customer.xml"));
-        Employee bean = xmlBeanFactory.getBean(Employee.class);
-        System.out.println(bean);
+        SpringApplication.run(CustomerTagApplication.class, args);
+//        XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(new ClassPathResource("META-INF/customer.xml"));
+//        Employee bean = xmlBeanFactory.getBean(Employee.class);
+//        System.out.println(bean);
     }
 
     @Autowired
     private Employee employee;
 
+    @Autowired
+    private TsfProvider tsfProvider;
+
+    @Autowired
+    private TsfConsumer tsfConsumer;
+
     @Override
     public void run(String... strings) throws Exception {
         System.out.println(employee);
+        System.out.println(tsfConsumer);
+        System.out.println(tsfProvider);
     }
 }

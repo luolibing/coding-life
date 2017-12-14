@@ -267,4 +267,16 @@ public class LambdaExercises implements Exercise {
 
     public class ArrayList2<T> extends ArrayList<T> implements Collection2<T> {
     }
+
+
+    @Test
+    public void test31() {
+        Stream.of(1,3, 4, 5).forEach(i -> {
+            if(i == 3){
+                return;
+            }
+            System.out.println(i);
+        });
+        System.out.println("test31");
+    }
 }

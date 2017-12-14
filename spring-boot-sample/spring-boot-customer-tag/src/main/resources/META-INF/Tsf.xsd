@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tim.com/schema/tsf"
+        xmlns:tns="http://www.tim.com/schema/tsf" elementFormDefault="qualified">
+    <element name="provider">
+        <complexType>
+            <attribute name="id" type="string" />
+            <attribute name="host" type="string" />
+            <attribute name="port" type="integer" />
+            <attribute name="alias" type="string" />
+        </complexType>
+    </element>
+
+    <element name="consumer">
+        <complexType>
+            <attribute name="id" type="string" />
+            <attribute name="host" type="string" />
+            <attribute name="port" type="integer" />
+            <attribute name="alias" type="string" />
+            <attribute name="server" type="string" />
+        </complexType>
+    </element>
+</schema>

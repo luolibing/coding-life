@@ -1,2 +1,3 @@
 ## 将自定义的xsd文件与对应的命名空间进行关联以便于xml引入对应的xsd
 http\://www.tim.com/schema/employee.xsd=META-INF/Employee.xsd
+http\://www.tim.com/schema/tsf.xsd=META-INF/Tsf.xsd

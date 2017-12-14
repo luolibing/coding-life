@@ -8,26 +8,30 @@
   <offline>false</offline>
 
   <!--发布到本地maven私服-->
-<mirrors>
-    <mirror>
-      <id>tim</id>
-      <name>nexus tim</name>
-      <url>http://mvnrepo.tim.cn/repository/maven-public/</url>
-      <mirrorOf>central</mirrorOf>
-    </mirror>
-  </mirrors>
+<!--<mirrors>-->
+    <!--<mirror>-->
+      <!--<id>tim</id>-->
+      <!--<name>nexus tim</name>-->
+      <!--<url>http://mvnrepo.tim.cn/repository/maven-public/</url>-->
+      <!--<mirrorOf>central</mirrorOf>-->
+    <!--</mirror>-->
+  <!--</mirrors>-->
 
-<servers>
-  <server>
-  	<id>bebase-releases</id>
-  	<username>bebase</username>
-  	<password>tim123</password>
-  </server>
-  <server>
-    <id>bebase-snapshots</id>
-    <username>bebase</username>
-    <password>tim123</password>
-  </server>
-</servers>
+<!--<servers>-->
+  <!--<server>-->
+  	<!--<id>bebase-releases</id>-->
+  	<!--<username>bebase</username>-->
+  	<!--<password>tim123</password>-->
+  <!--</server>-->
+  <!--<server>-->
+    <!--<id>bebase-snapshots</id>-->
+    <!--<username>bebase</username>-->
+    <!--<password>tim123</password>-->
+  <!--</server>-->
+<!--</servers>-->
 
+
+  <pluginGroups>
+    <pluginGroup>cn.tim.maven.plugin.hello</pluginGroup>
+  </pluginGroups>
 </settings>

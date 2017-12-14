@@ -2,16 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tim ="http://www.tim.com/schema/employee"
-       xmlns:tsf="http://www.tim.com/schema/tsf"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.tim.com/schema/employee
-       http://www.tim.com/schema/employee.xsd
-       http://www.tim.com/schema/tsf
-       http://www.tim.com/schema/tsf.xsd">
+       http://www.tim.com/schema/employee.xsd">
 
     <tim:employee id="1" username="luolibing" email="397911353@qq.com" />
-
-    <tsf:provider id="myProvider" host="127.0.0.1" port="8801" alias="test" />
-    <tsf:consumer id="myConsumer" host="127.0.0.1" port="8801" alias="test" server="tsfServer" />
 </beans>

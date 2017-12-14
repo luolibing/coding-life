@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -61,9 +60,9 @@ public class WebApplication implements CommandLineRunner, ApplicationContextAwar
         this.applicationContext = applicationContext;
     }
 
-    @GetMapping("/")
-    public void accept(HttpServletRequest request) {
-        System.out.println(request);
-        request.getParameterMap();
-    }
+//    @GetMapping("/")
+//    public String accept(HttpServletRequest request) {
+//        System.out.println(request);
+//        request.getParameterMap();
+//    }
 }
