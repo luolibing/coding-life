@@ -5,3 +5,12 @@ git diff
 
 // 添加到暂存
 git add .
+
+// 暂存和本地仓库的区别
+git diff --cached
+
+// 已提交未推送
+git diff master origin/master
+
+
+// 撤销操作
