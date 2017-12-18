@@ -16,3 +16,8 @@ git diff --cached
 // 已提交未推送
 git diff master origin/master
 git reset --hard origin/master  // 已提交未推送撤销
+
+
+// 已推送撤销
+git reset --hard HEAD@{1}
+git push -f
