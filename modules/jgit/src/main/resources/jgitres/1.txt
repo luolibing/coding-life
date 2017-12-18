@@ -2,15 +2,16 @@
 
 // 本地已修改未暂存的文件
 git diff
+git checkout        // 只提示哪些变更
+git reset --hard    // 撤销变更
 
 // 添加到暂存
 git add .
+git checkout        // 只提示哪些变更
+git reset --hard    // 撤销变更
 
 // 暂存和本地仓库的区别
 git diff --cached
 
 // 已提交未推送
 git diff master origin/master
-
-
-// 撤销操作
