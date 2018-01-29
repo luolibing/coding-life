@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script type="text/javascript" th:src="@{/ckeditor/ckeditor.js}"></script>
+</head>
+<body>
+<h3>editor</h3>
+<form>
+    <!-- 一个textarea -->
+    <textarea name="editor1" id="editor1" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor.
+            </textarea>
+</form>
+<!-- 将id为editor1的textarea用ckeditor来操作 -->
+<script type="text/javascript">
+    CKEDITOR.replace( 'editor1' );
+</script>
+</body>
+</html>

@@ -25,6 +25,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static java.util.concurrent.CompletableFuture.runAsync;
+
 /**
  * Created by LuoLiBing on 16/7/14.
  */
@@ -327,7 +329,7 @@ public class ConcurrentDrive implements Exercise {
     public void futureReadPage() throws Exception {
         // 创建CompletableFuture的方式,1 supplyAsync   2 runAsync
         CompletableFuture.supplyAsync(this::getWordsAsList);
-        CompletableFuture.runAsync(() -> System.out.println("aaa"));
+        runAsync(() -> System.out.println("aaa"));
 
         // 所有的Async结尾的方法都有两种形式,一种使用ForkJoinPool中运行,一种使用Executor执行,不配置Executor,默认是用ForkJoinPool
         CompletableFuture<Void> completableFuture = CompletableFuture.supplyAsync(this::getWordsAsList)
@@ -487,5 +489,97 @@ public class ConcurrentDrive implements Exercise {
              }
          });
          */
+    }
+
+    @Test
+    public void thenAcc() throws ExecutionException, InterruptedException {
+        CompletableFuture.allOf(
+                runAsync(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("a");
+                }),
+                runAsync(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("b");
+                }),
+                runAsync(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("c");
+                }),
+                runAsync(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("d");
+                }),
+                runAsync(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("e");
+                })
+        ).get();
+        CompletableFuture.supplyAsync(() -> { return 1;})
+                .thenApplyAsync((i) -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("a");
+                    return i;
+                })
+                .thenApplyAsync((i) -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("b");
+                    return i;
+                })
+                .thenApplyAsync((i) -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("c");
+                    return i;
+                })
+                .thenApplyAsync((i) -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("d");
+                    return i;
+                })
+                .thenApplyAsync((i) -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("e");
+                    return i;
+                }).get();
     }
 }

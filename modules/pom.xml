@@ -63,6 +63,7 @@
         <module>reactiveX</module>
         <module>javaone-2017</module>
         <module>maven-demo</module>
+        <module>ckeditor</module>
     </modules>
 
 
