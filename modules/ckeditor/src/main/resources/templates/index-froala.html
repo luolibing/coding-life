@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+
+    <!-- Include CSS for icons. -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Include Editor style. -->
+    <link href="/froala/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="/froala/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/froala/css/plugins/emoticons.min.css" />
+    <link rel="stylesheet" href="/froala/css/plugins/image.min.css" />
+
+    <!-- Include jQuery lib. -->
+    <script type="application/javascript" src="/webjars/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- Include Editor JS files. -->
+    <script type="text/javascript" src="/froala/js/froala_editor.pkgd.min.js"></script>
+    <script src="/froala/js/plugins/emoticons.min.js"></script>
+    <script src="/froala/js/plugins/image.min.js"></script>
+
+    <script>
+        /*<![CDATA[*/
+
+        $(function() {
+            $.FroalaEditor.DefineIcon('imageInfo', {NAME: 'info'});
+            $.FroalaEditor.RegisterCommand('imageInfo', {
+                title: 'Info',
+                focus: false,
+                undo: false,
+                refreshAfterCallback: false,
+                callback: function () {
+                    var $img = this.image.get();
+                    alert($img.attr('src'));
+                }
+            });
+
+            $('#editor').froalaEditor({
+                imageEditButtons: ['imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove'],
+                toolbarButtons: ['fontFamily', '|', 'fontSize', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'emoticons', '|', 'paragraphFormat', 'align', 'undo', 'redo', 'html', '|', 'insertImage', 'insertVideo'],
+                emoticonsStep: 4,
+                heightMin: 100,
+                heightMax: 300,
+                emoticonsSet: [
+                    { code: '1f600', desc: 'Grinning face' },
+                    { code: '1f601', desc: 'Grinning face with smiling eyes' },
+                    { code: '1f602', desc: 'Face with tears of joy' },
+                    { code: '1f603', desc: 'Smiling face with open mouth' },
+                    { code: '1f604', desc: 'Smiling face with open mouth and smiling eyes' },
+                    { code: '1f605', desc: 'Smiling face with open mouth and cold sweat' },
+                    { code: '1f606', desc: 'Smiling face with open mouth and tightly-closed eyes' },
+                    { code: '1f607', desc: 'Smiling face with halo' },
+                    { code: '1f607', desc: 'cry'}
+                ],
+
+                // 图片上传相关
+                // Set the image upload URL.
+                imageUploadURL: '/uploadImage',
+
+                // Set request type.
+                imageUploadMethod: 'POST',
+
+                // Set max image size to 5MB.
+                imageMaxSize: 5 * 1024 * 1024,
+
+                // Allow to upload PNG and JPG.
+                imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+
+                // 字体
+                fontFamily: {
+                    "SimSun": '宋体',
+                    "SimHei": '黑体',
+                    "Microsoft YaHei": '微软雅黑',
+                    "KaiTi": '楷体'
+                },
+                fontFamilySelection: true
+
+            }).on('froalaEditor.contentChanged', function (e, editor) {
+//                $('#preview-box').html(editor.html.get());
+            }).on('froalaEditor.image.beforeUpload', function (e, editor, images) {
+                // Return false if you want to stop the image upload.
+            })
+            .on('froalaEditor.image.uploaded', function (e, editor, response) {
+                // Image was uploaded to the server.
+            })
+            .on('froalaEditor.image.inserted', function (e, editor, $img, response) {
+                // Image was inserted in the editor.
+            })
+            .on('froalaEditor.image.replaced', function (e, editor, $img, response) {
+                // Image was replaced in the editor.
+            })
+            .on('froalaEditor.image.error', function (e, editor, error, response) {
+                alert(response)
+            });
+
+            // Destroy action.
+            $('#preview').on('click', function (e) {
+                e.preventDefault();
+
+                if ($('#editor').data('froala.editor')) {
+                    $('#editor').froalaEditor('destroy');
+                }
+            });
+
+            $('#edit').on('click', function (e) {
+                e.preventDefault();
+
+                if (!$('#editor').data('froala.editor')) {
+                    $('#editor').froalaEditor();
+                }
+            });
+
+        });
+
+        function getHtml() {
+            alert($('#editor').froalaEditor('html.get'));
+        }
+
+        /*]]>*/
+    </script>
+</head>
+<body>
+<h3>editor</h3>
+
+<div id="editor" style="width: 600px; height:600px">
+</div>
+
+<div id="preview-box" class="fr-view">
+    <p>Start typing and you can preview the content of the WYSIWYG HTML editor as you type below the editing box.</p>
+</div>
+
+<a href="javascript: getHtml()">获取html</a>
+<a href="javascript: void(0)" id="edit">编辑</a>
+<a href="javascript: void(0)" id="preview">预览</a>
+</body>
+</html>

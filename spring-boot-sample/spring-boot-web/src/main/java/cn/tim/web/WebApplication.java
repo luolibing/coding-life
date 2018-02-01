@@ -2,6 +2,9 @@ package cn.tim.web;
 
 import cn.tim.web.cycle.B1;
 import de.codecentric.boot.admin.config.EnableAdminServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,6 +26,8 @@ import java.util.Map;
 @EnableAdminServer
 @SpringBootApplication
 public class WebApplication implements CommandLineRunner, ApplicationContextAware {
+
+    private final static Logger log = LoggerFactory.getLogger(WebApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);
@@ -51,6 +56,9 @@ public class WebApplication implements CommandLineRunner, ApplicationContextAwar
         hello.say();
         Child child = applicationContext.getBean(Child.class);
         child.handle();
+        MDC.put("name", "luolibing");
+        log.info("run aaaaaaaaaaaaa");
+        log.info("bbbbbbbbbbbbbbbbb");
     }
 
     private ApplicationContext applicationContext;

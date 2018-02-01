@@ -34,8 +34,8 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/teacher/{id}", method = RequestMethod.GET)
-    public TeacherView findTeacher(@PathVariable Long id) {
-        return binder.bindFromBusinessObject(TeacherView.class, teacherService.findTeacher(id));
+    public TeacherView findTeacher(@PathVariable Long idbbbbbb) {
+        return binder.bindFromBusinessObject(TeacherView.class, teacherService.findTeacher(idbbbbbb));
     }
 
 }
