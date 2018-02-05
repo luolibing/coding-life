@@ -12,6 +12,8 @@ public class Person {
 
     private int age;
 
+    private long lastModified;
+
     public Long getId() {
         return id;
     }
@@ -36,12 +38,21 @@ public class Person {
         this.age = age;
     }
 
+    public long getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(long lastModified) {
+        this.lastModified = lastModified;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", lastModified=" + lastModified +
                 '}';
     }
 }
