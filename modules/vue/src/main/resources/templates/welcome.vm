@@ -1,0 +1,120 @@
+
+查看message
+<div id="app1">
+    {{message}}
+</div>
+
+<div id="app2">
+    <!-- v-bind:title -->
+    <span v-bind:title="message">详细信息</span>
+</div>
+
+<div id="app3">
+    <span v-if="seen">显示详情信息</span>
+</div>
+
+<div id="app4">
+    <ol>
+        <li v-for="item in items">{{item.text}}</li>
+    </ol>
+</div>
+
+<div id="app5">
+    <p>{{message}}</p>
+    <!-- v-on事件监听器 -->
+    <button v-on:click="reverseMessage">逆转消息</button>
+</div>
+
+<!-- 使用v-model进行双向绑定 -->
+<div id="app6">
+    <p>{{message}}</p>
+    <input v-model="message" type="input" />
+</div>
+
+<!-- 组件化 -->
+<div id="app7">
+    <ol>
+        <todo-item
+            v-for="item in groceryList"
+            <!-- 从groceryList遍历item元素 -->
+            v-bind:todo="item"
+            v-bind:key="item.id"></todo-item>
+    </ol>
+</div>
+
+##<script type="text/javascript" src="/js/vue.js" />
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+##<script type="text/javascript" src="/js/welcome.js" />
+<script>
+    // el指定某个div，同时操作app.message可以指定数据，实现响应式
+    var app = new Vue({
+        el: '#app1',
+        data: {
+            message: 'Hello Vue!'
+        }
+    });
+
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            message: '查看信息时间' + new Date().toLocaleString()
+        }
+    });
+
+    var app3 = new Vue({
+        el: '#app3',
+        data: {
+            seen: true
+        }
+    });
+
+    var app4 = new Vue({
+        el: '#app4',
+        data: {
+            items: [
+                {text: 'java'},
+                {text: 'php'},
+                {text: 'c#'}
+            ]
+        }
+    });
+    app4.items.push({text:'c++'})
+
+    var app5 = new Vue({
+        el: '#app5',
+        data: {
+            message: '处理用户输入'
+        },
+        methods: {
+            reverseMessage: function() {
+                this.message = this.message.split('').reverse().join('');
+            }
+        }
+    });
+
+    var app6 = new Vue({
+        el: '#app6',
+        data: {
+            message: '初始值'
+        }
+    });
+
+    // 注册新组建，template为html模板
+    Vue.component('todo-item', {
+        // 定义组件属性集合
+        props: ['todo'],
+        template: '<li>{{todo.text}}</li>'
+    });
+
+    var app7 = new Vue({
+        el: '#app7',
+        data: {
+            groceryList: [
+                { id: 0, text: '素菜'},
+                { id: 1, text: '肉'},
+                { id: 1, text: '面包'}
+            ]
+        }
+    });
+</script>

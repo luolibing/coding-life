@@ -65,6 +65,7 @@
         <module>maven-demo</module>
         <module>ckeditor</module>
         <module>guava</module>
+        <module>vue</module>
     </modules>
 
 
