@@ -1,0 +1,52 @@
+
+<div id="app1">
+    <ul>
+        <li v-for="(item, index) in items">{{index}}: {{item.message}}</li>
+    </ul>
+
+    <br />
+    <ul>
+        <li v-for="user in userDatas">
+            {{user.name}}
+        </li>
+    </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app1',
+        data: {
+            items: [
+                { message: 'hello'},
+                { message: 'world'}
+            ],
+            profile: {
+                name: 'luolibing'
+            },
+            myData: [
+                { name: 'luo', age: 30 },
+                { name: 'luo1', age: 20 },
+                { name: 'luo2', age: 22 },
+                { name: 'luo3', age: 23 },
+                { name: 'luo4', age: 33 },
+                { name: 'luo5', age: 25 },
+                { name: 'luo6', age: 34 }
+            ]
+        },
+        computed: {
+            userDatas: function() {
+                // stream过滤
+                return this.myData.filter(function(data){
+                    return data.age >= 25
+                })
+            }
+        }
+    });
+
+    // 使用set来进行动态添加属性
+    // 或者使用 Vue.set(app.profile, 'age', 30);
+    app.$set(app.profile, 'age', 30)
+    console.info(app.profile.age)
+</script>
