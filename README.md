@@ -1,6 +1,6 @@
 # Tim
 ## 仅供学习使用
-> 近期计划：  
+> 三月学习记： 养成好的习惯至少需要几个月，甚至一到几年，但是毁掉一个好习惯，只在一念之间，不能放松对自己的要求，懈怠，拖延终将一事无成。
 
 > https://dzone.com/articles/buiding-microservice-using-springboot-and-docker 
 
@@ -10,3 +10,4 @@
 
 > vue
 
+> 好好说话
