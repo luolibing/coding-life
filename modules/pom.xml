@@ -67,6 +67,7 @@
         <module>guava</module>
         <module>vue</module>
         <module>ehcache</module>
+        <module>NIO</module>
     </modules>
 
 
