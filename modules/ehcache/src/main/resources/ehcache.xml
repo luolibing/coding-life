@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+    <defaultCache eternal="true" maxElementsInMemory="100000" overflowToDisk="true" />
+    <cache name="roleWrite" maxElementsInMemory="10000" eternal="true" overflowToDisk="true" />
+</ehcache>

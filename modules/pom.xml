@@ -66,6 +66,7 @@
         <module>ckeditor</module>
         <module>guava</module>
         <module>vue</module>
+        <module>ehcache</module>
     </modules>
 
 

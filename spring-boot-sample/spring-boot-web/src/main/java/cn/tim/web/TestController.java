@@ -21,4 +21,9 @@ public class TestController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/404")
+    public String notFound() {
+        return "404";
+    }
 }
