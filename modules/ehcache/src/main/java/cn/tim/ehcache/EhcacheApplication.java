@@ -23,9 +23,11 @@ public class EhcacheApplication implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         Role role = new Role();
         role.setRoleId(10);
+        roleService.getRoleByPublic(role);
+        roleService.getRoleByPublic(role);
+
+
         roleService.getRoleByPrivate(role);
-        roleService.getRoleByPrivate(role);
-        role.setRoleId(20);
-        roleService.getRoleByPrivate(role);
+        roleService.getRoleByFinal(role);
     }
 }

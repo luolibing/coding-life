@@ -15,13 +15,29 @@ import java.util.stream.IntStream;
 @Service
 public class RoleService {
 
-    public void invokePrivate() {
-
+    public List<Integer> getRoleByPrivate(final Role role) {
+        return invokePrivate();
     }
 
     @Cacheable(value = "roleWrite", key = "#role.getRoleId()")
-    public List<Integer> getRoleByPrivate(final Role role) {
+    private final List<Integer> invokePrivate() {
         System.out.println("getRoleByPrivate by selected");
+        return getRoleIds();
+    }
+
+    @Cacheable(value = "roleWrite", key = "#role.getRoleId()")
+    public List<Integer> getRoleByPublic(final Role role) {
+        System.out.println("getRoleByPrivate by selected");
+        return getRoleIds();
+    }
+
+    @Cacheable(value = "roleWrite", key = "#role.getRoleId()")
+    public final List<Integer> getRoleByFinal(final Role role) {
+        System.out.println("getRoleByPrivate by selected");
+        return getRoleIds();
+    }
+
+    private List<Integer> getRoleIds() {
         Random rand = new Random();
         return IntStream.range(0, 10).boxed().map(i -> rand.nextInt(100))
                 .collect(Collectors.toList());
