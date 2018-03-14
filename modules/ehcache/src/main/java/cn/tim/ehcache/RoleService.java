@@ -16,11 +16,11 @@ import java.util.stream.IntStream;
 public class RoleService {
 
     public List<Integer> getRoleByPrivate(final Role role) {
-        return invokePrivate();
+        return invokePrivate(role);
     }
 
     @Cacheable(value = "roleWrite", key = "#role.getRoleId()")
-    private final List<Integer> invokePrivate() {
+    private final List<Integer> invokePrivate(final Role role) {
         System.out.println("getRoleByPrivate by selected");
         return getRoleIds();
     }

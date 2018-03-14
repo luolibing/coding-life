@@ -21,7 +21,7 @@
         <!--<module>cloud</module>-->
         <module>algorithm</module>
         <module>kotlin</module>
-        <module>thinking-in-java</module>
+        <module>thinking-in-java8</module>
     </modules>
 
     <dependencies>

@@ -5,6 +5,7 @@ import cn.tim.web.cycle.MyStringToEnumConverterFactory;
 import cn.tim.web.cycle.MyType;
 import cn.tim.web.entity.Person;
 import cn.tim.web.entity.PersonView;
+import cn.tim.web.service.ViewService;
 import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.jdto.DTOBinder;
 import org.jdto.spring.SpringDTOBinder;
@@ -48,6 +49,9 @@ public class WebApplication implements CommandLineRunner, ApplicationContextAwar
     @Autowired
     private B1 b1;
 
+    @Autowired
+    private ViewService viewService;
+
     private int port = new Random().nextInt(10);
 
     @GetMapping("/hello")
@@ -71,6 +75,12 @@ public class WebApplication implements CommandLineRunner, ApplicationContextAwar
     public Object myType(MyType myType) {
         System.out.println(myType);
         return Collections.singletonMap("success","Y");
+    }
+
+    @GetMapping("/objectC")
+    public Object objectC() {
+        viewService.objectC();
+        return Collections.singletonMap("success", "Y");
     }
 
     @Bean
