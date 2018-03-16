@@ -19,4 +19,5 @@ public class ObjectC {
     public void setObjectB(ObjectB objectB) {
         this.objectB = objectB;
     }
+
 }

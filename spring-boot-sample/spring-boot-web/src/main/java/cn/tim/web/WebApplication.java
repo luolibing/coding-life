@@ -5,6 +5,7 @@ import cn.tim.web.cycle.MyStringToEnumConverterFactory;
 import cn.tim.web.cycle.MyType;
 import cn.tim.web.entity.Person;
 import cn.tim.web.entity.PersonView;
+import cn.tim.web.service.Item;
 import cn.tim.web.service.ViewService;
 import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.jdto.DTOBinder;
@@ -27,6 +28,7 @@ import org.springframework.core.convert.converter.ConverterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
@@ -81,6 +83,16 @@ public class WebApplication implements CommandLineRunner, ApplicationContextAwar
     public Object objectC() {
         viewService.objectC();
         return Collections.singletonMap("success", "Y");
+    }
+
+    @Resource(name = "cartItemAddition")
+    public void setItemAdd(Item cartItemAddition) {
+        System.out.println(cartItemAddition);
+    }
+
+    @Resource(name = "cartItemDeletion")
+    public void setItemDel(Item cartItemDeletion) {
+        System.out.println(cartItemDeletion);
     }
 
     @Bean

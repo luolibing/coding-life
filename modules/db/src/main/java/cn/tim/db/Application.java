@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * hexdump -v -C table1.frm 可以查看对应的数据库文件hex二进制
  *
- *
+ * https://www.percona.com/blog/2017/04/10/innodb-page-merging-and-page-splitting/
  */
 @SpringBootApplication
 public class Application {

@@ -24,9 +24,4 @@ public class Application {
     public void tick() {
         System.out.println("The time is now " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
     }
-
-    //@Scheduled(cron = "")
-    public void tick1() {
-        System.out.println("The time is now " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-    }
 }
