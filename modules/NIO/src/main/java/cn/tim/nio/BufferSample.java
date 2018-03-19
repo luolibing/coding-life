@@ -157,4 +157,67 @@ public class BufferSample {
             "Opening act for the Monkees: Jimi Hendrix",
             "'Scuse me while I kiss this fly", // Sorry Jimi ;-)
     };
+
+
+    @Test
+    public void compact() {
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+        byteBuffer.put("hello world".getBytes());
+        byteBuffer.flip();
+        byteBuffer.get();
+        byteBuffer.get();
+        System.out.println(String.format("capacity=%s, limit=%s, position=%s",
+                byteBuffer.capacity(), byteBuffer.limit(), byteBuffer.position()));
+
+        // 压缩后，已经读取的元素被释放，剩下的元素被复制到从0开始的地方，然后，position为剩下元素个数的下一个位置，limit等于capacity
+        byteBuffer.compact();
+        System.out.println(String.format("capacity=%s, limit=%s, position=%s",
+                byteBuffer.capacity(), byteBuffer.limit(), byteBuffer.position()));
+    }
+
+    /**
+     * mark
+     * 标记位置为当前position位置
+     * reset
+     * 重置position为当前的mark位置
+     * rewind, clear, flip总是会抛弃标记
+     */
+    @Test
+    public void mark() {
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+        byteBuffer.put("hello world".getBytes());
+        System.out.println(String.format("capacity=%s, limit=%s, position=%s",
+                byteBuffer.capacity(), byteBuffer.limit(), byteBuffer.position()));
+        byteBuffer.get();
+        byteBuffer.get();
+        byteBuffer.position(5);
+        System.out.println(String.format("capacity=%s, limit=%s, position=%s",
+                byteBuffer.capacity(), byteBuffer.limit(), byteBuffer.position()));
+        byteBuffer.get();
+        byteBuffer.get();
+        byteBuffer.mark();
+        byteBuffer.reset();
+        System.out.println(String.format("capacity=%s, limit=%s, position=%s",
+                byteBuffer.capacity(), byteBuffer.limit(), byteBuffer.position()));
+    }
+
+
+    /**
+     * equals和compareTo
+     * 都是对剩下的元素进行比较，即get直到末尾
+     */
+    @Test
+    public void equalsAndCompareTo() {
+        CharBuffer byteBuffer = CharBuffer.allocate(1024);
+        byteBuffer.put("hello world");
+        char[] bigArray = new char[1024];
+        int len = byteBuffer.remaining();
+        len = len < 1024 ? len : 1024;
+        byteBuffer.get(bigArray, 0, len);
+    }
+
+    @Test
+    public void getPutBatch() {
+
+    }
 }
