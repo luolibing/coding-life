@@ -1,7 +1,6 @@
 package cn.tim.mail.config;
 
 import cn.tim.mail.annotation.CreateNode;
-import cn.tim.mail.entity.jpa.OrderJpaRepository;
 import cn.tim.mail.service.NodeMethodCallback;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +53,12 @@ public class NodeAnnotationProcessor implements BeanPostProcessor {
         });
     }
 
-    public static void main(String[] args) {
-        ReflectionUtils.doWithMethods(OrderJpaRepository.class, new ReflectionUtils.MethodCallback() {
-            @Override
-            public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
-                System.out.println("method name = " + method.getName());
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        ReflectionUtils.doWithMethods(OrderJpaRepository.class, new ReflectionUtils.MethodCallback() {
+//            @Override
+//            public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
+//                System.out.println("method name = " + method.getName());
+//            }
+//        });
+//    }
 }
