@@ -216,8 +216,55 @@ public class BufferSample {
         byteBuffer.get(bigArray, 0, len);
     }
 
+
+    /**
+     * get(array, 0, len)
+     * put(array, 0, len)
+     * 批量存取
+     */
     @Test
     public void getPutBatch() {
 
+    }
+
+
+    @Test
+    public void create() {
+        // 直接创建一个1024大小的byte数组
+        ByteBuffer allocate = ByteBuffer.allocate(1024);
+        System.out.println(allocate.hasArray());
+
+        // 使用传入的Byte数组作为参数
+        ByteBuffer byteBuffer = ByteBuffer.wrap(new byte[1024], 500, 100);
+        System.out.println(byteBuffer.hasArray());
+
+        byte[] array = byteBuffer.array();
+        System.out.println(array.length);
+        System.out.println(byteBuffer.arrayOffset());
+    }
+
+
+    /**
+     * 复制缓冲区
+     * 大多数缓冲区的视图缓冲区都是byteBuffer
+     */
+    @Test
+    public void copy() {
+        CharBuffer charBuffer = CharBuffer.allocate(1024);
+        charBuffer.position(100).mark().limit(200);
+        // 创建出一个新的buffer，指向同一个数组元素，任何一方的变更都会反映到另外一方，除了position,limit，mark这些参数. 共享相同的视图
+        CharBuffer duplicate = charBuffer.duplicate();
+        System.out.println("duplicate capacity = " + duplicate.capacity() + ", position = " + duplicate.position() + ", limit = " + duplicate.limit());
+        duplicate.position(50).mark();
+        System.out.println("charBuffer capacity = " + charBuffer.capacity() + ", position = " + charBuffer.position() + ", limit = " + charBuffer.limit());
+
+        // 复制一个只读的缓冲区，与duplicate类似
+        CharBuffer buffer = charBuffer.asReadOnlyBuffer();
+        buffer.position(30);
+
+        // 只共享其中一部分，从当前position到末尾
+        CharBuffer slice = charBuffer.slice();
+        slice.position(0);
+        System.out.println(slice.capacity());
     }
 }
