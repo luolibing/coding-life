@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.CharBuffer;
+import java.nio.LongBuffer;
 import java.util.Arrays;
 
 /**
@@ -32,5 +34,33 @@ public class ByteBufferSample {
         allocate.order(ByteOrder.LITTLE_ENDIAN);
         allocate.put("hello".getBytes());
         System.out.println(Arrays.toString(allocate.array()));
+    }
+
+    @Test
+    public void direct() {
+        // 直接内存缓冲区，不受jvm堆限制
+        ByteBuffer.allocateDirect(1024 * 1024 * 1024);
+        ByteBuffer.allocateDirect(1024 * 1024 * 1024);
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024 * 1024 * 1024);
+        System.out.println(byteBuffer.isDirect());
+        byteBuffer.clear();
+    }
+
+    @Test
+    public void viewBuffer() {
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+        CharBuffer charBuffer = byteBuffer.asCharBuffer();
+        charBuffer.put('a');
+        charBuffer.put('b');
+
+        LongBuffer longBuffer = byteBuffer.asLongBuffer();
+        longBuffer.put(200L);
+        longBuffer.put(200L);
+        longBuffer.put(200L);
+        longBuffer.put(200L);
+
+//        charBuffer.flip();
+        byte[] array = byteBuffer.array();
+        System.out.println(Arrays.toString(array));
     }
 }
