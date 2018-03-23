@@ -149,6 +149,7 @@
         <zookeeper.version>3.4.10</zookeeper.version>
         <kotlin.version>1.1.2-2</kotlin.version>
         <activiti.version>6.0.0</activiti.version>
+        <h2.version>1.4.197</h2.version>
     </properties>
 
 
