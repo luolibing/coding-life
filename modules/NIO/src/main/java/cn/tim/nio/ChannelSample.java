@@ -84,4 +84,7 @@ public class ChannelSample {
         // 第1个和第2个缓冲区将被写入
         out.write(new ByteBuffer[] {header, body}, 0, 2);
     }
+
+
+
 }
