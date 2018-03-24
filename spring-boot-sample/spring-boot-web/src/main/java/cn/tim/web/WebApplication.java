@@ -7,7 +7,6 @@ import cn.tim.web.entity.Person;
 import cn.tim.web.entity.PersonView;
 import cn.tim.web.service.Item;
 import cn.tim.web.service.ViewService;
-import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.jdto.DTOBinder;
 import org.jdto.spring.SpringDTOBinder;
 import org.slf4j.Logger;
@@ -24,6 +23,7 @@ import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.convert.converter.ConverterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -38,8 +38,9 @@ import java.util.Random;
  */
 @RestController
 @RequestMapping("")
-@EnableAdminServer
+//@EnableAdminServer
 @SpringBootApplication
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class WebApplication implements CommandLineRunner, ApplicationContextAware {
 
     private final static Logger log = LoggerFactory.getLogger(WebApplication.class);

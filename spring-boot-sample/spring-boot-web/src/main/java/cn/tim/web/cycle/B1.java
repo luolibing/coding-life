@@ -1,5 +1,6 @@
 package cn.tim.web.cycle;
 
+import cn.tim.web.config.MyLog;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ public class B1 {
         this.a1 = a1;
     }
 
+    @MyLog
     public void sayHello() {
         a1.sayHello();
     }

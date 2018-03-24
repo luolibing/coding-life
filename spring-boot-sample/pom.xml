@@ -37,6 +37,7 @@
         <module>spring-boot-elasticsearch</module>
         <module>spring-boot-source</module>
         <module>tim-starter</module>
+        <module>spring-boot-aspect-api</module>
     </modules>
 
 

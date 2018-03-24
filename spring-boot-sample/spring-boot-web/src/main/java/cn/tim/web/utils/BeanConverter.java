@@ -1,6 +1,7 @@
 package cn.tim.web.utils;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.junit.Test;
@@ -36,11 +37,17 @@ public class BeanConverter {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @Builder
     static class PersonView {
         private Long id;
 
         private String firstName;
 
         private String secondName;
+    }
+
+    @Test
+    public void build() {
+        PersonView.builder().id(1L).firstName("luo").secondName("libing").build();
     }
 }

@@ -1,5 +1,6 @@
 package cn.tim.interceptor;
 
+import cn.tim.interceptor.annotation.MyLog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 /**
  * User: luolibing
@@ -20,6 +22,7 @@ import java.math.BigDecimal;
  */
 @Aspect
 @EnableAspectJAutoProxy(exposeProxy = true, proxyTargetClass = true)
+//@EnableAspectJAutoProxy(proxyTargetClass = true)
 @SpringBootApplication
 @EnableScheduling
 @RestController
@@ -54,5 +57,11 @@ public class InterceptorApplication implements CommandLineRunner {
         String s = new ObjectMapper().writeValueAsString(jsonDto);
         System.out.println(s);
         service.sayGood();
+    }
+
+    @GetMapping("/invoke")
+    @MyLog
+    public Object invoke() {
+        return Collections.singletonMap("success","Y");
     }
 }
