@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
@@ -27,11 +26,15 @@ public class BookingService {
      * 添加事物
      * @param persons
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void batchInsert(String... persons) {
-        for(String person: persons) {
+        for(int i = 0; i < persons.length; i++) {
+            String person = persons[i];
             log.info("insert person:" + person);
-            jdbcTemplate.update("INSERT INTO bookings(first_name) values(?)", person);
+            jdbcTemplate.update("insert into bookings (first_name) values (?);", person);
+            if(i ==3) {
+                throw new IllegalArgumentException();
+            }
         }
     }
 

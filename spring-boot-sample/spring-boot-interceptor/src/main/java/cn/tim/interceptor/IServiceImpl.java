@@ -1,6 +1,6 @@
 package cn.tim.interceptor;
 
-import org.springframework.aop.framework.AopContext;
+import cn.tim.interceptor.annotation.MyLog;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,12 +11,15 @@ import org.springframework.stereotype.Component;
 public class IServiceImpl implements IService {
 
     @Handler
+    @MyLog
     public void sayHello() {
         System.out.println("service hello");
     }
 
+    @MyLog
     public void sayGood() {
-        ((IService)AopContext.currentProxy()).sayHello();
+        this.sayHello();
+//        ((IService)AopContext.currentProxy()).sayHello();
         System.out.println("sayGood");
     }
 }
