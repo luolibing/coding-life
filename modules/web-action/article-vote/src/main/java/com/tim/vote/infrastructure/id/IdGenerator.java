@@ -24,4 +24,8 @@ public class IdGenerator {
     public void resetId(String idKey) {
         redisTemplate.delete(idKey);
     }
+
+    public String generateKey(String keyPre, String id) {
+        return keyPre + "pre" + id;
+    }
 }
