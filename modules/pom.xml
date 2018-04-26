@@ -68,6 +68,7 @@
         <module>vue</module>
         <module>ehcache</module>
         <module>NIO</module>
+        <module>web-action</module>
     </modules>
 
 
