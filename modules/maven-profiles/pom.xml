@@ -72,20 +72,20 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>samples-tim</groupId>
-                <artifactId>maven</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <executions>
-                    <execution>
-                        <id>default-maven</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>count</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>samples-tim</groupId>-->
+                <!--<artifactId>maven</artifactId>-->
+                <!--<version>1.0-SNAPSHOT</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>default-maven</id>-->
+                        <!--<phase>clean</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>count</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 </project>

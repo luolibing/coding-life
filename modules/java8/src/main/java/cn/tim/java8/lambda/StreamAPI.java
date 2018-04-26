@@ -238,7 +238,7 @@ public class StreamAPI {
         persons.add(new Person(1, "luolibing"));
         persons.add(new Person(2, "liuxiaoling"));
         persons.add(new Person(3, "luominghao"));
-        persons.stream().peek( p -> p.name = p.name + "11");
+        persons.stream().peek( p -> p.setName(p.name + "11"));
         persons.forEach(System.out::println);
     }
 

@@ -1,7 +1,5 @@
 package cn.tim.kotlin.clazz
 
-import kotlin.reflect.full.allSuperclasses
-import kotlin.reflect.full.superclasses
 
 /**
  *
@@ -35,10 +33,10 @@ fun main(args: Array<String>) {
     Person4("jack")
 
     Person4("rose", 4)
-
-    println(Members::class.superclasses)
-
-    println(Any::class.allSuperclasses)
+//
+//    println(Members::class.superclasses)
+//
+//    println(Any::class.allSuperclasses)
 
     val myClass = MyClass.create()
     println(myClass)

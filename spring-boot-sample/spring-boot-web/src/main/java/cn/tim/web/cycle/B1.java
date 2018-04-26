@@ -1,6 +1,6 @@
 package cn.tim.web.cycle;
 
-import cn.tim.web.config.MyLog;
+import cn.tim.aspect.api.annotation.MyLog;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 

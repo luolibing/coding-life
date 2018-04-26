@@ -18,10 +18,9 @@
 
         <module>hotspot</module>
         <module>linux</module>
-        <!--<module>cloud</module>-->
         <module>algorithm</module>
         <module>kotlin</module>
-        <module>thinking-in-java8</module>
+        <module>thinking-in-java4</module>
     </modules>
 
     <dependencies>
