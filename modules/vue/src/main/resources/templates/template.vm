@@ -1,0 +1,22 @@
+<div id="app1">
+    <!-- v-once只能够渲染一次，之后不能修改 -->
+    <span v-once>Message: {{msg + ':msg'}}</span>
+    <p>html text: {{html}}</p>
+    <!-- html标签 -->
+    <p>v-html :<span v-html="html" /> </p>
+    <p v-bind:id="dynamicId">动态绑定的id</p>
+    <button v-bind:disabled="isButtonDisabled">按钮测试</button>
+    <p v-if="show">能够显示</p>
+    <!-- v-bind动态绑定 -->
+    <a v-bind:href="dynamicUrl">动态绑定url</a>
+    <a v-on:click="sayHello">动态执行事项</a>
+
+    <!-- 缩写形式，等同于v-bind:href -->
+    <a :href="dynamicUrl">缩写绑定</a>
+
+    <!-- v-on缩写 -->
+    <a @click="sayHello">v-on缩写</a>
+</div>
+
+<script src="/js/vue.js"></script>
+<script src="/js/template.js"></script>

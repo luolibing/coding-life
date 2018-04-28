@@ -1,0 +1,12 @@
+#set($name = "luolibing")
+welcome, $name
+
+## 宏引用，第一个参数为名称，后面的参数为宏的参数，类似于方法的参数名称
+#macro(head $list)
+    <h3>Title</h3>
+    <ul>
+        #foreach($it in $list)
+            <li>$it</li>
+        #end
+    </ul>
+#end

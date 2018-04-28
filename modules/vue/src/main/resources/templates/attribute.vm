@@ -1,0 +1,53 @@
+<style>
+    .active {
+        font-size: 20px;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
+
+<script src="/js/vue.js"></script>
+
+<div id="app1">
+    <div id="attribute">
+        <p>原有数据：{{originData}}</p>
+        <p>翻转后的数据：{{reversedData}}</p>
+        <p>now: {{nowTime}}</p>
+        <!-- 根据变量取不同的class，并不需要将变量都内联绑定，可以指定一个对象 -->
+        <p v-bind:class="{active: isActive, error: hasError}">样式一</p>
+        <p v-bind:class="objectClass">样式二</p>
+        <p v-bind:class="[activeClass, errorClass]">样式三</p>
+        <!-- 内联样式 -->
+        <p v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">样式四</p>
+    </div>
+
+    <my-component>您好啊</my-component>
+
+    <!-- if-else -->
+    <h3 v-if="showTitle">显示v-if</h3>
+    <h3 v-else>不显示v-else</h3>
+
+    <template v-if="showTemplate">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+    </template>
+
+    <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username">
+    </template>
+    <template v-else>
+        <label>Email</label>
+        <input placeholder="Enter your email address">
+    </template>
+
+    <!-- v-show只是将display标记为none，而v-if才是真正的渲染 -->
+    <div v-show="showTemplate">
+        <h3>v-show显示与隐藏</h3>
+    </div>
+</div>
+
+<script src="/js/attribute.js"></script>

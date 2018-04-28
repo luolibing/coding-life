@@ -1,0 +1,31 @@
+<style>
+    [v-cloak] {
+        display: none;
+    }
+</style>
+
+<div id="app" v-cloak>
+    <p>{{ message }}</p>
+</div>
+
+<!-- v-bind带有指令的意思 -->
+<div id="app-1">
+    <span v-bind:title="message">
+        提示信息
+    </span>
+</div>
+
+<div id="app-2">
+    <span v-if="seen">
+        是否显示
+    </span>
+</div>
+
+<div id="app-3">
+    <ol>
+        <li v-for="item in items">{{item}}</li>
+    </ol>
+</div>
+
+<script src="/js/vue.js"></script>
+<script src="/js/helloworld.js"></script>

@@ -1,0 +1,24 @@
+<div id="app1">
+    <h1>Hello Router!</h1>
+    <p>
+        <router-link to="/first">Go to First</router-link>
+        <router-link to="/second">Go to Second</router-link>
+    </p>
+    <router-view></router-view>
+</div>
+
+<template style="display: none" id="index">
+    <div>Index Page</div>
+</template>
+
+<template style="display: none" id="first">
+    <div>First Page</div>
+</template>
+
+<template style="display: none" id="second">
+    <div>Second Page</div>
+</template>
+
+<script src="/js/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="/js/router.js"></script>

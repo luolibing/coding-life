@@ -1,0 +1,13 @@
+<style>
+    [v-cloak] {
+        display: none;
+    }
+</style>
+
+<div id="app1" v-cloak>
+    <p>{{a}}</p>
+    <button @click="data.a = '10000'">Change it</button>
+</div>
+
+<script src="/js/vue.js"></script>
+<script src="/js/component.js"></script>

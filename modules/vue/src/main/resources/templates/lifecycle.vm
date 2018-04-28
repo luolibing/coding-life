@@ -1,0 +1,6 @@
+<div id="app1">
+    <p>{{message}}</p>
+</div>
+
+<script src="/js/vue.js"></script>
+<script src="/js/lifecycle.js"></script>

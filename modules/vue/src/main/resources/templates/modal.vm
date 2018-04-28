@@ -1,0 +1,45 @@
+<div id="app1">
+    <!-- v-model对input,textarea数据双向绑定 -->
+    <input v-model="message" placeholder="please input message" />
+    <p>the message is: [{{message}}]</p>
+
+    <input type="checkbox" id="ck" v-model="ck" />
+    <label for="ck">{{ck}}</label>
+
+    <br />
+    <div>
+        <div v-for="user in users" :key="user" >
+            <input type="checkbox" :id="user" :value="user" v-model="checkUsers" />
+            <label :for="user">{{user}}</label>
+        </div>
+    </div>
+    <br />
+    <span>the checked values is [{{checkUsers}}]</span>
+
+    <!-- 选择框，多选使用multiple属性 -->
+    <select v-model="selected">
+        <option disabled value="">请选择</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <span>selected value is [{{selected}}]</span>
+
+    <input type="checkbox" v-model="toggle" true-value="yes" false-value="no" />
+
+    <input type="radio" v-model="pick" v-bind:value="a" />
+
+    <select v-model="selected">
+        <option :value="{number: 13}">13</option>
+    </select>
+
+    <!-- 在修改完之后，失去焦点，触发change事件之后才进行同步 -->
+    <input v-model.lazy.trim="lazy" type="text" placeholder="输入lazy内容" />
+    <span>{{lazy}}</span>
+
+    <input v-model.number="num" type="number" placeholder="输入number内容" />
+    <span>{{num}}</span>
+</div>
+
+<script src="/js/vue.js"></script>
+<script src="/js/modal.js"></script>

@@ -1,0 +1,13 @@
+<div id="app1">
+    <!-- v-on:click方式添加事件 -->
+    <button v-on:click="counter += 1">add</button>
+    <p>当前点击次数为{{counter}}次</p>
+    <button v-on:click="greet">greet</button>
+    <!-- 只执行一次，事件修饰符 -->
+    <button v-on:click.once="greet">once greet</button>
+    <!-- 键盘事件,也可以使用v-on:keyup.13来代替 -->
+    <input v-on:keyup.enter="greet" />
+</div>
+
+<script src="/js/vue.js"></script>
+<script src="/js/event.js"></script>

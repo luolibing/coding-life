@@ -123,7 +123,7 @@ function makeMap (
 /**
  * Check if a tag is a built-in tag.
  */
-var isBuiltInTag = makeMap('slot,component', true);
+var isBuiltInTag = makeMap('slot,component.vm', true);
 
 /**
  * Check if a attribute is a reserved attribute.
@@ -394,12 +394,12 @@ var config = ({
 
   /**
    * Check if a tag is reserved so that it cannot be registered as a
-   * component. This is platform-dependent and may be overwritten.
+   * component.vm. This is platform-dependent and may be overwritten.
    */
   isReservedTag: no,
 
   /**
-   * Check if an attribute is reserved so that it cannot be used as a component
+   * Check if an attribute is reserved so that it cannot be used as a component.vm
    * prop. This is platform-dependent and may be overwritten.
    */
   isReservedAttr: no,
@@ -1187,7 +1187,7 @@ strats.data = function (
     if (childVal && typeof childVal !== 'function') {
       "development" !== 'production' && warn(
         'The "data" option should be a function ' +
-        'that returns a per-instance value in component ' +
+        'that returns a per-instance value in component.vm ' +
         'definitions.',
         vm
       );
@@ -1315,7 +1315,7 @@ var defaultStrat = function (parentVal, childVal) {
 };
 
 /**
- * Validate component names
+ * Validate component.vm names
  */
 function checkComponents (options) {
   for (var key in options.components) {
@@ -1326,14 +1326,14 @@ function checkComponents (options) {
 function validateComponentName (name) {
   if (!/^[a-zA-Z][\w-]*$/.test(name)) {
     warn(
-      'Invalid component name: "' + name + '". Component names ' +
+      'Invalid component.vm name: "' + name + '". Component names ' +
       'can only contain alphanumeric characters and the hyphen, ' +
       'and must start with a letter.'
     );
   }
   if (isBuiltInTag(name) || config.isReservedTag(name)) {
     warn(
-      'Do not use built-in or reserved HTML elements as component ' +
+      'Do not use built-in or reserved HTML elements as component.vm ' +
       'id: ' + name
     );
   }
@@ -2090,7 +2090,7 @@ function extractPropsFromVNodeData (
 ) {
   // we are only extracting raw values here.
   // validation and default values are handled in the child
-  // component itself.
+  // component.vm itself.
   var propOptions = Ctor.options.props;
   if (isUndef(propOptions)) {
     return
@@ -2108,7 +2108,7 @@ function extractPropsFromVNodeData (
           attrs && hasOwn(attrs, keyInLowerCase)
         ) {
           tip(
-            "Prop \"" + keyInLowerCase + "\" is passed to component " +
+            "Prop \"" + keyInLowerCase + "\" is passed to component.vm " +
             (formatComponentName(tag || Ctor)) + ", but the declared prop name is" +
             " \"" + key + "\". " +
             "Note that HTML attributes are case-insensitive and camelCased " +
@@ -2151,14 +2151,14 @@ function checkProp (
 
 /*  */
 
-// The template compiler attempts to minimize the need for normalization by
-// statically analyzing the template at compile time.
+// The template.vm compiler attempts to minimize the need for normalization by
+// statically analyzing the template.vm at compile time.
 //
 // For plain HTML markup, normalization can be completely skipped because the
 // generated render function is guaranteed to return Array<VNode>. There are
 // two cases where extra normalization is needed:
 
-// 1. When the children contains components - because a functional component
+// 1. When the children contains components - because a functional component.vm
 // may return an Array instead of a single root. In this case, just a simple
 // normalization is needed - if any child is an Array, we flatten the whole
 // thing with Array.prototype.concat. It is guaranteed to be only 1-level deep
@@ -2173,7 +2173,7 @@ function simpleNormalizeChildren (children) {
 }
 
 // 2. When the children contains constructs that always generated nested Arrays,
-// e.g. <template>, <slot>, v-for, or when the children is provided by user
+// e.g. <template.vm>, <slot>, v-for, or when the children is provided by user
 // with hand-written render functions / JSX. In such cases a full normalization
 // is needed to cater to all possible types of children values.
 function normalizeChildren (children) {
@@ -2305,7 +2305,7 @@ function resolveAsyncComponent (
 
     var reject = once(function (reason) {
       "development" !== 'production' && warn(
-        "Failed to resolve async component: " + (String(factory)) +
+        "Failed to resolve async component.vm: " + (String(factory)) +
         (reason ? ("\nReason: " + reason) : '')
       );
       if (isDef(factory.errorComp)) {
@@ -2498,7 +2498,7 @@ function eventsMixin (Vue) {
       var lowerCaseEvent = event.toLowerCase();
       if (lowerCaseEvent !== event && vm._events[lowerCaseEvent]) {
         tip(
-          "Event \"" + lowerCaseEvent + "\" is emitted in component " +
+          "Event \"" + lowerCaseEvent + "\" is emitted in component.vm " +
           (formatComponentName(vm)) + " but the handler is registered for \"" + event + "\". " +
           "Note that HTML attributes are case-insensitive and you cannot use " +
           "v-on to listen to camelCase events when using in-DOM templates. " +
@@ -2551,7 +2551,7 @@ function resolveSlots (
     ) {
       var name = data.slot;
       var slot = (slots[name] || (slots[name] = []));
-      if (child.tag === 'template') {
+      if (child.tag === 'template.vm') {
         slot.push.apply(slot, child.children || []);
       } else {
         slot.push(child);
@@ -2726,14 +2726,14 @@ function mountComponent (
       if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
         vm.$options.el || el) {
         warn(
-          'You are using the runtime-only build of Vue where the template ' +
+          'You are using the runtime-only build of Vue where the template.vm ' +
           'compiler is not available. Either pre-compile the templates into ' +
           'render functions, or use the compiler-included build.',
           vm
         );
       } else {
         warn(
-          'Failed to mount component: template or render function not defined.',
+          'Failed to mount component.vm: template.vm or render function not defined.',
           vm
         );
       }
@@ -2768,7 +2768,7 @@ function mountComponent (
 
   // we set this to vm._watcher inside the watcher's constructor
   // since the watcher's initial patch may call $forceUpdate (e.g. inside child
-  // component's mounted hook), which relies on vm._watcher being already defined
+  // component.vm's mounted hook), which relies on vm._watcher being already defined
   new Watcher(vm, updateComponent, noop, null, true /* isRenderWatcher */);
   hydrating = false;
 
@@ -2792,7 +2792,7 @@ function updateChildComponent (
     isUpdatingChildComponent = true;
   }
 
-  // determine whether component has slot children
+  // determine whether component.vm has slot children
   // we need to do this before overwriting $options._renderChildren
   var hasChildren = !!(
     renderChildren ||               // has new static slots
@@ -2939,9 +2939,9 @@ function flushSchedulerQueue () {
   // This ensures that:
   // 1. Components are updated from parent to child. (because parent is always
   //    created before the child)
-  // 2. A component's user watchers are run before its render watcher (because
+  // 2. A component.vm's user watchers are run before its render watcher (because
   //    user watchers are created before the render watcher)
-  // 3. If a component is destroyed during a parent component's watcher run,
+  // 3. If a component.vm is destroyed during a parent component.vm's watcher run,
   //    its watchers can be skipped.
   queue.sort(function (a, b) { return a.id - b.id; });
 
@@ -2960,7 +2960,7 @@ function flushSchedulerQueue () {
           'You may have an infinite update loop ' + (
             watcher.user
               ? ("in watcher with expression \"" + (watcher.expression) + "\"")
-              : "in a component render function."
+              : "in a component.vm render function."
           ),
           watcher.vm
         );
@@ -2975,7 +2975,7 @@ function flushSchedulerQueue () {
 
   resetSchedulerState();
 
-  // call component updated and activated hooks
+  // call component.vm updated and activated hooks
   callActivatedHooks(activatedQueue);
   callUpdatedHooks(updatedQueue);
 
@@ -2998,7 +2998,7 @@ function callUpdatedHooks (queue) {
 }
 
 /**
- * Queue a kept-alive component that was activated during patch.
+ * Queue a kept-alive component.vm that was activated during patch.
  * The queue will be processed after the entire tree has been patched.
  */
 function queueActivatedComponent (vm) {
@@ -3307,7 +3307,7 @@ function initProps (vm, propsOptions) {
       if (isReservedAttribute(hyphenatedKey) ||
           config.isReservedAttr(hyphenatedKey)) {
         warn(
-          ("\"" + hyphenatedKey + "\" is a reserved attribute and cannot be used as component prop."),
+          ("\"" + hyphenatedKey + "\" is a reserved attribute and cannot be used as component.vm prop."),
           vm
         );
       }
@@ -3315,7 +3315,7 @@ function initProps (vm, propsOptions) {
         if (vm.$parent && !isUpdatingChildComponent) {
           warn(
             "Avoid mutating a prop directly since the value will be " +
-            "overwritten whenever the parent component re-renders. " +
+            "overwritten whenever the parent component.vm re-renders. " +
             "Instead, use a data or computed property based on the prop's " +
             "value. Prop being mutated: \"" + key + "\"",
             vm
@@ -3323,7 +3323,7 @@ function initProps (vm, propsOptions) {
         }
       });
     }
-    // static props are already proxied on the component's prototype
+    // static props are already proxied on the component.vm's prototype
     // during Vue.extend(). We only need to proxy props defined at
     // instantiation here.
     if (!(key in vm)) {
@@ -3414,8 +3414,8 @@ function initComputed (vm, computed) {
       );
     }
 
-    // component-defined computed properties are already defined on the
-    // component prototype. We only need to define computed properties defined
+    // component.vm-defined computed properties are already defined on the
+    // component.vm prototype. We only need to define computed properties defined
     // at instantiation here.
     if (!(key in vm)) {
       defineComputed(vm, key, userDef);
@@ -3483,7 +3483,7 @@ function initMethods (vm, methods) {
     {
       if (methods[key] == null) {
         warn(
-          "Method \"" + key + "\" has an undefined value in the component definition. " +
+          "Method \"" + key + "\" has an undefined value in the component.vm definition. " +
           "Did you reference the function correctly?",
           vm
         );
@@ -3497,7 +3497,7 @@ function initMethods (vm, methods) {
       if ((key in vm) && isReserved(key)) {
         warn(
           "Method \"" + key + "\" conflicts with an existing Vue instance method. " +
-          "Avoid defining component methods that start with _ or $."
+          "Avoid defining component.vm methods that start with _ or $."
         );
       }
     }
@@ -3602,7 +3602,7 @@ function initInjections (vm) {
         defineReactive(vm, key, result[key], function () {
           warn(
             "Avoid mutating an injected value directly since the changes will be " +
-            "overwritten whenever the provided component re-renders. " +
+            "overwritten whenever the provided component.vm re-renders. " +
             "injection being mutated: \"" + key + "\"",
             vm
           );
@@ -3727,7 +3727,7 @@ function renderSlot (
 
   var target = props && props.slot;
   if (target) {
-    return this.$createElement('template', { slot: target }, nodes)
+    return this.$createElement('template.vm', { slot: target }, nodes)
   } else {
     return nodes
   }
@@ -3843,7 +3843,7 @@ function renderStatic (
   tree = cached[index] = this.$options.staticRenderFns[index].call(
     this._renderProxy,
     null,
-    this // for render fns generated for functional component templates
+    this // for render fns generated for functional component.vm templates
   );
   markStatic(tree, ("__static__" + index), false);
   return tree
@@ -3949,7 +3949,7 @@ function FunctionalRenderContext (
   var isCompiled = isTrue(options._compiled);
   var needNormalization = !isCompiled;
 
-  // support for compiled functional template
+  // support for compiled functional template.vm
   if (isCompiled) {
     // exposing $options for renderStatic()
     this.$options = options;
@@ -4025,11 +4025,11 @@ function mergeProps (to, from) {
 
 
 
-// Register the component hook to weex native render engine.
+// Register the component.vm hook to weex native render engine.
 // The hook will be triggered by native, not javascript.
 
 
-// Updates the state of the component to weex native render engine.
+// Updates the state of the component.vm to weex native render engine.
 
 /*  */
 
@@ -4041,7 +4041,7 @@ function mergeProps (to, from) {
 
 /*  */
 
-// hooks to be invoked on component VNodes during patch
+// hooks to be invoked on component.vm VNodes during patch
 var componentVNodeHooks = {
   init: function init (
     vnode,
@@ -4086,7 +4086,7 @@ var componentVNodeHooks = {
     if (vnode.data.keepAlive) {
       if (context._isMounted) {
         // vue-router#1212
-        // During updates, a kept-alive component's child components may
+        // During updates, a kept-alive component.vm's child components may
         // change, so directly walking the tree here may call activated hooks
         // on incorrect children. Instead we push them into a queue which will
         // be processed after the whole patch process ended.
@@ -4129,7 +4129,7 @@ function createComponent (
     Ctor = baseCtor.extend(Ctor);
   }
 
-  // if at this stage it's not a constructor or an async component factory,
+  // if at this stage it's not a constructor or an async component.vm factory,
   // reject.
   if (typeof Ctor !== 'function') {
     {
@@ -4138,13 +4138,13 @@ function createComponent (
     return
   }
 
-  // async component
+  // async component.vm
   var asyncFactory;
   if (isUndef(Ctor.cid)) {
     asyncFactory = Ctor;
     Ctor = resolveAsyncComponent(asyncFactory, baseCtor, context);
     if (Ctor === undefined) {
-      // return a placeholder node for async component, which is rendered
+      // return a placeholder node for async component.vm, which is rendered
       // as a comment node but preserves all the raw information for the node.
       // the information will be used for async server-rendering and hydration.
       return createAsyncPlaceholder(
@@ -4160,10 +4160,10 @@ function createComponent (
   data = data || {};
 
   // resolve constructor options in case global mixins are applied after
-  // component constructor creation
+  // component.vm constructor creation
   resolveConstructorOptions(Ctor);
 
-  // transform component v-model data into props & events
+  // transform component.vm v-model data into props & events
   if (isDef(data.model)) {
     transformModel(Ctor.options, data);
   }
@@ -4171,16 +4171,16 @@ function createComponent (
   // extract props
   var propsData = extractPropsFromVNodeData(data, Ctor, tag);
 
-  // functional component
+  // functional component.vm
   if (isTrue(Ctor.options.functional)) {
     return createFunctionalComponent(Ctor, propsData, data, context, children)
   }
 
   // extract listeners, since these needs to be treated as
-  // child component listeners instead of DOM listeners
+  // child component.vm listeners instead of DOM listeners
   var listeners = data.on;
   // replace with listeners with .native modifier
-  // so it gets processed during parent component patch.
+  // so it gets processed during parent component.vm patch.
   data.on = data.nativeOn;
 
   if (isTrue(Ctor.options.abstract)) {
@@ -4195,20 +4195,20 @@ function createComponent (
     }
   }
 
-  // merge component management hooks onto the placeholder node
+  // merge component.vm management hooks onto the placeholder node
   mergeHooks(data);
 
   // return a placeholder vnode
   var name = Ctor.options.name || tag;
   var vnode = new VNode(
-    ("vue-component-" + (Ctor.cid) + (name ? ("-" + name) : '')),
+    ("vue-component.vm-" + (Ctor.cid) + (name ? ("-" + name) : '')),
     data, undefined, undefined, undefined, context,
     { Ctor: Ctor, propsData: propsData, listeners: listeners, tag: tag, children: children },
     asyncFactory
   );
 
   // Weex specific: invoke recycle-list optimized @render function for
-  // extracting cell-slot template.
+  // extracting cell-slot template.vm.
   // https://github.com/Hanks10100/weex-native-directive/tree/master/component
   /* istanbul ignore if */
   return vnode
@@ -4227,7 +4227,7 @@ function createComponentInstanceForVnode (
     _parentElm: parentElm || null,
     _refElm: refElm || null
   };
-  // check inline-template render functions
+  // check inline-template.vm render functions
   var inlineTemplate = vnode.data.inlineTemplate;
   if (isDef(inlineTemplate)) {
     options.render = inlineTemplate.render;
@@ -4255,7 +4255,7 @@ function mergeHook$1 (one, two) {
   }
 }
 
-// transform component v-model info (value and callback) into
+// transform component.vm v-model info (value and callback) into
 // prop and event handler respectively.
 function transformModel (options, data) {
   var prop = (options.model && options.model.prop) || 'value';
@@ -4314,7 +4314,7 @@ function _createElement (
     tag = data.is;
   }
   if (!tag) {
-    // in case of component :is set to falsy value
+    // in case of component.vm :is set to falsy value
     return createEmptyVNode()
   }
   // warn against non-primitive key
@@ -4353,7 +4353,7 @@ function _createElement (
         undefined, undefined, context
       );
     } else if (isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
-      // component
+      // component.vm
       vnode = createComponent(Ctor, data, context, children, tag);
     } else {
       // unknown or unlisted namespaced elements
@@ -4365,7 +4365,7 @@ function _createElement (
       );
     }
   } else {
-    // direct component options / constructor
+    // direct component.vm options / constructor
     vnode = createComponent(tag, data, context, children);
   }
   if (isDef(vnode)) {
@@ -4466,7 +4466,7 @@ function renderMixin (Vue) {
     } catch (e) {
       handleError(e, vm, "render");
       // return error render result,
-      // or previous vnode to prevent render error causing blank component
+      // or previous vnode to prevent render error causing blank component.vm
       /* istanbul ignore else */
       {
         if (vm.$options.renderError) {
@@ -4520,9 +4520,9 @@ function initMixin (Vue) {
     vm._isVue = true;
     // merge options
     if (options && options._isComponent) {
-      // optimize internal component instantiation
+      // optimize internal component.vm instantiation
       // since dynamic options merging is pretty slow, and none of the
-      // internal component options needs special treatment.
+      // internal component.vm options needs special treatment.
       initInternalComponent(vm, options);
     } else {
       vm.$options = mergeOptions(
@@ -5003,7 +5003,7 @@ Vue$3.version = '2.5.13';
 /*  */
 
 // these are reserved for web because they are directly compiled away
-// during template compilation
+// during template.vm compilation
 var isReservedAttr = makeMap('style,class');
 
 // attributes that should be using props for binding
@@ -5141,7 +5141,7 @@ var isHTMLTag = makeMap(
   'button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,' +
   'output,progress,select,textarea,' +
   'details,dialog,menu,menuitem,summary,' +
-  'content,element,shadow,template,blockquote,iframe,tfoot'
+  'content,element,shadow,template.vm,blockquote,iframe,tfoot'
 );
 
 // this map is intentionally selective, only covering SVG elements that may
@@ -5164,7 +5164,7 @@ function getTagNamespace (tag) {
     return 'svg'
   }
   // basic support for MathML
-  // note it doesn't support other MathML elements being component roots
+  // note it doesn't support other MathML elements being component.vm roots
   if (tag === 'math') {
     return 'math'
   }
@@ -5459,7 +5459,7 @@ function createPatchFunction (backend) {
         if (isUnknownElement$$1(vnode, creatingElmInVPre)) {
           warn(
             'Unknown custom element: <' + tag + '> - did you ' +
-            'register the component correctly? For recursive components, ' +
+            'register the component.vm correctly? For recursive components, ' +
             'make sure to provide the "name" option.',
             vnode.context
           );
@@ -5498,9 +5498,9 @@ function createPatchFunction (backend) {
       if (isDef(i = i.hook) && isDef(i = i.init)) {
         i(vnode, false /* hydrating */, parentElm, refElm);
       }
-      // after calling the init hook, if the vnode is a child component
+      // after calling the init hook, if the vnode is a child component.vm
       // it should've created a child instance and mounted it. the child
-      // component also has set the placeholder vnode's elm.
+      // component.vm also has set the placeholder vnode's elm.
       // in that case we can just return the element and be done.
       if (isDef(vnode.componentInstance)) {
         initComponent(vnode, insertedVnodeQueue);
@@ -5522,7 +5522,7 @@ function createPatchFunction (backend) {
       invokeCreateHooks(vnode, insertedVnodeQueue);
       setScope(vnode);
     } else {
-      // empty component root.
+      // empty component.vm root.
       // skip all element-related modules except for ref (#3455)
       registerRef(vnode);
       // make sure to invoke the insert hook
@@ -5532,7 +5532,7 @@ function createPatchFunction (backend) {
 
   function reactivateComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
     var i;
-    // hack for #4339: a reactivated component with inner transition
+    // hack for #4339: a reactivated component.vm with inner transition
     // does not trigger because the inner node's created hooks are not called
     // again. It's not ideal to involve module-specific logic in here but
     // there doesn't seem to be a better way to do it.
@@ -5547,8 +5547,8 @@ function createPatchFunction (backend) {
         break
       }
     }
-    // unlike a newly created component,
-    // a reactivated keep-alive component doesn't insert itself
+    // unlike a newly created component.vm,
+    // a reactivated keep-alive component.vm doesn't insert itself
     insert(parentElm, vnode.elm, refElm);
   }
 
@@ -5667,7 +5667,7 @@ function createPatchFunction (backend) {
         // directly removing
         rm = createRmCb(vnode.elm, listeners);
       }
-      // recursively invoke hooks on child component root node
+      // recursively invoke hooks on child component.vm root node
       if (isDef(i = vnode.componentInstance) && isDef(i = i._vnode) && isDef(i.data)) {
         removeAndInvokeRemoveHook(i, rm);
       }
@@ -5842,7 +5842,7 @@ function createPatchFunction (backend) {
   }
 
   function invokeInsertHook (vnode, queue, initial) {
-    // delay insert hooks for component root nodes, invoke them after the
+    // delay insert hooks for component.vm root nodes, invoke them after the
     // element is really inserted
     if (isTrue(initial) && isDef(vnode.parent)) {
       vnode.parent.data.pendingInsert = queue;
@@ -5882,7 +5882,7 @@ function createPatchFunction (backend) {
     if (isDef(data)) {
       if (isDef(i = data.hook) && isDef(i = i.init)) { i(vnode, true /* hydrating */); }
       if (isDef(i = vnode.componentInstance)) {
-        // child component. it should have hydrated its own tree.
+        // child component.vm. it should have hydrated its own tree.
         initComponent(vnode, insertedVnodeQueue);
         return true
       }
@@ -5958,7 +5958,7 @@ function createPatchFunction (backend) {
 
   function assertNodeMatch (node, vnode, inVPre) {
     if (isDef(vnode.tag)) {
-      return vnode.tag.indexOf('vue-component') === 0 || (
+      return vnode.tag.indexOf('vue-component.vm') === 0 || (
         !isUnknownElement$$1(vnode, inVPre) &&
         vnode.tag.toLowerCase() === (node.tagName && node.tagName.toLowerCase())
       )
@@ -5977,7 +5977,7 @@ function createPatchFunction (backend) {
     var insertedVnodeQueue = [];
 
     if (isUndef(oldVnode)) {
-      // empty mount (likely as component), create new root element
+      // empty mount (likely as component.vm), create new root element
       isInitialPatch = true;
       createElm(vnode, insertedVnodeQueue, parentElm, refElm);
     } else {
@@ -6046,7 +6046,7 @@ function createPatchFunction (backend) {
               // e.g. for directives that uses the "inserted" hook.
               var insert = ancestor.data.hook.insert;
               if (insert.merged) {
-                // start at index 1 to avoid re-invoking component mounted hook
+                // start at index 1 to avoid re-invoking component.vm mounted hook
                 for (var i$2 = 1; i$2 < insert.fns.length; i$2++) {
                   insert.fns[i$2]();
                 }
@@ -6588,7 +6588,7 @@ function getAndRemoveAttr (
 /*  */
 
 /**
- * Cross-platform code generation for component v-model
+ * Cross-platform code generation for component.vm v-model
  */
 function genComponentModel (
   el,
@@ -6768,7 +6768,7 @@ function model (
 
   if (el.component) {
     genComponentModel(el, value, modifiers);
-    // component v-model doesn't need extra runtime
+    // component.vm v-model doesn't need extra runtime
     return false
   } else if (tag === 'select') {
     genSelect(el, value, modifiers);
@@ -6780,14 +6780,14 @@ function model (
     genDefaultModel(el, value, modifiers);
   } else if (!config.isReservedTag(tag)) {
     genComponentModel(el, value, modifiers);
-    // component v-model doesn't need extra runtime
+    // component.vm v-model doesn't need extra runtime
     return false
   } else {
     warn$1(
       "<" + (el.tag) + " v-model=\"" + value + "\">: " +
       "v-model is not supported on this element type. " +
       'If you are working with contenteditable, it\'s recommended to ' +
-      'wrap a library dedicated for that purpose inside a custom component.'
+      'wrap a library dedicated for that purpose inside a custom component.vm.'
     );
   }
 
@@ -7119,8 +7119,8 @@ function normalizeStyleBinding (bindingStyle) {
 }
 
 /**
- * parent component style should be after child's
- * so that parent component's style could override it
+ * parent component.vm style should be after child's
+ * so that parent component.vm's style could override it
  */
 function getStyle (vnode, checkChild) {
   var res = {};
@@ -7524,9 +7524,9 @@ function enter (vnode, toggleDisplay) {
   var appearCancelled = data.appearCancelled;
   var duration = data.duration;
 
-  // activeInstance will always be the <transition> component managing this
+  // activeInstance will always be the <transition> component.vm managing this
   // transition. One edge case to check is when the <transition> is placed
-  // as the root node of a child component. In that case we need to check
+  // as the root node of a child component.vm. In that case we need to check
   // <transition>'s parent for appear check.
   var context = activeInstance;
   var transitionNode = activeInstance.$vnode;
@@ -7762,7 +7762,7 @@ function isValidDuration (val) {
 /**
  * Normalize a transition hook's argument length. The hook may be:
  * - a merged hook (invoker) with the original in .fns
- * - a wrapped component method (check ._length)
+ * - a wrapped component.vm method (check ._length)
  * - a plain function (.length)
  */
 function getHookArgumentsLength (fn) {
@@ -7961,7 +7961,7 @@ function trigger (el, type) {
 
 /*  */
 
-// recursively search for possible transition defined inside the component root
+// recursively search for possible transition defined inside the component.vm root
 function locateNode (vnode) {
   return vnode.componentInstance && (!vnode.data || !vnode.data.transition)
     ? locateNode(vnode.componentInstance._vnode)
@@ -8030,7 +8030,7 @@ var platformDirectives = {
 
 /*  */
 
-// Provides transition support for a single element/component.
+// Provides transition support for a single element/component.vm.
 // supports transition mode (out-in / in-out)
 
 var transitionProps = {
@@ -8051,8 +8051,8 @@ var transitionProps = {
   duration: [Number, String, Object]
 };
 
-// in case the child is also an abstract component, e.g. <keep-alive>
-// we want to recursively retrieve the real component to be rendered
+// in case the child is also an abstract component.vm, e.g. <keep-alive>
+// we want to recursively retrieve the real component.vm to be rendered
 function getRealChild (vnode) {
   var compOptions = vnode && vnode.componentOptions;
   if (compOptions && compOptions.Ctor.options.abstract) {
@@ -8141,7 +8141,7 @@ var Transition = {
 
     var rawChild = children[0];
 
-    // if this is a component root node and the component's
+    // if this is a component.vm root node and the component.vm's
     // parent container node also has transition, skip.
     if (hasParentTransition(this.$vnode)) {
       return rawChild
@@ -8160,7 +8160,7 @@ var Transition = {
     }
 
     // ensure a key that is unique to the vnode type and to this transition
-    // component instance. This key will be used to remove pending leaving nodes
+    // component.vm instance. This key will be used to remove pending leaving nodes
     // during entering.
     var id = "__transition-" + (this._uid) + "-";
     child.key = child.key == null
@@ -8186,7 +8186,7 @@ var Transition = {
       oldChild.data &&
       !isSameChild(child, oldChild) &&
       !isAsyncPlaceholder(oldChild) &&
-      // #6687 component root is a comment node
+      // #6687 component.vm root is a comment node
       !(oldChild.componentInstance && oldChild.componentInstance._vnode.isComment)
     ) {
       // replace old child transition data with fresh one
@@ -8780,7 +8780,7 @@ function parseHTML (html, options) {
     if (html === last) {
       options.chars && options.chars(html);
       if ("development" !== 'production' && !stack.length && options.warn) {
-        options.warn(("Mal-formatted tag at end of template: \"" + html + "\""));
+        options.warn(("Mal-formatted tag at end of template.vm: \"" + html + "\""));
       }
       break
     }
@@ -9066,15 +9066,15 @@ function parse (
 
       function checkRootConstraints (el) {
         {
-          if (el.tag === 'slot' || el.tag === 'template') {
+          if (el.tag === 'slot' || el.tag === 'template.vm') {
             warnOnce(
-              "Cannot use <" + (el.tag) + "> as component root element because it may " +
+              "Cannot use <" + (el.tag) + "> as component.vm root element because it may " +
               'contain multiple nodes.'
             );
           }
           if (el.attrsMap.hasOwnProperty('v-for')) {
             warnOnce(
-              'Cannot use v-for on stateful component root element because ' +
+              'Cannot use v-for on stateful component.vm root element because ' +
               'it renders multiple elements.'
             );
           }
@@ -9095,7 +9095,7 @@ function parse (
           });
         } else {
           warnOnce(
-            "Component template should contain exactly one root element. " +
+            "Component template.vm should contain exactly one root element. " +
             "If you are using v-if on multiple elements, " +
             "use v-else-if to chain them instead."
           );
@@ -9138,7 +9138,7 @@ function parse (
         {
           if (text === template) {
             warnOnce(
-              'Component template requires a root element, rather than just text.'
+              'Component template.vm requires a root element, rather than just text.'
             );
           } else if ((text = text.trim())) {
             warnOnce(
@@ -9230,8 +9230,8 @@ function processElement (element, options) {
 function processKey (el) {
   var exp = getBindingAttr(el, 'key');
   if (exp) {
-    if ("development" !== 'production' && el.tag === 'template') {
-      warn$2("<template> cannot be keyed. Place the key on real elements instead.");
+    if ("development" !== 'production' && el.tag === 'template.vm') {
+      warn$2("<template.vm> cannot be keyed. Place the key on real elements instead.");
     }
     el.key = exp;
   }
@@ -9355,14 +9355,14 @@ function processSlot (el) {
     }
   } else {
     var slotScope;
-    if (el.tag === 'template') {
+    if (el.tag === 'template.vm') {
       slotScope = getAndRemoveAttr(el, 'scope');
       /* istanbul ignore if */
       if ("development" !== 'production' && slotScope) {
         warn$2(
           "the \"scope\" attribute for scoped slots have been deprecated and " +
           "replaced by \"slot-scope\" since 2.5. The new \"slot-scope\" attribute " +
-          "can also be used on plain elements in addition to <template> to " +
+          "can also be used on plain elements in addition to <template.vm> to " +
           "denote scoped slots.",
           true
         );
@@ -9373,7 +9373,7 @@ function processSlot (el) {
       if ("development" !== 'production' && el.attrsMap['v-for']) {
         warn$2(
           "Ambiguous combined usage of slot-scope and v-for on <" + (el.tag) + "> " +
-          "(v-for takes higher priority). Use a wrapper <template> for the " +
+          "(v-for takes higher priority). Use a wrapper <template.vm> for the " +
           "scoped slot to make it clearer.",
           true
         );
@@ -9385,7 +9385,7 @@ function processSlot (el) {
       el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget;
       // preserve slot as an attribute for native shadow DOM compat
       // only for non-scoped slots.
-      if (el.tag !== 'template' && !el.slotScope) {
+      if (el.tag !== 'template.vm' && !el.slotScope) {
         addAttr(el, 'slot', slotTarget);
       }
     }
@@ -9397,7 +9397,7 @@ function processComponent (el) {
   if ((binding = getBindingAttr(el, 'is'))) {
     el.component = binding;
   }
-  if (getAndRemoveAttr(el, 'inline-template') != null) {
+  if (getAndRemoveAttr(el, 'inline-template.vm') != null) {
     el.inlineTemplate = true;
   }
 }
@@ -9519,7 +9519,7 @@ function makeAttrsMap (attrs) {
   return map
 }
 
-// for script (e.g. type="x/template") or style, do not decode content
+// for script (e.g. type="x/template.vm") or style, do not decode content
 function isTextTag (el) {
   return el.tag === 'script' || el.tag === 'style'
 }
@@ -9688,7 +9688,7 @@ var isPlatformReservedTag;
 var genStaticKeysCached = cached(genStaticKeys$1);
 
 /**
- * Goal of the optimizer: walk the generated template AST tree
+ * Goal of the optimizer: walk the generated template.vm AST tree
  * and detect sub-trees that are purely static, i.e. parts of
  * the DOM that never needs to change.
  *
@@ -9718,13 +9718,13 @@ function genStaticKeys$1 (keys) {
 function markStatic$1 (node) {
   node.static = isStatic(node);
   if (node.type === 1) {
-    // do not make component slot content static. this avoids
+    // do not make component.vm slot content static. this avoids
     // 1. components not able to mutate slot nodes
     // 2. static slot content fails for hot-reloading
     if (
       !isPlatformReservedTag(node.tag) &&
       node.tag !== 'slot' &&
-      node.attrsMap['inline-template'] == null
+      node.attrsMap['inline-template.vm'] == null
     ) {
       return
     }
@@ -9788,7 +9788,7 @@ function isStatic (node) {
     !node.hasBindings && // no dynamic bindings
     !node.if && !node.for && // not v-if or v-for or v-else
     !isBuiltInTag(node.tag) && // not a built-in
-    isPlatformReservedTag(node.tag) && // not a component
+    isPlatformReservedTag(node.tag) && // not a component.vm
     !isDirectChildOfTemplateFor(node) &&
     Object.keys(node).every(isStaticKey)
   ))
@@ -9797,7 +9797,7 @@ function isStatic (node) {
 function isDirectChildOfTemplateFor (node) {
   while (node.parent) {
     node = node.parent;
-    if (node.tag !== 'template') {
+    if (node.tag !== 'template.vm') {
       return false
     }
     if (node.for) {
@@ -9996,12 +9996,12 @@ function genElement (el, state) {
     return genFor(el, state)
   } else if (el.if && !el.ifProcessed) {
     return genIf(el, state)
-  } else if (el.tag === 'template' && !el.slotTarget) {
+  } else if (el.tag === 'template.vm' && !el.slotTarget) {
     return genChildren(el, state) || 'void 0'
   } else if (el.tag === 'slot') {
     return genSlot(el, state)
   } else {
-    // component or element
+    // component.vm or element
     var code;
     if (el.component) {
       code = genComponent(el.component, el, state);
@@ -10104,11 +10104,11 @@ function genFor (
   if ("development" !== 'production' &&
     state.maybeComponent(el) &&
     el.tag !== 'slot' &&
-    el.tag !== 'template' &&
+    el.tag !== 'template.vm' &&
     !el.key
   ) {
     state.warn(
-      "<" + (el.tag) + " v-for=\"" + alias + " in " + exp + "\">: component lists rendered with " +
+      "<" + (el.tag) + " v-for=\"" + alias + " in " + exp + "\">: component.vm lists rendered with " +
       "v-for should have explicit keys. " +
       "See https://vuejs.org/guide/list.html#key for more info.",
       true /* tip */
@@ -10177,11 +10177,11 @@ function genData$2 (el, state) {
   if (el.scopedSlots) {
     data += (genScopedSlots(el.scopedSlots, state)) + ",";
   }
-  // component v-model
+  // component.vm v-model
   if (el.model) {
     data += "model:{value:" + (el.model.value) + ",callback:" + (el.model.callback) + ",expression:" + (el.model.expression) + "},";
   }
-  // inline-template
+  // inline-template.vm
   if (el.inlineTemplate) {
     var inlineTemplate = genInlineTemplate(el, state);
     if (inlineTemplate) {
@@ -10230,7 +10230,7 @@ function genInlineTemplate (el, state) {
   if ("development" !== 'production' && (
     el.children.length !== 1 || ast.type !== 1
   )) {
-    state.warn('Inline-template components must have exactly one child element.');
+    state.warn('Inline-template.vm components must have exactly one child element.');
   }
   if (ast.type === 1) {
     var inlineRenderFns = generate(ast, state.options);
@@ -10256,7 +10256,7 @@ function genScopedSlot (
     return genForScopedSlot(key, el, state)
   }
   var fn = "function(" + (String(el.slotScope)) + "){" +
-    "return " + (el.tag === 'template'
+    "return " + (el.tag === 'template.vm'
       ? el.if
         ? ((el.if) + "?" + (genChildren(el, state) || 'undefined') + ":undefined")
         : genChildren(el, state) || 'undefined'
@@ -10293,7 +10293,7 @@ function genChildren (
     // optimize single v-for
     if (children.length === 1 &&
       el$1.for &&
-      el$1.tag !== 'template' &&
+      el$1.tag !== 'template.vm' &&
       el$1.tag !== 'slot'
     ) {
       return (altGenElement || genElement)(el$1, state)
@@ -10334,7 +10334,7 @@ function getNormalizationType (
 }
 
 function needsNormalization (el) {
-  return el.for !== undefined || el.tag === 'template' || el.tag === 'slot'
+  return el.for !== undefined || el.tag === 'template.vm' || el.tag === 'slot'
 }
 
 function genNode (node, state) {
@@ -10375,7 +10375,7 @@ function genSlot (el, state) {
   return res + ')'
 }
 
-// componentName is el.component, take it as argument to shun flow's pessimistic refinement
+// componentName is el.component.vm, take it as argument to shun flow's pessimistic refinement
 function genComponent (
   componentName,
   el,
@@ -10422,7 +10422,7 @@ var unaryOperatorsRE = new RegExp('\\b' + (
 // strip strings in expressions
 var stripStringRE = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g;
 
-// detect problematic expressions in a template
+// detect problematic expressions in a template.vm
 function detectErrors (ast) {
   var errors = [];
   if (ast) {
@@ -10544,7 +10544,7 @@ function createCompileToFunctionFn (compile) {
           warn$$1(
             'It seems you are using the standalone build of Vue.js in an ' +
             'environment with Content Security Policy that prohibits unsafe-eval. ' +
-            'The template compiler cannot work in this environment. Consider ' +
+            'The template.vm compiler cannot work in this environment. Consider ' +
             'relaxing the policy to allow unsafe-eval or pre-compiling your ' +
             'templates into render functions.'
           );
@@ -10567,7 +10567,7 @@ function createCompileToFunctionFn (compile) {
     {
       if (compiled.errors && compiled.errors.length) {
         warn$$1(
-          "Error compiling template:\n\n" + template + "\n\n" +
+          "Error compiling template.vm:\n\n" + template + "\n\n" +
           compiled.errors.map(function (e) { return ("- " + e); }).join('\n') + '\n',
           vm
         );
@@ -10724,7 +10724,7 @@ Vue$3.prototype.$mount = function (
   }
 
   var options = this.$options;
-  // resolve template/el and convert to render function
+  // resolve template.vm/el and convert to render function
   if (!options.render) {
     var template = options.template;
     if (template) {
@@ -10743,7 +10743,7 @@ Vue$3.prototype.$mount = function (
         template = template.innerHTML;
       } else {
         {
-          warn('invalid template option:' + template, this);
+          warn('invalid template.vm option:' + template, this);
         }
         return this
       }

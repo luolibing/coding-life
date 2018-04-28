@@ -1,0 +1,32 @@
+<div id="app1">
+    <my_component></my_component>
+    <bye></bye>
+    <counter></counter>
+    <counter></counter>
+    <counter></counter>
+
+    <input type="text" placeholder="请输入内容" v-model="myMessage" />
+    <!-- 动态绑定属性 v-bind:my-message="" 传递字面量数值 1 -->
+    <child message="Hello world!!!" my-author="罗立兵" :my-message="myMessage" v-bind:age="1"></child>
+
+    <!-- 传递字面量，需要使用v-bind:money -->
+    <money :money="-100.00"></money>
+
+    <div id="counter">
+        <p>{{total}}</p>
+        <!-- 自定义事件 ref="ref1"可以通过父组件直接引用,parent.$refs.ref1-->
+        <button-increment v-on:increment="incrementTotal" ref="ref1"></button-increment>
+        <button-increment v-on:increment="incrementTotal" ref="ref2"></button-increment>
+        <button-increment v-on:click.native="incrementTotal" ref="ref3"></button-increment>
+
+        <!-- v-model使用value prop和input事件 -->
+        <input type="text" v-model="someValue" />
+        等同于
+        <input type="text" v-bind:value="someValue" v-on:input="someValue = $event.target.value" />
+    </div>
+
+    <async-component></async-component>
+</div>
+
+<script src="/js/vue.js"></script>
+<script src="/js/my_component.js"></script>
