@@ -25,16 +25,18 @@ public class ArticleService {
         articleEntity.setId(articleId);
         articleEntity.setTime(System.currentTimeMillis());
         articleEntity.setVotes(0);
-        ArticleEntity preArticle = redisSupport.saveEntity(
-                idGenerator.generateKey(RedisKeyEnum.ARTICLE_KEY.name(), articleId.toString()), articleEntity);
-        if(preArticle != null) {
-            throw new IllegalArgumentException(articleId + " article is exists");
-        }
+        redisSupport.saveEntity(RedisKeyEnum.ARTICLE_KEY.name(), articleId.toString(), articleEntity);
     }
 
     public ArticleEntity findArticle(long articleId) {
-        String articleKey = idGenerator.generateKey(RedisKeyEnum.ARTICLE_KEY.name(),
+        String articleKey = idGenerator.generateKey(IdKeyEnum.ARTICLE_ID.name(),
                 Long.toString(articleId));
-        return redisSupport.getEntity(articleKey, ArticleEntity.class);
+        return (ArticleEntity) redisSupport.getEntity(RedisKeyEnum.ARTICLE_KEY.name(), articleKey);
+    }
+
+    public void delArticle(long articleId) {
+        String articleKey = idGenerator.generateKey(IdKeyEnum.ARTICLE_ID.name(),
+                Long.toString(articleId));
+        redisSupport.deleteEntity(articleKey);
     }
 }

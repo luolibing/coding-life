@@ -13,15 +13,35 @@ public class RedisSupport {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    public <T> T saveEntity(String key, T t) {
-        return (T) redisTemplate.opsForValue().getAndSet(key, t);
+    public <T> void saveEntity(String redisKey, String idKey, T t) {
+        redisTemplate.opsForHash().put(redisKey, idKey, t);
     }
 
-    public <T> T getEntity(String key, Class<T> clazz) {
-        return (T)redisTemplate.opsForValue().get(key);
+    public Object getEntity(String redisKey, String idKey) {
+        return redisTemplate.opsForHash().get(redisKey, idKey);
     }
 
     public void deleteEntity(String key) {
         redisTemplate.delete(key);
+    }
+
+    public boolean isInSet(String redisKey, Object value) {
+        return redisTemplate.opsForSet().isMember(redisKey, value);
+    }
+
+    public long putToSet(String redisKey, Object value) {
+        return redisTemplate.opsForSet().add(redisKey, value);
+    }
+
+    public boolean putToZSet(String redisKey, Object key, long score) {
+        return redisTemplate.opsForZSet().add(redisKey, key, score);
+    }
+
+    public double increment(String redisKey, Object key, long score) {
+        return redisTemplate.opsForZSet().incrementScore(redisKey, key, score);
+    }
+
+    public double getScore(String redisKey, Object key) {
+        return redisTemplate.opsForZSet().score(redisKey, key);
     }
 }

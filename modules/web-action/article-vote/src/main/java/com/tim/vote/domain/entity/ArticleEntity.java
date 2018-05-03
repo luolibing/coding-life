@@ -3,12 +3,14 @@ package com.tim.vote.domain.entity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 /**
  * Created by luolibing on 2018/4/24.
  */
 @Getter
 @EqualsAndHashCode
-public class ArticleEntity {
+public class ArticleEntity implements Serializable {
 
     private Long id;
 
