@@ -4,13 +4,17 @@ import com.tim.vote.VoteApplication;
 import com.tim.vote.domain.entity.ArticleEntity;
 import com.tim.vote.infrastructure.constant.RedisKeyEnum;
 import com.tim.vote.infrastructure.redis.RedisSupport;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 /**
  * Created by luolibing on 2018/4/24.
@@ -50,7 +54,10 @@ public class RedisSupportTest {
 
     @Test
     public void putToSet() {
-        redisSupport.putToSet(RedisKeyEnum.USER_ARTICLE_VOTED.name() + "_" + 100, "user_1001");
+        boolean result = redisSupport.putToSet(RedisKeyEnum.USER_ARTICLE_VOTED.name() + "_" + 100, "user_1001");
+        System.out.println(result);
+        result = redisSupport.putToSet(RedisKeyEnum.USER_ARTICLE_VOTED.name() + "_" + 100, "user_1001");
+        System.out.println(result);
     }
 
     @Test
@@ -66,7 +73,13 @@ public class RedisSupportTest {
 
     @Test
     public void increment() {
-        redisSupport.increment(RedisKeyEnum.ARTICLE_SCORE.name(), "article_1001", 100 * 345);
+        Random rand = new Random();
+
+        IntStream.range(0, 1000).forEach((i) -> {
+            double score = redisSupport.increment(RedisKeyEnum.ARTICLE_SCORE.name(), "article_" + rand.nextInt(100), 1000);
+            System.out.println(score);
+        });
+
     }
 
     @Test
@@ -75,8 +88,20 @@ public class RedisSupportTest {
         System.out.println(score);
     }
 
-    @After
-    public void clear() {
-        redisSupport.deleteEntity(key);
+    @Test
+    public void members() {
+        Set<Object> members = redisSupport.members(RedisKeyEnum.USER_ARTICLE_VOTED.name() + "_" + 100);
+        members.forEach(System.out::println);
     }
+
+    @Test
+    public void range() {
+        Set<ZSetOperations.TypedTuple<Object>> range = redisSupport.range(RedisKeyEnum.ARTICLE_SCORE.name(), false, 0, 10);
+        range.forEach(o -> System.out.println("articleId: " + o.getValue() + ", score: " + o.getScore()));
+    }
+
+//    @After
+//    public void clear() {
+//        redisSupport.deleteEntity(key);
+//    }
 }

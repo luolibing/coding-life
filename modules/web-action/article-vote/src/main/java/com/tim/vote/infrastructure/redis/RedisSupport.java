@@ -2,7 +2,10 @@ package com.tim.vote.infrastructure.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 /**
  * Created by luolibing on 2018/4/24.
@@ -29,8 +32,8 @@ public class RedisSupport {
         return redisTemplate.opsForSet().isMember(redisKey, value);
     }
 
-    public long putToSet(String redisKey, Object value) {
-        return redisTemplate.opsForSet().add(redisKey, value);
+    public boolean putToSet(String redisKey, Object value) {
+        return redisTemplate.opsForSet().add(redisKey, value) == 1;
     }
 
     public boolean putToZSet(String redisKey, Object key, long score) {
@@ -43,5 +46,16 @@ public class RedisSupport {
 
     public double getScore(String redisKey, Object key) {
         return redisTemplate.opsForZSet().score(redisKey, key);
+    }
+
+    public Set<Object> members(String redisKey) {
+        return redisTemplate.opsForSet().members(redisKey);
+    }
+
+    public Set<ZSetOperations.TypedTuple<Object>> range(String redisKey, boolean asc, long start, long end) {
+        if(asc) {
+            return redisTemplate.opsForZSet().rangeWithScores(redisKey, start, end);
+        }
+        return redisTemplate.opsForZSet().reverseRangeWithScores(redisKey, start, end);
     }
 }
