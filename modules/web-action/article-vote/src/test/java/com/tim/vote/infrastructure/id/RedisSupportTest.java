@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -25,6 +26,9 @@ public class RedisSupportTest {
 
     @Autowired
     private RedisSupport redisSupport;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     private String key = "article_test_1001";
 
@@ -98,6 +102,14 @@ public class RedisSupportTest {
     public void range() {
         Set<ZSetOperations.TypedTuple<Object>> range = redisSupport.range(RedisKeyEnum.ARTICLE_SCORE.name(), false, 0, 10);
         range.forEach(o -> System.out.println("articleId: " + o.getValue() + ", score: " + o.getScore()));
+    }
+
+    @Test
+    public void multi() {
+        redisTemplate.multi();
+        redisTemplate.opsForHash().put("luolibing", "name", "llb");
+        redisTemplate.opsForHash().put("luolibing", "age", 20);
+        redisTemplate.exec();
     }
 
 //    @After

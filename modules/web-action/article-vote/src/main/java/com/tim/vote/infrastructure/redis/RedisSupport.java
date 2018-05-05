@@ -16,8 +16,24 @@ public class RedisSupport {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    public void multi() {
+        redisTemplate.multi();
+    }
+
+    public void exec() {
+        redisTemplate.exec();
+    }
+
     public <T> void saveEntity(String redisKey, String idKey, T t) {
         redisTemplate.opsForHash().put(redisKey, idKey, t);
+    }
+
+    public void putToHash(String redisKey, String fieldName, Object filedValue) {
+        redisTemplate.opsForHash().put(redisKey, fieldName, filedValue);
+    }
+
+    public Object getFromHash(String redisKey, String filedName) {
+        return redisTemplate.opsForHash().get(redisKey, filedName);
     }
 
     public Object getEntity(String redisKey, String idKey) {
