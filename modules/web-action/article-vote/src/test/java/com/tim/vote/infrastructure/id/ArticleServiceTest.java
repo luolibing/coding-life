@@ -56,6 +56,8 @@ public class ArticleServiceTest {
         articleService.delArticle(articleEntity.getId());
     }
 
+
+
     @After
     public void clearUp() {
         delArticle();

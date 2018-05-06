@@ -3,6 +3,7 @@ package com.tim.vote.infrastructure.id;
 import com.tim.vote.VoteApplication;
 import com.tim.vote.domain.entity.ArticleEntity;
 import com.tim.vote.infrastructure.constant.RedisKeyEnum;
+import com.tim.vote.infrastructure.key.KeyGenerator;
 import com.tim.vote.infrastructure.redis.RedisSupport;
 import org.junit.Before;
 import org.junit.Test;
@@ -110,6 +111,11 @@ public class RedisSupportTest {
         redisTemplate.opsForHash().put("luolibing", "name", "llb");
         redisTemplate.opsForHash().put("luolibing", "age", 20);
         redisTemplate.exec();
+    }
+
+    @Test
+    public void delHash() {
+        redisSupport.deleteEntity(KeyGenerator.articleIdKey(10));
     }
 
 //    @After

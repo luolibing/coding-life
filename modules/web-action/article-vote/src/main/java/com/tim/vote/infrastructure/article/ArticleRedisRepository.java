@@ -58,10 +58,19 @@ public class ArticleRedisRepository {
     private void setFieldValue(ArticleEntity articleEntity, String fieldName, Object value) {
         try {
             Method setterMethod = BeanUtils.findMethod(articleEntity.getClass(),
-                    "set" + Character.toString(fieldName.charAt(0)).toUpperCase() + fieldName.substring(1));
+                    "set" + Character.toString(fieldName.charAt(0)).toUpperCase() + fieldName.substring(1), value.getClass());
             setterMethod.invoke(articleEntity, value);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public long incrementVotes(long articleId) {
+        String articleIdKey = KeyGenerator.articleIdKey(articleId);
+        return redisSupport.incrementHash(articleIdKey, ArticleEntity.ArticleFileds.votes, 1);
+    }
+
+    public void delArticle(long articleId) {
+        redisSupport.deleteEntity(KeyGenerator.articleIdKey(articleId));
     }
 }

@@ -60,6 +60,10 @@ public class RedisSupport {
         return redisTemplate.opsForZSet().incrementScore(redisKey, key, score);
     }
 
+    public Long incrementHash(String redisKey, Object key, long score) {
+        return redisTemplate.opsForHash().increment(redisKey, key, score);
+    }
+
     public double getScore(String redisKey, Object key) {
         return redisTemplate.opsForZSet().score(redisKey, key);
     }
@@ -73,5 +77,9 @@ public class RedisSupport {
             return redisTemplate.opsForZSet().rangeWithScores(redisKey, start, end);
         }
         return redisTemplate.opsForZSet().reverseRangeWithScores(redisKey, start, end);
+    }
+
+    public long delHashEntity(String key, String[] fields) {
+        return redisTemplate.opsForHash().delete(key, fields);
     }
 }

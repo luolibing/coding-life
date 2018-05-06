@@ -39,8 +39,11 @@ public class VoteService {
             throw new IllegalArgumentException("该同学已经投过票，不能重复投票");
         }
 
-        // 票数更新
+        // 得分更新
         redisSupport.increment(RedisKeyEnum.ARTICLE_SCORE.name(), "article_" + articleId, ONE_TICKET_SCORE);
+
+        // 票数更新
+
     }
 
     /**
