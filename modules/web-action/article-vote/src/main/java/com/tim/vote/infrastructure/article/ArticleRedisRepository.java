@@ -5,10 +5,16 @@ import com.tim.vote.infrastructure.key.KeyGenerator;
 import com.tim.vote.infrastructure.redis.RedisSupport;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * articleRepository
@@ -19,6 +25,9 @@ public class ArticleRedisRepository {
 
     @Autowired
     private RedisSupport redisSupport;
+    
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     public void saveArticle(ArticleEntity articleEntity, Set<ArticleEntity.ArticleFileds> saveFields) {
         String articleIdKey = KeyGenerator.articleIdKey(articleEntity.getId());
@@ -72,5 +81,18 @@ public class ArticleRedisRepository {
 
     public void delArticle(long articleId) {
         redisSupport.deleteEntity(KeyGenerator.articleIdKey(articleId));
+    }
+    
+    public Page<ArticleEntity> findArticlePage(String redisKey, Pageable pageable) {
+        long count = redisSupport.findCountOfZset(redisKey);
+        int pageSize = pageable.getPageSize();
+        int offset = pageable.getOffset();
+
+        Set<Object> data = redisTemplate.opsForZSet().reverseRange(redisKey, offset, offset + pageSize - 1);
+        List<ArticleEntity> list = data.stream().map(key -> {
+            String articleId = key.toString().split("_")[1];
+            return findArticleEntity(Long.valueOf(articleId), ArticleEntity.ArticleFileds.ALL_FIELD);
+        }).collect(Collectors.toList());
+        return new PageImpl<>(list, pageable,  count);
     }
 }

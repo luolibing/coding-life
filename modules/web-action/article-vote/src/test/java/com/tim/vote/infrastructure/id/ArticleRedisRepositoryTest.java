@@ -4,11 +4,15 @@ import com.tim.vote.VoteApplication;
 import com.tim.vote.domain.entity.ArticleEntity;
 import com.tim.vote.infrastructure.article.ArticleRedisRepository;
 import com.tim.vote.infrastructure.constant.IdKeyEnum;
+import com.tim.vote.infrastructure.constant.RedisKeyEnum;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -60,5 +64,12 @@ public class ArticleRedisRepositoryTest {
         }
 
         assert expect == votes;
+    }
+
+    @Test
+    public void findPage() {
+        Pageable pageable = new PageRequest(0, 10);
+        Page<ArticleEntity> page = articleRedisRepository.findArticlePage(RedisKeyEnum.ARTICLE_SCORE.name(), pageable);
+        System.out.println(page);
     }
 }

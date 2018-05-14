@@ -82,4 +82,8 @@ public class RedisSupport {
     public long delHashEntity(String key, String[] fields) {
         return redisTemplate.opsForHash().delete(key, fields);
     }
+
+    public long findCountOfZset(String key) {
+        return redisTemplate.opsForZSet().size(key);
+    }
 }
