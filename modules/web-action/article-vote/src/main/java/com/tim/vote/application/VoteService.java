@@ -1,6 +1,7 @@
 package com.tim.vote.application;
 
 import com.tim.vote.domain.entity.ArticleEntity;
+import com.tim.vote.infrastructure.article.ArticleRedisRepository;
 import com.tim.vote.infrastructure.constant.RedisKeyEnum;
 import com.tim.vote.infrastructure.redis.RedisSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,10 @@ public class VoteService {
     @Autowired
     private ArticleService articleService;
 
-    private final static int ONE_TICKET_SCORE = 2000;
+    @Autowired
+    private ArticleRedisRepository articleRedisRepository;
+
+    private final static long ONE_TICKET_SCORE = 437;
 
     /**
      * 投票
@@ -40,10 +44,10 @@ public class VoteService {
         }
 
         // 得分更新
-        redisSupport.increment(RedisKeyEnum.ARTICLE_SCORE.name(), "article_" + articleId, ONE_TICKET_SCORE);
+        articleRedisRepository.incrementScore(articleId, ONE_TICKET_SCORE);
 
         // 票数更新
-
+        articleRedisRepository.incrementVotes(articleId);
     }
 
     /**
@@ -58,9 +62,5 @@ public class VoteService {
     private void validate(long articleId, String userPin) {
         ArticleEntity article = articleService.findArticle(articleId);
         Assert.notNull(article, "文章不存在" + articleId);
-
-        boolean haveVote = redisSupport.isInSet(
-                RedisKeyEnum.USER_ARTICLE_VOTED.name(), "user_" + userPin);
-        Assert.isTrue(!haveVote, "已经投过票，不能重复投票");
     }
 }

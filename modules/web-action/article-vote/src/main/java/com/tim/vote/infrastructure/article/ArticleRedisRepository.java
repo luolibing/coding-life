@@ -1,6 +1,7 @@
 package com.tim.vote.infrastructure.article;
 
 import com.tim.vote.domain.entity.ArticleEntity;
+import com.tim.vote.infrastructure.constant.RedisKeyEnum;
 import com.tim.vote.infrastructure.key.KeyGenerator;
 import com.tim.vote.infrastructure.redis.RedisSupport;
 import org.springframework.beans.BeanUtils;
@@ -77,6 +78,16 @@ public class ArticleRedisRepository {
     public long incrementVotes(long articleId) {
         String articleIdKey = KeyGenerator.articleIdKey(articleId);
         return redisSupport.incrementHash(articleIdKey, ArticleEntity.ArticleFileds.votes, 1);
+    }
+
+    public void incrementScore(long articleId, long score) {
+        redisSupport.increment(RedisKeyEnum.ARTICLE_SCORE.name(), "article_" + articleId, score);
+    }
+
+    public boolean addUserVote(long articleId, String userPin) {
+        String articleUserVoteKey = KeyGenerator.userVoteRedisKey(articleId);
+        String userPinKey = KeyGenerator.userIdKey(userPin);
+        return redisSupport.putToSet(articleUserVoteKey, userPinKey);
     }
 
     public void delArticle(long articleId) {

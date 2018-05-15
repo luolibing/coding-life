@@ -2,6 +2,7 @@ package com.tim.vote.infrastructure.id;
 
 import com.tim.vote.VoteApplication;
 import com.tim.vote.application.ArticleService;
+import com.tim.vote.application.VoteService;
 import com.tim.vote.domain.entity.ArticleEntity;
 import com.tim.vote.infrastructure.constant.IdKeyEnum;
 import org.junit.After;
@@ -29,9 +30,12 @@ public class ArticleServiceTest {
 
     private ArticleEntity articleEntity;
 
+    @Autowired
+    private VoteService voteService;
+
     @Before
     public void setup() {
-        articleEntity = articleService.findArticle(100L);
+//        articleEntity = articleService.findArticle(2L);
     }
 
     @Test
@@ -47,8 +51,13 @@ public class ArticleServiceTest {
 
     @Test
     public void findArticle() {
-        ArticleEntity article = articleService.findArticle(articleEntity.getId());
+        ArticleEntity article = articleService.findArticle(4L);
         assert Objects.equals(article, articleEntity);
+    }
+
+    @Test
+    public void vote() {
+        voteService.vote(4L, "zhangsan");
     }
 
     @Test
@@ -60,6 +69,6 @@ public class ArticleServiceTest {
 
     @After
     public void clearUp() {
-        delArticle();
+//        delArticle();
     }
 }

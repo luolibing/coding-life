@@ -25,7 +25,14 @@ public class ArticleService {
         articleEntity.setTime(System.currentTimeMillis());
         articleEntity.setVotes(0L);
 
+        // 保存文章
         articleRedisRepository.saveArticle(articleEntity, ArticleEntity.ArticleFileds.ALL_FIELD);
+        // 票数加1
+        articleRedisRepository.incrementVotes(1);
+        // 记录投票人
+        articleRedisRepository.addUserVote(articleId, articleEntity.getPoster());
+        // 分数新增
+        articleRedisRepository.incrementScore(articleId, System.currentTimeMillis());
     }
 
     public ArticleEntity findArticle(long articleId) {
