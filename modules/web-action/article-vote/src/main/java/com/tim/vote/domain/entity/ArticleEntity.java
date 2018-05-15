@@ -1,5 +1,6 @@
 package com.tim.vote.domain.entity;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.stream.Stream;
 /**
  * Created by luolibing on 2018/4/24.
  */
+@Data
 @EqualsAndHashCode
 public class ArticleEntity implements Serializable {
 
@@ -21,9 +23,9 @@ public class ArticleEntity implements Serializable {
 
     private String poster;
 
-    private long time;
+    private Long time;
 
-    private Long votes;
+    private Integer votes;
 
     public enum ArticleFileds {
         id, title, link, poster, time, votes;
@@ -31,53 +33,5 @@ public class ArticleEntity implements Serializable {
         public static String[] FIELD_NAMES = Stream.of(values()).map(ArticleFileds::name).collect(Collectors.toSet()).toArray(new String[]{});
 
         public static Set<ArticleFileds> ALL_FIELD = Stream.of(values()).collect(Collectors.toSet());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getPoster() {
-        return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
-
-    public Long getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Long votes) {
-        this.votes = votes;
     }
 }

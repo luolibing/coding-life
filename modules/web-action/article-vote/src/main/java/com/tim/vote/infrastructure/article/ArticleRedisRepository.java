@@ -77,7 +77,12 @@ public class ArticleRedisRepository {
 
     public long incrementVotes(long articleId) {
         String articleIdKey = KeyGenerator.articleIdKey(articleId);
-        return redisSupport.incrementHash(articleIdKey, ArticleEntity.ArticleFileds.votes, 1);
+        return redisSupport.incrementHash(articleIdKey, ArticleEntity.ArticleFileds.votes.name(), 1);
+    }
+
+    public long decrementVotes(long articleId) {
+        String articleIdKey = KeyGenerator.articleIdKey(articleId);
+        return redisSupport.incrementHash(articleIdKey, ArticleEntity.ArticleFileds.votes.name(), -1);
     }
 
     public void incrementScore(long articleId, long score) {

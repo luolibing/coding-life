@@ -1,5 +1,6 @@
 package com.tim.vote.application;
 
+import com.tim.vote.domain.constant.VoteOrderByEnum;
 import com.tim.vote.domain.entity.ArticleEntity;
 import com.tim.vote.infrastructure.article.ArticleRedisRepository;
 import com.tim.vote.infrastructure.constant.RedisKeyEnum;
@@ -27,12 +28,16 @@ public class VoteService {
 
     private final static long ONE_TICKET_SCORE = 437;
 
+    public void vote(long articleId, String userPin) {
+        vote(articleId, userPin, VoteOrderByEnum.UP);
+    }
+
     /**
      * 投票
      * @param articleId
      * @param userPin
      */
-    public void vote(long articleId, String userPin) {
+    public void vote(long articleId, String userPin, VoteOrderByEnum voteOrderBy) {
         // 验证， 这个人是否已经投过票，不能重复投票
         validate(articleId, userPin);
 
@@ -43,11 +48,18 @@ public class VoteService {
             throw new IllegalArgumentException("该同学已经投过票，不能重复投票");
         }
 
-        // 得分更新
-        articleRedisRepository.incrementScore(articleId, ONE_TICKET_SCORE);
+        long score;
+        if(voteOrderBy == VoteOrderByEnum.UP) {
+            score = ONE_TICKET_SCORE;
+            // 票数更新
+            articleRedisRepository.incrementVotes(articleId);
+        } else {
+            score = - ONE_TICKET_SCORE;
+            articleRedisRepository.decrementVotes(articleId);
+        }
 
-        // 票数更新
-        articleRedisRepository.incrementVotes(articleId);
+        // 得分更新
+        articleRedisRepository.incrementScore(articleId, score);
     }
 
     /**

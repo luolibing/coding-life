@@ -30,7 +30,7 @@ public class ArticleRepositoryTest {
         articleEntity.setTitle("论母猪的产后护理");
         articleEntity.setTime(System.currentTimeMillis());
         articleEntity.setLink("http://www.baidu.com");
-        articleEntity.setVotes(0L);
+        articleEntity.setVotes(0);
         articleEntity.setPoster("luolibing");
         articleRedisRepository.saveArticle(articleEntity, ArticleEntity.ArticleFileds.ALL_FIELD);
     }

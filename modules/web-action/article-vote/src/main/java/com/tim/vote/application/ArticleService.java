@@ -23,7 +23,7 @@ public class ArticleService {
         Long articleId = idGenerator.getNextId(IdKeyEnum.ARTICLE_ID.name());
         articleEntity.setId(articleId);
         articleEntity.setTime(System.currentTimeMillis());
-        articleEntity.setVotes(0L);
+        articleEntity.setVotes(0);
 
         // 保存文章
         articleRedisRepository.saveArticle(articleEntity, ArticleEntity.ArticleFileds.ALL_FIELD);
