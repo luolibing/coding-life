@@ -46,7 +46,12 @@ public class ArticleRedisRepository {
         String articleIdKey = KeyGenerator.articleIdKey(articleId);
         ArticleEntity articleEntity = new ArticleEntity();
         fields.forEach(field -> {
-            Object fieldValue = redisSupport.getFromHash(articleIdKey, field.name());
+            Object fieldValue;
+            if(field == ArticleEntity.ArticleFileds.votes) {
+                fieldValue = redisSupport.incrementHash(articleIdKey, field.name(), 0);
+            } else {
+                fieldValue = redisSupport.getFromHash(articleIdKey, field.name());
+            }
             if(fieldValue != null) {
                 setFieldValue(articleEntity, field.name(), fieldValue);
             }
