@@ -79,6 +79,11 @@ public class ArticleServiceTest {
     }
 
     @Test
+    public void voteUp() {
+        voteService.vote(200L, "wangwu", VoteOrderByEnum.UP);
+    }
+
+    @Test
     public void voteDown() {
         voteService.vote(4L, "wangwu", VoteOrderByEnum.DOWN);
     }

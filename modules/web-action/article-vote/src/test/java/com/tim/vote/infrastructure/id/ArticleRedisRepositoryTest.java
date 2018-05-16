@@ -56,7 +56,7 @@ public class ArticleRedisRepositoryTest {
 
     @Test
     public void articleVote() {
-        long articleId = 13;
+        long articleId = 200;
         long votes = articleRedisRepository.incrementVotes(articleId);
         long expect = votes + 10;
         for(int i = 0; i < 10; i++) {

@@ -25,7 +25,7 @@ public class ArticleEntity implements Serializable {
 
     private Long time;
 
-    private Integer votes;
+    private Long votes;
 
     public enum ArticleFileds {
         id, title, link, poster, time, votes;

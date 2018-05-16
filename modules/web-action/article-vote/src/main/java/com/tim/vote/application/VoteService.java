@@ -44,9 +44,9 @@ public class VoteService {
         // 投票记录流水表
         boolean result = redisSupport.putToSet(
                 RedisKeyEnum.USER_ARTICLE_VOTED.name() + "_" + articleId, "user_" + userPin);
-        if(!result) {
-            throw new IllegalArgumentException("该同学已经投过票，不能重复投票");
-        }
+//        if(!result) {
+//            throw new IllegalArgumentException("该同学已经投过票，不能重复投票");
+//        }
 
         long score;
         if(voteOrderBy == VoteOrderByEnum.UP) {

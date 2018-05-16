@@ -46,7 +46,7 @@ public class RedisSupportTest {
         articleEntity.setPoster("zhangsan");
         articleEntity.setTime(System.currentTimeMillis());
         articleEntity.setTitle("论母猪的产后护理");
-        articleEntity.setVotes(10000);
+        articleEntity.setVotes(10000L);
         redisSupport.saveEntity(RedisKeyEnum.ARTICLE_KEY.name(), key, articleEntity);
     }
 
