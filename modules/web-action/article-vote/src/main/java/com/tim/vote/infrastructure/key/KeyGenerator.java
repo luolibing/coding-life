@@ -18,4 +18,8 @@ public class KeyGenerator {
     public static String userVoteRedisKey(long articleId) {
         return RedisKeyEnum.USER_ARTICLE_VOTED + "_" + articleId;
     }
+
+    public static String groupId(long groupId) {
+        return "group_" + groupId;
+    }
 }

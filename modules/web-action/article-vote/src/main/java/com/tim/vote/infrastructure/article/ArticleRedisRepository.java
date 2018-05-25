@@ -46,7 +46,12 @@ public class ArticleRedisRepository {
         String articleIdKey = KeyGenerator.articleIdKey(articleId);
         ArticleEntity articleEntity = new ArticleEntity();
         fields.forEach(field -> {
-            Object fieldValue = redisSupport.getFromHash(articleIdKey, field.name());
+            Object fieldValue;
+            if(field == ArticleEntity.ArticleFileds.votes) {
+                fieldValue = redisSupport.incrementHash(articleIdKey, field.name(), 0);
+            } else {
+                fieldValue = redisSupport.getFromHash(articleIdKey, field.name());
+            }
             if(fieldValue != null) {
                 setFieldValue(articleEntity, field.name(), fieldValue);
             }
@@ -85,8 +90,13 @@ public class ArticleRedisRepository {
         return redisSupport.incrementHash(articleIdKey, ArticleEntity.ArticleFileds.votes.name(), -1L);
     }
 
-    public void incrementScore(long articleId, long score) {
-        redisSupport.increment(RedisKeyEnum.ARTICLE_SCORE.name(), "article_" + articleId, score);
+    public double incrementScore(long articleId, long score) {
+        return redisSupport.increment(RedisKeyEnum.ARTICLE_SCORE.name(), "article_" + articleId, score);
+    }
+
+    public double getScore(long articleId) {
+        String articleIdKey = KeyGenerator.articleIdKey(articleId);
+        return redisSupport.getScore(RedisKeyEnum.ARTICLE_SCORE.name(), articleIdKey);
     }
 
     public boolean addUserVote(long articleId, String userPin) {

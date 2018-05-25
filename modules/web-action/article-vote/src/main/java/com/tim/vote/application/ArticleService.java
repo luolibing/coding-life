@@ -26,7 +26,7 @@ public class ArticleService {
         articleEntity.setVotes(0L);
 
         // 保存文章
-        articleRedisRepository.saveArticle(articleEntity, ArticleEntity.ArticleFileds.ALL_FIELD);
+        articleRedisRepository.saveArticle(articleEntity, ArticleEntity.ArticleFileds.ALL_INIT_FIELD);
         // 票数加1
         articleRedisRepository.incrementVotes(1);
         // 记录投票人

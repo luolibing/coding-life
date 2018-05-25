@@ -30,8 +30,8 @@ public class ArticleEntity implements Serializable {
     public enum ArticleFileds {
         id, title, link, poster, time, votes;
 
-        public static String[] FIELD_NAMES = Stream.of(values()).map(ArticleFileds::name).collect(Collectors.toSet()).toArray(new String[]{});
-
         public static Set<ArticleFileds> ALL_FIELD = Stream.of(values()).collect(Collectors.toSet());
+
+        public static Set<ArticleFileds> ALL_INIT_FIELD = Stream.of(values()).filter(f -> f!= votes).collect(Collectors.toSet());
     }
 }
