@@ -10,9 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.provider.PersistenceProvider;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.sql.DataSource;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
@@ -39,10 +42,27 @@ public class JpaConfiguration {
         return joinPoint.proceed();
     }
 
+//    @Bean
+//    public EntityManagerFactory entityManagerFactory() {
+//        Properties prop = new Properties();
+//        prop.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
+//        return Persistence.createEntityManagerFactory("test-pu", prop);
+//    }
+
     @Bean
-    public EntityManagerFactory entityManagerFactory() {
-        Properties prop = new Properties();
-        prop.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
-        return Persistence.createEntityManagerFactory("test-pu", prop);
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+
+        LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
+        lef.setPackagesToScan("cn.tim.mail.entity");
+        lef.setDataSource(dataSource);
+        lef.setJpaVendorAdapter(jpaVendorAdapter);
+
+        Properties properties = new Properties();
+        properties.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
+        properties.setProperty("hibernate.jdbc.fetch_size", "100");
+        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+
+        lef.setJpaProperties(properties);
+        return lef;
     }
 }
