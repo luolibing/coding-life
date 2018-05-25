@@ -238,13 +238,14 @@ public class StreamAPI {
         persons.add(new Person(1, "luolibing"));
         persons.add(new Person(2, "liuxiaoling"));
         persons.add(new Person(3, "luominghao"));
-        persons.stream().peek( p -> p.setName(p.name + "11"));
+        persons.stream().forEach( p -> p.setName(p.name + "11"));
         persons.forEach(System.out::println);
     }
 
-    class Person {
+    static class Person {
         private int id;
         private String name;
+
         public Person(int id, String name) {
             this.id = id;
             this.name = name;
@@ -888,4 +889,8 @@ public class StreamAPI {
         IntStream.range(0, 100).parallel().forEach(System.out::println);
     }
 
+    @Test
+    public void forEach1() {
+
+    }
 }

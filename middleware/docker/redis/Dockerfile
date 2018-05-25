@@ -1,18 +1,37 @@
-# "ported" by Adam Miller <maxamillion@fedoraproject.org> from
-#   https://github.com/fedora-cloud/Fedora-Dockerfiles
 #
-# Originally written for Fedora-Dockerfiles by
-#   Aditya Patawari <adimania@fedoraproject.org>
+# Redis Dockerfile
+#
+# https://github.com/dockerfile/redis
+#
 
-FROM tim/centos
-MAINTAINER luolibing <397911353@qq.com>
+# Pull base image.
+FROM dockerfile/ubuntu
 
-RUN yum -y update; yum clean all
-RUN yum -y install epel-release; yum clean all
-RUN yum -y install redis; yum clean all
+# Install Redis.
+RUN \
+  cd /tmp && \
+  wget http://download.redis.io/redis-stable.tar.gz && \
+  tar xvzf redis-stable.tar.gz && \
+  cd redis-stable && \
+  make && \
+  make install && \
+  cp -f src/redis-sentinel /usr/local/bin && \
+  mkdir -p /etc/redis && \
+  cp -f *.conf /etc/redis && \
+  rm -rf /tmp/redis-stable* && \
+  sed -i 's/^\(bind .*\)$/# \1/' /etc/redis/redis.conf && \
+  sed -i 's/^\(daemonize .*\)$/# \1/' /etc/redis/redis.conf && \
+  sed -i 's/^\(dir .*\)$/# \1\ndir \/data/' /etc/redis/redis.conf && \
+  sed -i 's/^\(logfile .*\)$/# \1/' /etc/redis/redis.conf
 
-#EXPOSE 6379
+# Define mountable directories.
+VOLUME ["/data"]
 
-##
-CMD [ "redis-server" ]
+# Define working directory.
+WORKDIR /data
 
+# Define default command.
+CMD ["redis-server", "/etc/redis/redis.conf"]
+
+# Expose ports.
+EXPOSE 6379

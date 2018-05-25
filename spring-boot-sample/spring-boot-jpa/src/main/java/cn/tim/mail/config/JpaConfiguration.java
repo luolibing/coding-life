@@ -5,10 +5,16 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.jpa.provider.PersistenceProvider;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.lang.reflect.Method;
+import java.util.Properties;
 
 /**
  * User: luolibing
@@ -31,5 +37,12 @@ public class JpaConfiguration {
 
         }
         return joinPoint.proceed();
+    }
+
+    @Bean
+    public EntityManagerFactory entityManagerFactory() {
+        Properties prop = new Properties();
+        prop.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
+        return Persistence.createEntityManagerFactory("test-pu", prop);
     }
 }

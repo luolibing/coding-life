@@ -314,4 +314,7 @@ public class CollectionDef {
 
     }
 
+    @Test
+    public void test8() {}
+
 }

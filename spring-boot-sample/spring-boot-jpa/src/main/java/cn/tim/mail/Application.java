@@ -16,6 +16,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 /**
+ * 2级缓存
+ * 1 先load一级缓存，找不到
+ * 2 再load二级缓存，找不到
+ * 3 查询数据库
  * Created by LuoLiBing on 16/2/29.
  */
 @SpringBootApplication
