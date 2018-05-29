@@ -15,6 +15,7 @@ import java.util.Set;
  */
 @Entity
 @Table
+@Cacheable
 public class Service {
 
     @Id

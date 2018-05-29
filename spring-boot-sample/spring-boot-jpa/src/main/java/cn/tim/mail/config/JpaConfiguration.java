@@ -41,28 +41,4 @@ public class JpaConfiguration {
         }
         return joinPoint.proceed();
     }
-
-//    @Bean
-//    public EntityManagerFactory entityManagerFactory() {
-//        Properties prop = new Properties();
-//        prop.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
-//        return Persistence.createEntityManagerFactory("test-pu", prop);
-//    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
-
-        LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-        lef.setPackagesToScan("cn.tim.mail.entity");
-        lef.setDataSource(dataSource);
-        lef.setJpaVendorAdapter(jpaVendorAdapter);
-
-        Properties properties = new Properties();
-        properties.setProperty("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
-        properties.setProperty("hibernate.jdbc.fetch_size", "100");
-        properties.setProperty("hibernate.hbm2ddl.auto", "create");
-
-        lef.setJpaProperties(properties);
-        return lef;
-    }
 }

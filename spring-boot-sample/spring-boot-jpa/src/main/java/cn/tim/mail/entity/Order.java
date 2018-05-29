@@ -11,6 +11,8 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "`order`")
+// 缓存备注
+@Cacheable(true)
 public class Order {
 
     @Id
