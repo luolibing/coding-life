@@ -69,6 +69,7 @@
         <module>ehcache</module>
         <module>NIO</module>
         <module>web-action</module>
+        <module>maven-plugin-my</module>
     </modules>
 
 

@@ -35,9 +35,9 @@ public class BeanConverter {
     }
 
     @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    @Builder
     static class PersonView {
         private Long id;
 
@@ -48,6 +48,6 @@ public class BeanConverter {
 
     @Test
     public void build() {
-        PersonView.builder().id(1L).firstName("luo").secondName("libing").build();
+//        PersonView.builder().id(1L).firstName("luo").secondName("libing").build();
     }
 }
