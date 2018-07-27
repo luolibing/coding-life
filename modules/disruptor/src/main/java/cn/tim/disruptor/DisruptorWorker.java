@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class DisruptorWorker {
 
-    private int bufferSize = 100;
+    private int bufferSize = 128;
 
     private int workerSize = Runtime.getRuntime().availableProcessors() * 2;
 
@@ -74,6 +74,15 @@ public class DisruptorWorker {
         disruptor.handleEventsWithWorkerPool(workHandlers).then(clearEventHandler());
         disruptor.start();
         return disruptor;
+    }
+
+    public static void main(String[] args) throws Exception {
+        DisruptorWorker disruptorWorker = new DisruptorWorker();
+        Disruptor<EventWrapper<Order>> disruptor = disruptorWorker.disruptor();
+        for(int i = 0; i < 1000; i++) {
+            int finalI = i;
+            disruptor.publishEvent((event, s) -> event.setData(new Order(finalI)));
+        }
     }
 
     static class Order {
