@@ -1,31 +1,29 @@
-# it is derived from alpine:3.4
-FROM tim/java8:latest
 
-MAINTAINER luolibing <397911353@qq.com>
+FROM openjdk:8-jre-alpine
 
-ENV ZK_VERSION 3.4.10
-ENV ZK_DATA /var/opt/zookeeper/data
-#ENV ZK_LOG /var/log/zookeeper
+ARG MIRROR=http://apache.mirrors.pair.com
+ARG VERSION=3.4.13
 
-RUN yum install -y tar \
-                   wget
+MAINTAINER luolibing "397911353@qq.com"
 
-RUN mkdir -p /opt/apache && \
-    wget -q -O - http://apache.mirrors.pair.com/zookeeper/zookeeper-$ZK_VERSION/zookeeper-$ZK_VERSION.tar.gz | \
-    tar -xzf - -C /opt/apache && \
-    mv /opt/apache/zookeeper-$ZK_VERSION/ /opt/apache/zookeeper && \
-    mv /opt/apache/zookeeper/conf/zoo_sample.cfg /opt/apache/zookeeper/conf/zoo.cfg && \
-    sed -ri 's|(dataDir=).*$|\1'"$ZK_DATA"'|' /opt/apache/zookeeper/conf/zoo.cfg && \
-    mkdir -p $ZK_DATA $ZK_LOG
-#    useradd --system --shell /bin/bash --home /opt/apache/zookeeper zookeeper && \
-#    chown -R zookeeper:zookeeper /opt/apache/zookeeper $ZK_DATA $ZK_LOG
-#USER zookeeper
+LABEL name="zookeeper" version=$VERSION
+
+RUN apk add --no-cache wget bash \
+    && mkdir -p /opt/zookeeper \
+    && wget -q -O - $MIRROR/zookeeper/zookeeper-$VERSION/zookeeper-$VERSION.tar.gz \
+      | tar -xzC /opt/zookeeper --strip-components=1 \
+    && cp /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg \
+    && mkdir -p /tmp/zookeeper
 
 EXPOSE 2181 2888 3888
 
-WORKDIR /opt/apache/zookeeper
+WORKDIR /opt/zookeeper
 
-VOLUME ["$ZK_DATA", "/opt/apache/zookeeper/conf"]
+# Only checks if server is up and listening, not quorum.
+# See https://zookeeper.apache.org/doc/r3.4.13/zookeeperAdmin.html#sc_zkCommands
+HEALTHCHECK CMD [ $(echo ruok | nc 127.0.0.1:2181) == "imok" ] || exit 1
 
-ENTRYPOINT ["/opt/apache/zookeeper/bin/zkServer.sh"]
+VOLUME ["/opt/zookeeper/conf", "/tmp/zookeeper"]
+
+ENTRYPOINT ["/opt/zookeeper/bin/zkServer.sh"]
 CMD ["start-foreground"]

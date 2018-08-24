@@ -17,6 +17,7 @@
         <module>zookeeper</module>
         <module>redisson</module>
         <module>jedis</module>
+        <module>aws</module>
     </modules>
 
 
