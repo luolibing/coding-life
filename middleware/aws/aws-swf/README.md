@@ -1,4 +1,5 @@
 ## AWS SWF
+https://blog.csdn.net/halcyonbaby/article/details/8837367
 https://docs.aws.amazon.com/zh_cn/amazonswf/latest/developerguide/swf-dg-dev-amzn-swf.html
 > 亚马逊的simple workflow使用了平台模式，封装了工作流程驱动，任务驱动等功能。
 我们只需要关注自己要实现的功能与业务逻辑，将流程的驱动，任务的重试都交给工作流平台来管理。
