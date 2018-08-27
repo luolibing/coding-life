@@ -1,7 +1,8 @@
 package cn.tim.aws.swf.workflow.config;
 
+import org.apache.commons.codec.binary.StringUtils;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class WorkFlowSteps {
@@ -17,7 +18,10 @@ public class WorkFlowSteps {
         return this;
     }
 
-    public List<WorkFlowStep> getWorkFlowStepList() {
-        return Collections.unmodifiableList(workFlowStepList);
+    public WorkFlowStep getWorkFlowStep(String stepKey) {
+        return workFlowStepList.stream()
+                .filter(k -> StringUtils.equals(stepKey, k.getStep()))
+                .findFirst()
+                .orElse(null);
     }
 }
