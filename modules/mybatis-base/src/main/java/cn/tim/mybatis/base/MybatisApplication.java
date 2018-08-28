@@ -32,7 +32,7 @@ public class MybatisApplication implements CommandLineRunner {
                 .driverClassName("com.mysql.jdbc.Driver")
                 .url("jdbc:mysql://localhost:3306/world?useUnicode=true&characterEncoding=utf8")
                 .username("root")
-                .password("password")
+                .password("root")
                 .build();
     }
 
