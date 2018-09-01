@@ -1,10 +1,7 @@
-
 FROM openjdk:8-jre-alpine
 
 ARG MIRROR=http://apache.mirrors.pair.com
 ARG VERSION=3.4.13
-
-MAINTAINER luolibing "397911353@qq.com"
 
 LABEL name="zookeeper" version=$VERSION
 
