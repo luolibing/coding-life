@@ -26,6 +26,8 @@ public class ProviderHost {
         serviceConfig.setInterface(WelcomeService.class);
         serviceConfig.setRef(new WelcomeServiceImpl());
 
+        serviceConfig.setLoadbalance("myLoadBalance");
+
         // 可以设置provider的port
         ProviderConfig providerConfig = new ProviderConfig();
         // 应该还有其他更好的配置，这里过时也不标注更好的解决方案是啥。。。

@@ -1,0 +1,1 @@
+myLoadBalance=com.tim.dubbo.sample.plugin.MyLoadBalance

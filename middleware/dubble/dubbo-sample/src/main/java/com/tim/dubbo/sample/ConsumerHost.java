@@ -20,6 +20,7 @@ public class ConsumerHost {
         referenceConfig.setRegistry(registryConfig);
         referenceConfig.setInterface(WelcomeService.class);
         referenceConfig.setTimeout(2000);
+        referenceConfig.setLoadbalance("myLoadBalance");
         // 重试次数
         referenceConfig.setRetries(2);
         // 当check=true时，provider不可用的时候，抛出异常。check=false，不提前验证，如果是spring管理，先返回对应的引用，在恢复可用的时候再可以访问
