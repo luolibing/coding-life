@@ -20,13 +20,25 @@ import java.io.IOException;
 public class ProviderHost {
 
     public static void main(String[] args) throws IOException {
+        exportWelcomeProvider();
+        exportHelloProvider();
+        System.in.read();
+    }
+
+    private static void exportHelloProvider() {
         ServiceConfig<WelcomeService> serviceConfig = new ServiceConfig<>();
         serviceConfig.setApplication(new ApplicationConfig("first-dubbo-provider"));
-        serviceConfig.setRegistry(new RegistryConfig("zookeeper://127.0.0.1:2181"));
+        RegistryConfig registryConfig = new RegistryConfig("zookeeper://127.0.0.1:2181");
+        registryConfig.setId("registry1");
+        serviceConfig.setRegistry(registryConfig);
         serviceConfig.setInterface(WelcomeService.class);
-        serviceConfig.setRef(new WelcomeServiceImpl());
+        serviceConfig.setRef(new HelloServiceImpl());
 
         serviceConfig.setLoadbalance("myLoadBalance");
+
+        serviceConfig.setGroup("group2");
+
+        serviceConfig.setVersion("1.0.1");
 
         // 可以设置provider的port
         ProviderConfig providerConfig = new ProviderConfig();
@@ -35,6 +47,27 @@ public class ProviderHost {
         serviceConfig.setProvider(providerConfig);
 
         serviceConfig.export();
-        System.in.read();
+    }
+
+    private static void exportWelcomeProvider() {
+        ServiceConfig<WelcomeService> serviceConfig = new ServiceConfig<>();
+        serviceConfig.setApplication(new ApplicationConfig("first-dubbo-provider"));
+        RegistryConfig registryConfig = new RegistryConfig("zookeeper://127.0.0.1:2181");
+        registryConfig.setId("registry1");
+        serviceConfig.setRegistry(registryConfig);
+        serviceConfig.setInterface(WelcomeService.class);
+        serviceConfig.setRef(new WelcomeServiceImpl());
+
+        serviceConfig.setLoadbalance("myLoadBalance");
+
+        serviceConfig.setGroup("group1");
+
+        // 可以设置provider的port
+        ProviderConfig providerConfig = new ProviderConfig();
+        // 应该还有其他更好的配置，这里过时也不标注更好的解决方案是啥。。。
+        providerConfig.setPort(-1);
+        serviceConfig.setProvider(providerConfig);
+
+        serviceConfig.export();
     }
 }
