@@ -11,4 +11,14 @@ public class WelcomeServiceImpl implements WelcomeService {
     public String welcome(String name) {
         return  RNADOM + " hello, welcome " + name;
     }
+
+    @Override
+    public void addPerson(Person person) {
+
+    }
+
+    @Override
+    public void updatePerson(Person person) {
+
+    }
 }

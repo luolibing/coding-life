@@ -38,7 +38,8 @@ public class ProviderHost {
 
         serviceConfig.setGroup("group2");
 
-        serviceConfig.setVersion("1.0.1");
+//        serviceConfig.setVersion("1.0.1");
+        serviceConfig.setMerger("myMerger");
 
         // 可以设置provider的port
         ProviderConfig providerConfig = new ProviderConfig();
@@ -61,6 +62,7 @@ public class ProviderHost {
         serviceConfig.setLoadbalance("myLoadBalance");
 
         serviceConfig.setGroup("group1");
+        serviceConfig.setMerger("com.tim.dubbo.sample.plugin.MyMerger");
 
         // 可以设置provider的port
         ProviderConfig providerConfig = new ProviderConfig();

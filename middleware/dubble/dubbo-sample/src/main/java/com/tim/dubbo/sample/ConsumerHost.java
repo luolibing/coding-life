@@ -23,15 +23,23 @@ public class ConsumerHost {
         referenceConfig.setTimeout(2000);
 
         // 调用指定分组
-        referenceConfig.setGroup("group2");
+//        referenceConfig.setGroup("group2");
+        referenceConfig.setGroup("*");
         referenceConfig.setLoadbalance("myLoadBalance");
         // 重试次数
         referenceConfig.setRetries(2);
         // 多版本
-        referenceConfig.setVersion("1.0.1");
+//        referenceConfig.setVersion("1.0.1");
+
+        // 合并结果
+        referenceConfig.setMerger("myMerger");
+
+        referenceConfig.setValidation("true");
+
         // 当check=true时，provider不可用的时候，抛出异常。check=false，不提前验证，如果是spring管理，先返回对应的引用，在恢复可用的时候再可以访问
         referenceConfig.setCheck(false);
         WelcomeService welcomeService = referenceConfig.get();
+        welcomeService.addPerson(new Person());
         System.out.println(welcomeService.welcome("luolibing"));
     }
 }

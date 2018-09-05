@@ -8,4 +8,14 @@ public class HelloServiceImpl implements WelcomeService {
     public String welcome(String name) {
         return "hello " + name;
     }
+
+    @Override
+    public void addPerson(Person person) {
+
+    }
+
+    @Override
+    public void updatePerson(Person person) {
+
+    }
 }
