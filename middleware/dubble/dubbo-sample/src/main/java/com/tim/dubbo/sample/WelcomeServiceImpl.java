@@ -1,5 +1,6 @@
 package com.tim.dubbo.sample;
 
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -34,7 +35,7 @@ public class WelcomeServiceImpl implements WelcomeService {
         treeMap.put(20, "x");
         treeMap.put(50, "y");
 
-        SortedMap<Integer, String> sortedMap = treeMap.tailMap(2);
-        System.out.println(sortedMap);
+        Map.Entry<Integer, String> entry = treeMap.tailMap(60, true).firstEntry();
+        System.out.println(entry);
     }
 }

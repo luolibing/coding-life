@@ -72,6 +72,10 @@ public class ConsistentHash {
         String md5 = DigestUtils.md5DigestAsHex(key.getBytes());
         long hash = hash(md5.getBytes(), 0);
         Map.Entry<Long, Server> serverEntry = serverMap.tailMap(hash, true).firstEntry();
+        // 比最大的还要大，则取第一个
+        if(serverEntry == null) {
+            return serverMap.firstEntry().getValue();
+        }
         return serverEntry.getValue();
     }
 

@@ -40,7 +40,7 @@ public class Person implements Serializable {
         this.age = age;
     }
 
-    interface AddPerson {}
+    public interface AddPerson {}
 
-    interface UpdatePerson {}
+    public interface UpdatePerson {}
 }
