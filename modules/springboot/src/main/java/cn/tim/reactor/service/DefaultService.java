@@ -10,7 +10,7 @@ import reactor.bus.EventBus;
 /**
  * Created by LuoLiBing on 15/8/10.
  */
-//@Component
+@Component
 public class DefaultService {
 
     private final static Logger log = LoggerFactory.getLogger(DefaultService.class);

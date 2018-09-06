@@ -10,7 +10,7 @@ import reactor.spring.context.annotation.Selector;
 /**
  * Created by LuoLiBing on 15/8/10.
  */
-//@Consumer
+@Consumer
 public class DefaultHandler {
 
     private final static Logger log = LoggerFactory.getLogger(DefaultHandler.class);
