@@ -1,7 +1,6 @@
 package com.tim.dubbo.sample;
 
 import java.util.Map;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
@@ -13,6 +12,7 @@ public class WelcomeServiceImpl implements WelcomeService {
 
     @Override
     public String welcome(String name) {
+        System.out.println("invoke name");
         return  RNADOM + " hello, welcome " + name;
     }
 

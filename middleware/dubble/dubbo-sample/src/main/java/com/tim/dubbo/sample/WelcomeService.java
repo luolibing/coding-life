@@ -1,7 +1,5 @@
 package com.tim.dubbo.sample;
 
-import org.springframework.validation.annotation.Validated;
-
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,5 +11,5 @@ public interface WelcomeService {
 
     void addPerson(@NotNull(groups = Person.AddPerson.class) Person person);
 
-    void updatePerson(@Validated(Person.UpdatePerson.class) Person person);
+    void updatePerson(@NotNull(groups = Person.UpdatePerson.class) Person person);
 }

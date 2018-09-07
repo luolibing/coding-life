@@ -41,6 +41,9 @@ public class ProviderHost {
 //        serviceConfig.setVersion("1.0.1");
         serviceConfig.setMerger("myMerger");
 
+        // 缓存
+        serviceConfig.setCache("lru");
+
         // 可以设置provider的port
         ProviderConfig providerConfig = new ProviderConfig();
         // 应该还有其他更好的配置，这里过时也不标注更好的解决方案是啥。。。

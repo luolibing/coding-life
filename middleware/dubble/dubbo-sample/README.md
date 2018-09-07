@@ -39,6 +39,13 @@ check = false
 将结果进行合并，可以实现dubbo的Merger接口进行扩展
 
 14 自定义验证  
-JSR303 // TODO 待实现
+JSR303 
 
+15 结果的缓存  
+原生支持lRU,threadLocal,jcache,以及实现了jsr107缓存协议的缓存实现。 TODO
 
+16 泛化调用  
+所有返回参数都用map来表示，在集成某些测试框架时更通用，例如mock接口  TODO
+
+17 回声测试
+开启合并同时开启回声测试，会抛出空指针异常
