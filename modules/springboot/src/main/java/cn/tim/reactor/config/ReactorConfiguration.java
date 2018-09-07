@@ -10,9 +10,9 @@ import reactor.spring.context.config.EnableReactor;
 /**
  * Created by LuoLiBing on 15/8/10.
  */
-//@Configuration
-//@ComponentScan
-//@EnableReactor
+@Configuration
+@ComponentScan
+@EnableReactor
 public class ReactorConfiguration {
 
     @Bean
