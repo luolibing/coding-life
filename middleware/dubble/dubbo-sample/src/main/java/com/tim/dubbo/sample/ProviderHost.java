@@ -4,6 +4,8 @@ import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProviderConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.ServiceConfig;
+import com.tim.dubbo.sample.future.Futurable;
+import com.tim.dubbo.sample.future.FuturableProvider;
 
 import java.io.IOException;
 
@@ -22,6 +24,7 @@ public class ProviderHost {
     public static void main(String[] args) throws IOException {
         exportWelcomeProvider();
         exportHelloProvider();
+        exportFuturable();
         System.in.read();
     }
 
@@ -71,6 +74,30 @@ public class ProviderHost {
         ProviderConfig providerConfig = new ProviderConfig();
         // 应该还有其他更好的配置，这里过时也不标注更好的解决方案是啥。。。
         providerConfig.setPort(-1);
+        serviceConfig.setProvider(providerConfig);
+
+        serviceConfig.export();
+    }
+
+
+    private static void exportFuturable() {
+        ServiceConfig<Futurable> serviceConfig = new ServiceConfig<>();
+        serviceConfig.setApplication(new ApplicationConfig("first-dubbo-provider"));
+        RegistryConfig registryConfig = new RegistryConfig("zookeeper://127.0.0.1:2181");
+        registryConfig.setId("registry1");
+        serviceConfig.setRegistry(registryConfig);
+        serviceConfig.setInterface(Futurable.class);
+        serviceConfig.setRef(new FuturableProvider());
+
+        serviceConfig.setLoadbalance("myLoadBalance");
+
+        serviceConfig.setGroup("group1");
+
+        // 可以设置provider的port
+        ProviderConfig providerConfig = new ProviderConfig();
+        // 应该还有其他更好的配置，这里过时也不标注更好的解决方案是啥。。。
+        providerConfig.setPort(-1);
+        providerConfig.setAsync(true);
         serviceConfig.setProvider(providerConfig);
 
         serviceConfig.export();

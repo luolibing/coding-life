@@ -49,3 +49,13 @@ JSR303
 
 17 回声测试
 开启合并同时开启回声测试，会抛出空指针异常
+
+18 上下文信息  
+RpcContext使用一个ThreadLocal来保存调用者相关的一些信息，例如IP地址，端口方法等等，调用会被解析到一个  
+dubbo://192.168.1.101:20880/com.tim.dubbo.sample.WelcomeService?anyhost=true&application=first-dubbo-consumer&cache=lru&check=false&dubbo=2.6.2&generic=false&group=group2&interface=com.tim.dubbo.sample.WelcomeService&loadbalance=myLoadBalance&merger=myMerger&methods=welcome,addPerson,updatePerson&pid=1364&register.ip=192.168.1.101&remote.timestamp=1536588965368&retries=2&side=consumer&timeout=2000&timestamp=1536588991610&validation=true  
+类似于一个http协议一样。 RpcContext.getContext().get()；这个方法给人第一感觉以为是返回上下文所有键值对，但是却是空的，查看文档得知now we don't use the 'values' map to hold these objects  
+每次调用都会reinit设置值，RpcContext.getContext().setAttachment("index", "1"); 隐式传参
+
+18 异步调用
+当调用接口过程比较长时，可以开启异步调用，先调用，然后继续执行结果，当调用完成时，会通知RpcContext同时set到future上  
+！！！但是如果连着调用多个会怎么样

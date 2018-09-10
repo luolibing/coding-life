@@ -1,5 +1,7 @@
 package com.tim.dubbo.sample;
 
+import com.alibaba.dubbo.rpc.RpcContext;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,6 +15,8 @@ public class WelcomeServiceImpl implements WelcomeService {
     @Override
     public String welcome(String name) {
         System.out.println("invoke name");
+        Object tenantId = RpcContext.getContext().getAttachment("tenantId");
+        System.out.println(tenantId);
         return  RNADOM + " hello, welcome " + name;
     }
 
