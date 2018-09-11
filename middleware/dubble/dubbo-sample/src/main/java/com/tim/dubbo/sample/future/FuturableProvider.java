@@ -14,4 +14,10 @@ public class FuturableProvider implements Futurable {
         }
         return "luolibing" + System.currentTimeMillis();
     }
+
+    @Override
+    public void callback(String key, CallbackListener callbackListener) {
+        System.out.println("receive key = " + key);
+        callbackListener.callback("luolibing");
+    }
 }

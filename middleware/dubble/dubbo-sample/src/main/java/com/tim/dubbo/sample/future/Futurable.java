@@ -5,4 +5,6 @@ package com.tim.dubbo.sample.future;
  */
 public interface Futurable {
     String getData();
+
+    void callback(String key, CallbackListener callbackListener);
 }

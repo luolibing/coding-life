@@ -59,3 +59,8 @@ dubbo://192.168.1.101:20880/com.tim.dubbo.sample.WelcomeService?anyhost=true&app
 18 异步调用
 当调用接口过程比较长时，可以开启异步调用，先调用，然后继续执行结果，当调用完成时，会通知RpcContext同时set到future上  
 ！！！但是如果连着调用多个会怎么样
+
+19 本地调用  
+injvm，当provider和consumer在同一个Jvm内时，默认优先调用injvm，如果想执行远程调用需要配置<dubbo:reference ... scope="remote" />
+
+20 

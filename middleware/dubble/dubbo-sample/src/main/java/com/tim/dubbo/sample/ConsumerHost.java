@@ -1,13 +1,13 @@
 package com.tim.dubbo.sample;
 
 import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.config.ApplicationConfig;
-import com.alibaba.dubbo.config.ReferenceConfig;
-import com.alibaba.dubbo.config.RegistryConfig;
+import com.alibaba.dubbo.config.*;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.service.EchoService;
+import com.tim.dubbo.sample.future.CallbackListener;
 import com.tim.dubbo.sample.future.Futurable;
 
+import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -54,6 +54,14 @@ public class ConsumerHost {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
+        // TODO CallbackListener为什么需要实现序列化接口！！！
+        futurable.callback("welcome", new CallbackListener() {
+            @Override
+            public void callback(String name) {
+                System.out.println("搞什么飞机啊，" + name);
+            }
+        });
     }
 
     private static ReferenceConfig<WelcomeService> getWelcomeConsumer() {
@@ -121,6 +129,15 @@ public class ConsumerHost {
         referenceConfig.setCache("lru");
 
         referenceConfig.setValidation("true");
+        referenceConfig.setCallbacks(1000);
+        referenceConfig.setConnections(10);
+        MethodConfig callbackMethod = new MethodConfig();
+        callbackMethod.setName("callback");
+        ArgumentConfig argumentConfig = new ArgumentConfig();
+        argumentConfig.setType("com.tim.dubbo.sample.future.CallbackListener");
+        argumentConfig.setCallback(true);
+        callbackMethod.setArguments(Collections.singletonList(argumentConfig));
+        referenceConfig.setMethods(Collections.singletonList(callbackMethod));
 
         // 当check=true时，provider不可用的时候，抛出异常。check=false，不提前验证，如果是spring管理，先返回对应的引用，在恢复可用的时候再可以访问
         referenceConfig.setCheck(false);
