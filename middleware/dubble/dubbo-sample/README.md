@@ -63,4 +63,5 @@ dubbo://192.168.1.101:20880/com.tim.dubbo.sample.WelcomeService?anyhost=true&app
 19 本地调用  
 injvm，当provider和consumer在同一个Jvm内时，默认优先调用injvm，如果想执行远程调用需要配置<dubbo:reference ... scope="remote" />
 
-20 
+20 事件通知  
+在调用之前、之后、出现异常时，分别触发oninvoke/onreturn/onthrow三个事件
