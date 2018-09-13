@@ -6,7 +6,9 @@ import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.service.EchoService;
 import com.tim.dubbo.sample.future.CallbackListener;
 import com.tim.dubbo.sample.future.Futurable;
+import com.tim.dubbo.sample.notify.NotifyImpl;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -137,7 +139,18 @@ public class ConsumerHost {
         argumentConfig.setType("com.tim.dubbo.sample.future.CallbackListener");
         argumentConfig.setCallback(true);
         callbackMethod.setArguments(Collections.singletonList(argumentConfig));
-        referenceConfig.setMethods(Collections.singletonList(callbackMethod));
+
+        MethodConfig getMethod = new MethodConfig();
+        getMethod.setName("getData");
+        getMethod.setAsync(true);
+        // 设置事件回调，notify,有onreturn onthrow oninvoke
+        NotifyImpl notify = new NotifyImpl();
+        getMethod.setOnreturn(notify);
+        getMethod.setOnreturnMethod("onreturn");
+        getMethod.setOnthrow(notify);
+        getMethod.setOnthrowMethod("onthrow");
+
+        referenceConfig.setMethods(Arrays.asList(callbackMethod, getMethod));
 
         // 当check=true时，provider不可用的时候，抛出异常。check=false，不提前验证，如果是spring管理，先返回对应的引用，在恢复可用的时候再可以访问
         referenceConfig.setCheck(false);

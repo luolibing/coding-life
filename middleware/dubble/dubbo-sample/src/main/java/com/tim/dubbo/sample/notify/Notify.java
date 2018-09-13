@@ -5,7 +5,7 @@ package com.tim.dubbo.sample.notify;
  */
 public interface Notify {
 
-    void onreturn();
+    void onreturn(String message);
 
     void onthrow(Throwable ex);
 }
