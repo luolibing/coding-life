@@ -36,6 +36,7 @@ public class ProviderHost {
         serviceConfig.setRegistry(registryConfig);
         serviceConfig.setInterface(WelcomeService.class);
         serviceConfig.setRef(new HelloServiceImpl());
+        serviceConfig.setToken("123456");
 
         serviceConfig.setLoadbalance("myLoadBalance");
 
@@ -66,6 +67,7 @@ public class ProviderHost {
         serviceConfig.setRef(new WelcomeServiceImpl());
 
         serviceConfig.setLoadbalance("myLoadBalance");
+        serviceConfig.setToken("123456");
 
         serviceConfig.setGroup("group1");
         serviceConfig.setMerger("com.tim.dubbo.sample.plugin.MyMerger");

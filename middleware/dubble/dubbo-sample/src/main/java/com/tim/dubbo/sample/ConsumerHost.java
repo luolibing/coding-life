@@ -20,6 +20,8 @@ public class ConsumerHost {
 
     public static void main(String[] args) {
         WelcomeService welcomeService = getWelcomeConsumer().get();
+        // TODO 没有地方设置token，很奇怪
+        RpcContext.getContext().setAttachment("token", "123456");
         welcomeService.addPerson(new Person());
 
         // 隐式传递参数
@@ -28,7 +30,12 @@ public class ConsumerHost {
         System.out.println(welcomeService.welcome("luolibing"));
         System.out.println(welcomeService.welcome("luolibing"));
         // 我没实现接口为什么能够进行强转, see cast package！
-        Object sayHello = ((EchoService) welcomeService).$echo("sayHello");
+        try {
+            Object sayHello = ((EchoService) welcomeService).$echo("sayHello");
+            System.out.println(sayHello);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         RpcContext.getContext().get().forEach((k, v) -> System.out.println(k + "=" + v));
         String remoteHost = RpcContext.getContext().getRemoteHost();
 
@@ -36,7 +43,7 @@ public class ConsumerHost {
         System.out.println(url);
 
         System.out.println(remoteHost);
-        System.out.println(sayHello);
+
 
         Futurable futurable = getFuturable().get();
         // 第一次返回的是个Null
@@ -77,6 +84,10 @@ public class ConsumerHost {
 
         referenceConfig.setRegistry(registryConfig);
         referenceConfig.setInterface(WelcomeService.class);
+        // stub
+        referenceConfig.setStub("com.tim.dubbo.sample.stub.StubService");
+        // mock
+        referenceConfig.setMock("com.tim.dubbo.sample.stub.MockService");
 //        referenceConfig.setTimeout(2000);
 
         // 调用指定分组
@@ -95,6 +106,8 @@ public class ConsumerHost {
         referenceConfig.setCache("lru");
 
         referenceConfig.setValidation("true");
+
+        // TODO 为什么没有设置token的地方
 
         // 当check=true时，provider不可用的时候，抛出异常。check=false，不提前验证，如果是spring管理，先返回对应的引用，在恢复可用的时候再可以访问
         referenceConfig.setCheck(false);
@@ -133,6 +146,7 @@ public class ConsumerHost {
         referenceConfig.setValidation("true");
         referenceConfig.setCallbacks(1000);
         referenceConfig.setConnections(10);
+
         MethodConfig callbackMethod = new MethodConfig();
         callbackMethod.setName("callback");
         ArgumentConfig argumentConfig = new ArgumentConfig();
