@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 
 /**
  * bio和nio模型的区别
+ * 写起来好像没那么简单
  * Created by luolibing on 2018/9/25.
  */
 public class IOModel {
@@ -75,12 +76,14 @@ public class IOModel {
             public void run() {
                 try {
                     ServerSocketChannel server = ServerSocketChannel.open();
-                    server.bind(new InetSocketAddress("127.0.0.1", 8888));
+                    server.bind(new InetSocketAddress("127.0.0.1", 9999));
 
                     Selector selector = Selector.open();
                     server.configureBlocking(false);
                     server.register(selector, SelectionKey.OP_ACCEPT);
                     while (!Thread.interrupted()) {
+                        // TODO 有时候会不停的空转, selector.select没有key不会阻塞
+                        // TODO https://stackoverflow.com/questions/7249421/selector-select-do-not-block-as-expected
                         int count = selector.select();
                         if(count == 0) {
                             continue;
