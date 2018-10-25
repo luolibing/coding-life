@@ -71,6 +71,7 @@
         <module>web-action</module>
         <module>maven-plugin-my</module>
         <module>Interview</module>
+        <module>function-pro</module>
     </modules>
 
 
