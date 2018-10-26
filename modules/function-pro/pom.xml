@@ -11,5 +11,11 @@
 
     <artifactId>function-pro</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>6.2.1</version>
+        </dependency>
+    </dependencies>
 </project>
