@@ -20,6 +20,7 @@
         <module>aws</module>
         <module>dubble</module>
         <module>jdbc-sharding</module>
+        <module>redis-in-action</module>
 
     </modules>
 
