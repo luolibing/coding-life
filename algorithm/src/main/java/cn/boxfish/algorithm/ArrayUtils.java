@@ -1,4 +1,4 @@
-package cn.tim.algorithm;
+package cn.boxfish.algorithm;
 
 /**
  * Created by TIM on 2017/2/28.
