@@ -45,13 +45,40 @@ public class ComplexSample {
     static class ComplexTest2 {
 
         /**
-         * o(1)是指执行次数不随n增长而变大，而不是指，下面的时间复杂度为
+         * o(1)是指执行次数不随n增长而变大，而不是指执行多少次，只要不随n增长，
+         * 即使成千上万行代码也是o(1)，下面的时间复杂度为o(1)而不是
          */
         public static void o1() {
             int i = 1;
             int j = 3;
             int sum = i + j;
         }
+
+        /**
+         * i以2的倍数增长，实际上就是一个等比数列，2^k = n；次数k = log2n。那如果不是*2，而是*3呢，次数k = log3n，*10 = log10n
+         * 但是在记录的时候只记做logn，因为log3n = log32 * log2n，而因为系数是可以忽略的，所以不管logmn，都记为o(logn)
+         * @param n
+         */
+        public static void logn(int n) {
+            int i = 1;
+            while (i <= n) {
+                i = i * 2;
+
+            }
+        }
+
+        public static void nlogn(int n) {
+            for(int j = 0; j < n; j++) {
+                int i = 1;
+                while (i <= n) {
+                    i = i * 2;
+                }
+            }
+        }
+
+        /**
+         * 还有log(m+n) log(mn)
+         */
     }
 
 }
