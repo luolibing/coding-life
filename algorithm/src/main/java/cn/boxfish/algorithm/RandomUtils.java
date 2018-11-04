@@ -1,4 +1,4 @@
-package cn.tim.algorithm;
+package cn.boxfish.algorithm;
 
 import java.util.Random;
 

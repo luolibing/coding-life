@@ -1,7 +1,7 @@
 package cn.tim.algorithm.sort;
 
 import cn.tim.algorithm.ArrayUtils;
-import cn.tim.algorithm.RandomUtils;
+import cn.boxfish.algorithm.RandomUtils;
 
 import java.util.Arrays;
 
