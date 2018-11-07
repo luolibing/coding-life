@@ -1,6 +1,6 @@
-package cn.tim.algorithm.sort;
+package cn.boxfish.algorithm.sort;
 
-import cn.tim.algorithm.ArrayUtils;
+import cn.boxfish.algorithm.ArrayUtils;
 import cn.boxfish.algorithm.RandomUtils;
 
 import java.util.Arrays;
