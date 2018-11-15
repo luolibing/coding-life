@@ -1,6 +1,4 @@
-package cn.boxfish.algorithm.complex;
-
-import org.junit.Test;
+package cn.boxfish.algorithm.jiketime.complex;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package cn.boxfish.algorithm.complex;
+package cn.boxfish.algorithm.jiketime.complex;
 
 /**
  * 复杂度计算
