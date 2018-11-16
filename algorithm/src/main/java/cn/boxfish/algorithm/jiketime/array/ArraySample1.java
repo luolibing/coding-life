@@ -72,5 +72,32 @@ public class ArraySample1 {
      */
     static class EfficientArray1<T> {
 
+        static class Node<T> {
+            private T data;
+
+            /**
+             * 状态 0 未使用， 1 已使用， 2 已删除
+             */
+            private int status;
+
+            public void setData(T data) {
+                this.data = data;
+                this.status = 1;
+            }
+
+            public void logicRemove() {
+                this.status = 2;
+            }
+
+            public void realRemvoe() {
+                this.data = null;
+                this.status = 0;
+            }
+        }
+
+        private int[] freeIndex;
+
+        private int[] removeIndex;
+
     }
 }
