@@ -1,6 +1,9 @@
 package cn.boxfish.algorithm.jiketime.array;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArraySample1 {
 
     /**
@@ -72,7 +75,7 @@ public class ArraySample1 {
      */
     static class EfficientArray1<T> {
 
-        static class Node<T> {
+        class Node<T> {
             private T data;
 
             /**
@@ -89,15 +92,95 @@ public class ArraySample1 {
                 this.status = 2;
             }
 
-            public void realRemvoe() {
+            public void realRemove() {
                 this.data = null;
                 this.status = 0;
             }
         }
 
-        private int[] freeIndex;
+        private List<Integer> freeIndex;
 
-        private int[] removeIndex;
+        private Node[] objects;
 
+        private int size = 0;
+
+        private int cap = DEFAULT_SIZE;
+
+        private final static int DEFAULT_SIZE = 10;
+
+        public EfficientArray1() {
+            this.objects = new Node[cap];
+            this.freeIndex = new ArrayList<>(cap);
+        }
+
+        public EfficientArray1(int size) {
+            this.cap = size;
+            this.objects = new Node[cap];
+            this.freeIndex = new ArrayList<>(cap);
+        }
+
+        public void add(T t) {
+            Node<T> node = getSetNode();
+            node.setData(t);
+        }
+
+        private Node<T> getSetNode() {
+            if(size > 0 && size + 1 > cap && freeIndex.size() == 0) {
+                cap = cap * 3 / 2;
+                Node[] newArray = new Node[cap];
+                System.arraycopy(this.objects, 0, newArray, 0, this.objects.length);
+                this.objects = newArray;
+                Node<T> newNode = new Node<>();
+                this.objects[size ++] = newNode;
+                return newNode;
+            } else {
+                if(size < cap) {
+                    Node<T> newNode = new Node<>();
+                    this.objects[size ++] = newNode;
+                    return newNode;
+                } else {
+                    Integer index = freeIndex.remove(0);
+                    return this.objects[index];
+                }
+            }
+        }
+
+        public void remove(int index) {
+            checkSizeRange(index);
+            this.objects[index].realRemove();
+            this.freeIndex.add(index);
+        }
+
+        private void checkSizeRange(int index) {
+            if(index < 0 || index >= size) {
+                throw new IllegalArgumentException("错误的索引值" + index);
+            }
+        }
+
+        public static void main(String[] args) {
+            EfficientArray1<String> efficientArray1 = new EfficientArray1<>(10);
+            efficientArray1.add("aaaaa");
+            efficientArray1.add("bbbbb");
+            efficientArray1.add("ccccc");
+
+            efficientArray1.remove(2);
+            efficientArray1.add("ddddd");
+            efficientArray1.add("eeeee");
+            efficientArray1.add("fffff");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            efficientArray1.add("ggggg");
+            System.out.println(efficientArray1);
+        }
     }
+
 }
