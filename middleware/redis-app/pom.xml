@@ -3,26 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>coding-life</artifactId>
+        <artifactId>middleware</artifactId>
         <groupId>samples-tim</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>middleware</artifactId>
+    <artifactId>redis-app</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>mq-rabbitmq</module>
-        <module>docker</module>
-        <module>zookeeper</module>
-        <module>redisson</module>
-        <module>jedis</module>
-        <module>aws</module>
-        <module>dubble</module>
-        <module>jdbc-sharding</module>
-        <module>redis-in-action</module>
-        <module>redis-app</module>
-
+        <module>glock</module>
     </modules>
 
 
