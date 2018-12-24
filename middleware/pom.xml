@@ -21,6 +21,7 @@
         <module>dubble</module>
         <module>jdbc-sharding</module>
         <module>redis-in-action</module>
+        <module>redis-app</module>
 
     </modules>
 
