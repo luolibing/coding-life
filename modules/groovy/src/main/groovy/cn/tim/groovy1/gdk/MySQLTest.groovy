@@ -1,4 +1,6 @@
 package cn.tim.groovy1.gdk
+
+import cn.tim.groovy.demo1.Demo1
 import groovy.sql.Sql
 import groovy.xml.MarkupBuilder
 import org.junit.Test
@@ -73,5 +75,11 @@ class MySQLTest {
     void check() {
         String name = null
         println name?.substring(0,1) == null ? "没有": "有"
+    }
+
+    @Test
+    void access() {
+        def grow = new ArrayList<>().outOfBoundsMsg(1)
+        println grow
     }
 }

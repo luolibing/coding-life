@@ -1,5 +1,6 @@
 package cn.tim.groovy.curry
 
+import cn.tim.groovy.demo1.Demo1
 import org.junit.Test
 
 /**
@@ -78,5 +79,10 @@ class CurryTest1 {
         println factorial(1)
         println factorial(3)
         println factorial(1000)
+    }
+
+    @Test
+    void testAccess() {
+        new Demo1().sayHello()
     }
 }

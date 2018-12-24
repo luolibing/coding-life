@@ -9,6 +9,7 @@ class Demo2 {
     void test1() {
         println  new Demo1().name;
         println new Demo1().age
+        println new Demo1().@name
     }
 
     @Test

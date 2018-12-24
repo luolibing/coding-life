@@ -22,7 +22,6 @@ import java.util.Collections;
  */
 @Aspect
 @EnableAspectJAutoProxy(exposeProxy = true, proxyTargetClass = true)
-//@EnableAspectJAutoProxy(proxyTargetClass = true)
 @SpringBootApplication
 @EnableScheduling
 @RestController

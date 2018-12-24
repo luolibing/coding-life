@@ -1,5 +1,6 @@
 package cn.tim.web;
 
+import cn.tim.web.interceptor.MyLog;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class Hello implements InitializingBean, DisposableBean {
         System.out.println("execute afterPropertiesSet");
     }
 
+    @MyLog
     public void say() {
         System.out.println("sayHello");
     }

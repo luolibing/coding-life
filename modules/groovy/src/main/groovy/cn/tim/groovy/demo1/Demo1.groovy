@@ -82,7 +82,11 @@ class Demo1 {
         int[] array = [1,2,3]
     }
 
-    String name = "luolibing"
+    private String name = "luolibing"
 
     private int age = 27
+
+    private void sayHello() {
+        println name + " hello"
+    }
 }
