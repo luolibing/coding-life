@@ -1,9 +1,15 @@
 package cn.tim.groovy1.gdk
 
-import cn.tim.groovy.demo1.Demo1
+import org.apache.commons.io.FileUtils
+
+import java.nio.channels.FileChannel
+import java.nio.file.Files
 import groovy.sql.Sql
 import groovy.xml.MarkupBuilder
 import org.junit.Test
+
+import java.nio.file.Paths
+
 /**
  * Created by TIM on 2015/9/18.
  */
@@ -81,5 +87,22 @@ class MySQLTest {
     void access() {
         def grow = new ArrayList<>().outOfBoundsMsg(1)
         println grow
+    }
+
+
+    @Test
+    void readFile() {
+        def path = Paths.get("//Users/luolibing/Downloads/1.xlsx")
+        def fileSize = path.toFile().length()
+        println fileSize
+
+        fileSize = Files.size(path)
+        println fileSize
+
+        def bytes = Files.readAllBytes(path)
+        println bytes.length
+
+        fileSize = FileChannel.open(path).size()
+        println fileSize
     }
 }
