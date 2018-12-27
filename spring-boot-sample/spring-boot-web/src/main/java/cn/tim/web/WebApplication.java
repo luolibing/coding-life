@@ -37,7 +37,6 @@ import java.util.Random;
  * Created by luolibing on 2017/5/12.
  */
 @RestController
-@RequestMapping("")
 //@EnableAdminServer
 @SpringBootApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)

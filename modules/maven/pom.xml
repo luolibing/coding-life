@@ -14,6 +14,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
+    <name>luolibing</name>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -74,6 +76,14 @@
                 </executions>
             </plugin>
         </plugins>
+
+        <resources>
+            <!-- 配置过滤器，会将对应目录下的文件的对应值进行替换，对于二进制文件，经过过滤之后，文件会变得不可用 -->
+            <resource>
+                <directory>src/main/resources-ext</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
     <profiles>
