@@ -45,17 +45,51 @@ public class LinkSample {
         }
 
         // 分2个步子， 一个一次走1步，一个1次走2步，如果有环，在循环到若干次之后一定会重合。 如果没有环，走得快的会先到末尾
-        Node<N> small = node;
         Node<N> big = node.nextNode;
+        Node<N> pattern = runCycle(node, big);
+        return pattern != null;
+    }
+
+    /**
+     * 查找链表中环的入口，在进行环探测的时候，有一个相距点，然后相距点计算有一个公式，根据这个公式能够得出
+     * @param pHead
+     * @param <N>
+     * @return
+     */
+    public static <N> Node<N> getEnter(Node<N> pHead){
+        Node<N> fast = pHead;
+        Node<N> slow = pHead;
+        while(fast != null && fast.nextNode != null){
+            fast = fast.nextNode.nextNode;
+            slow = slow.nextNode;
+            //当快指针 与 慢指针相遇时
+            if(fast == slow){
+                fast = pHead;
+                //再次相遇
+                while(fast != slow){
+                    fast = fast.nextNode;
+                    slow = slow.nextNode;
+                }
+                return fast;
+            }
+        }
+        return null;
+    }
+
+    private static <N> Node<N> runCycle(Node<N> small, Node<N> big) {
+        if(big == null || big.nextNode == null || big.nextNode.nextNode == null) {
+            return null;
+        }
+
         while (big != null && big.nextNode != null) {
             small = small.nextNode;
             big = big.nextNode.nextNode;
 
             if(small == big) {
-                return true;
+                return small;
             }
         }
-        return false;
+        return null;
     }
 
     private static class Node<N> {
@@ -74,6 +108,10 @@ public class LinkSample {
         public Node<N> getNextNode() {
             return nextNode;
         }
+    }
+
+    public static <N> Node<N> mergeSortLinke() {
+        return null;
     }
 
     public static void main(String[] args) {
@@ -104,5 +142,9 @@ public class LinkSample {
         node.nextNode = cycleNode;
         boolean f = cycleCheck(cycle);
         System.out.println(f);
+
+        // 3 链表环
+        Node<Integer> enter = getEnter(cycle);
+        System.out.println(enter);
     }
 }
