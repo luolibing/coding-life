@@ -34,12 +34,15 @@ public class LruSample {
 
         private int size;
 
+        private int cap;
+
         public LRU(int size) {
             this.size = size;
             head = new Node<>(null, null);
+            cap = 0;
         }
 
-        public Node<K, V> find(K k) {
+        private Node<K, V> findNode(K k) {
             Node<K, V> node = head;
             while (node.nextNode != null) {
                 if(Objects.equals(node.nextNode.k, k)) {
@@ -48,11 +51,29 @@ public class LruSample {
                 node = node.nextNode;
             }
 
-            return null;
+            return head;
+        }
+
+        public V find(K k) {
+            Node<K, V> node = findNode(k);
+            if(node == null || node.nextNode == null) {
+                return null;
+            }
+            return node.nextNode.v;
         }
 
         public V put(K k, V v) {
             return null;
         }
+    }
+
+    public static void main(String[] args) {
+        LRU<String, Integer> lru = new LRU<>(3);
+        lru.put("a", 1);
+        lru.put("b", 2);
+        lru.put("c", 3);
+        lru.put("d", 4);
+        lru.put("c", 3);
+        System.out.println(lru);
     }
 }
