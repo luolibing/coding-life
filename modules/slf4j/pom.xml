@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>modules</artifactId>
+        <groupId>samples-tim</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>slf4j</artifactId>
+
+    <dependencies>
+        <!-- 如果没绑定任何日志，则默认为不打印日志，将日志输出直接输出到/dev/null -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+
+
+        <!-- 对接logback, logback-classic作用是将logback和slf4j绑定起来，logback-core是logback的具体实现 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.13</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.0.13</version>
+        </dependency>
+
+
+        <!-- 对接log4j -->
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
+            <!--<version>1.7.25</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.logging.log4j</groupId>-->
+            <!--<artifactId>log4j-core</artifactId>-->
+            <!--<version>2.11.1</version>-->
+        <!--</dependency>-->
+
+
+        <!-- 对接jdk logger，通过slf4j-jdk14绑定 -->
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-jdk14</artifactId>-->
+            <!--<version>1.7.25</version>-->
+        <!--</dependency>-->
+
+
+        <!-- slf4j-simple简单输出 -->
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-simple</artifactId>-->
+            <!--<version>1.7.25</version>-->
+        <!--</dependency>-->
+
+
+        <!-- 没有输出，直接输出到/dev/null, 报警也不会有 -->
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-nop</artifactId>-->
+            <!--<version>1.7.25</version>-->
+        <!--</dependency>-->
+
+    </dependencies>
+</project>
