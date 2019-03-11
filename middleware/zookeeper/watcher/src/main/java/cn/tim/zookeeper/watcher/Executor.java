@@ -50,7 +50,7 @@ public class Executor implements Watcher, Runnable, DataMonitor.DataMonitorListe
             System.err
                     .println("USAGE: Executor hostPort znode filename program [args ...]");
 //            System.exit(2);
-            args = new String[]{"127.0.0.1:2181", "/zk_test", "file.txt", "C:\\Windows\\System32\\PING.EXE", "www.baidu.com"};
+            args = new String[]{"127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2184", "/zk_test", "file.txt", "C:\\Windows\\System32\\PING.EXE", "www.baidu.com"};
         }
         String hostPort = args[0];
         String znode = args[1];
