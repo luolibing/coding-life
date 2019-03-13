@@ -23,6 +23,7 @@
         <module>redis-in-action</module>
         <module>redis-app</module>
         <module>ellasticsearch</module>
+        <module>reading</module>
     </modules>
 
 
