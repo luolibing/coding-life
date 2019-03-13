@@ -1,6 +1,9 @@
 package cn.tim.springsrc.aop.simple;
 
+import org.springframework.aop.TargetSource;
+import org.springframework.aop.framework.Advised;
 import org.springframework.aop.framework.AopContext;
+import org.springframework.aop.support.AopUtils;
 
 /**
  * Created by luolibing on 2017/6/9.
@@ -18,5 +21,30 @@ public class AServiceImpl1 implements AService {
 
     public void b() {
         System.out.println("execute b");
+    }
+
+    public static class ProxyUtils {
+
+        /***
+         * 所有的spring proxy都可以转换为Advised，以方便对Aop进行操作配置
+         * @param proxy
+         * @param <T>
+         * @return
+         */
+        public static <T> T getProxyTarget(Object proxy) {
+            if (!AopUtils.isAopProxy(proxy)) {
+                throw new IllegalStateException("Target must be a proxy");
+            }
+            TargetSource targetSource = ((Advised) proxy).getTargetSource();
+            return getTarget(targetSource);
+        }
+
+        private static <T> T getTarget(TargetSource targetSource) {
+            try {
+                return (T) targetSource.getTarget();
+            } catch (Exception e) {
+                throw new IllegalStateException(e);
+            }
+        }
     }
 }
