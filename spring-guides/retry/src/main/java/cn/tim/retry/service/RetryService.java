@@ -51,7 +51,8 @@ public class RetryService {
      * @param e
      */
     @Recover
-    public void recover(RemoteAccessException e) {
+    public void recover(RemoteAccessException e, String arg1) {
+        System.out.println(arg1);
         e.printStackTrace();
     }
 }
