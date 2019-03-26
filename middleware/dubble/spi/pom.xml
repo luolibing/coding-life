@@ -3,20 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>middleware</artifactId>
+        <artifactId>dubble</artifactId>
         <groupId>samples-tim</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dubble</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>dubbo-sample</module>
-        <module>dubbo-springboot</module>
-        <module>spi</module>
-        <module>spi-api</module>
-    </modules>
+    <artifactId>spi</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>samples-tim</groupId>
+            <artifactId>spi-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
