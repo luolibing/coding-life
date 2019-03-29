@@ -24,6 +24,7 @@
         <module>redis-app</module>
         <module>ellasticsearch</module>
         <module>reading</module>
+        <module>camel</module>
     </modules>
 
 

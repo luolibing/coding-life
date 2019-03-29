@@ -1,0 +1,4 @@
+greeting: hello
+
+timer:
+  period: 10

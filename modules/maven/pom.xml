@@ -78,7 +78,7 @@
         </plugins>
 
         <resources>
-            <!-- 配置过滤器，会将对应目录下的文件的对应值进行替换，对于二进制文件，经过过滤之后，文件会变得不可用 -->
+            <!-- 配置过滤器，会将对应目录下的文件的对应值进行替换，对于二进制文件，经过过滤之后，文件会变得不可用，配置true执行对应的过滤器 -->
             <resource>
                 <directory>src/main/resources-ext</directory>
                 <filtering>true</filtering>
