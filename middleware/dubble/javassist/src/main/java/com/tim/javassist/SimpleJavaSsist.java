@@ -1,6 +1,7 @@
 package com.tim.javassist;
 
 import com.tim.javassist.simple1.A;
+import com.tim.javassist.simple1.B;
 import javassist.*;
 import org.junit.Test;
 
@@ -24,9 +25,13 @@ public class SimpleJavaSsist {
 
         // 可以通过ctClass.toClass()获取到生成后的对象
         Class clazz = ctClass.toClass();
-        A a = (A) clazz.newInstance();
-        Method sayHello = clazz.getMethod("sayHello");
-        sayHello.invoke(a);
+        B a = (B) clazz.newInstance();
+        a.sayHello();
+
+        pool.appendSystemPath();
+
+        // 分离，脱离
+        ctClass.detach();
     }
 
     @Test
@@ -44,5 +49,40 @@ public class SimpleJavaSsist {
         // 解冻
         cClass.defrost();
         cClass.setSuperclass(classPool.get("com.tim.javassist.simple1.B"));
+    }
+
+    @Test
+    public void rename() throws NotFoundException, CannotCompileException, IOException {
+        ClassPool pool = ClassPool.getDefault();
+        CtClass ctClass = pool.get("com.tim.javassist.simple1.A");
+        ctClass.setName("com.tim.javassist.simple1.D");
+        ctClass.writeFile("/Users/luolibing/Documents/github/coding-life/middleware/dubble/javassist/target/classes/com/tim/javassist");
+    }
+
+    @Test
+    public void modifyMethod() throws NotFoundException, CannotCompileException, IllegalAccessException, InstantiationException {
+        ClassPool classPool = ClassPool.getDefault();
+        CtClass ctClass = classPool.get("com.tim.javassist.simple1.B");
+        CtMethod cmethod = ctClass.getDeclaredMethod("sayHello");
+
+        // 切面
+        cmethod.insertBefore("{System.out.println(\"before B sayHello\");}");
+        cmethod.insertAfter("{System.out.println(\"after B sayHello\");}");
+        Class clazz = ctClass.toClass();
+        B instance = (B) clazz.newInstance();
+        instance.sayHello();
+    }
+
+    @Test
+    public void loader() throws NotFoundException, CannotCompileException, ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+        ClassPool pool = ClassPool.getDefault();
+        Loader loader = new Loader(pool);
+        CtClass ctClass = pool.get("com.tim.javassist.simple1.A");
+        ctClass.setSuperclass(pool.get("com.tim.javassist.simple1.B"));
+        Class clazz = loader.loadClass("com.tim.javassist.simple1.A");
+        Object a = clazz.newInstance();
+        Method method = clazz.getMethod("sayHello");
+        method.invoke(a);
+        System.out.println(a);
     }
 }
