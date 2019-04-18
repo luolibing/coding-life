@@ -1,5 +1,12 @@
 package com.tim.asm.simple;
 
+import org.junit.Test;
+import org.objectweb.asm.*;
+
+import java.io.IOException;
+
+import static org.objectweb.asm.Opcodes.*;
+
 /**
  * Created by luolibing on 2019/4/3.
  */
@@ -41,7 +48,74 @@ public class Chapter1 {
      * 类型描述，原生类型使用单个字母描述，Object 表述为Ljava/lang/Object;，int[]=[I;，Object[][]=[[Ljava/lang/Object;
      * 方法描述，void m(int i, float f)=(IF)V
      **/
-    public void test() {
+    @Test
+    public void test() throws IOException {
 
+    }
+
+
+    /**
+     * 读取一个类
+     * @throws IOException
+     */
+    @Test
+    public void readClass() throws IOException {
+        ClassReader classReader = new ClassReader(Person.class.getName());
+        classReader.accept(new ClassVisitor(ASM4) {
+
+            @Override
+            public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
+                System.out.println(name + " extends " + superName + "{");
+            }
+
+            @Override
+            public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
+                System.out.println("    " + descriptor + " " + name);
+                return null;
+            }
+
+            @Override
+            public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+                System.out.println("    " + descriptor + "  " + name);
+                return null;
+            }
+
+            @Override
+            public void visitEnd() {
+                System.out.println("}");
+            }
+        }, 0);
+    }
+
+
+    /**
+     * init方法也得写
+     * 生成一个Boy extends Person {
+     *     public static final int age = 100;
+     *
+     * }
+     */
+    @Test
+    public void writeClass() throws IllegalAccessException, InstantiationException, NoSuchFieldException {
+        ClassWriter classWriter = new ClassWriter(0);
+        classWriter.visit(V1_5, ACC_PUBLIC,
+                "com/tim/asm/simple/Boy", null,
+                "com/tim/asm/simple/Person", null);
+        classWriter.visitField(ACC_PUBLIC + ACC_STATIC + ACC_FINAL, "age", "I", null, 100).visitEnd();
+//        classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, "sayHello", "(V;)V", null, null).visitEnd();
+        classWriter.visitEnd();
+        byte[] bytes = classWriter.toByteArray();
+
+
+        MyClassLoader myClassLoader = new MyClassLoader();
+        Class clazz = myClassLoader.defineClass("com.tim.asm.simple.Boy", bytes);
+        Object age = clazz.getDeclaredField("age").get(null);
+        System.out.println(age);
+    }
+
+    static class MyClassLoader extends ClassLoader {
+        public Class defineClass(String name, byte[] b) {
+            return defineClass(name, b, 0, b.length);
+        }
     }
 }
