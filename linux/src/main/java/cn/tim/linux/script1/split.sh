@@ -1,0 +1,1 @@
+split -l3000 image.txt images/image

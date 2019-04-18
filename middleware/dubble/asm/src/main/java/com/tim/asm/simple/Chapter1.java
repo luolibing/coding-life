@@ -96,24 +96,33 @@ public class Chapter1 {
      * }
      */
     @Test
-    public void writeClass() throws IllegalAccessException, InstantiationException, NoSuchFieldException {
+    public void writeClass() throws IllegalAccessException, InstantiationException {
         ClassWriter classWriter = new ClassWriter(0);
         classWriter.visit(V1_5, ACC_PUBLIC,
                 "com/tim/asm/simple/Boy", null,
                 "com/tim/asm/simple/Person", null);
+        // 得调用super()方法
+        MethodVisitor mv = classWriter.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
+        // 开始着手方法体
+        mv.visitCode();
+        mv.visitVarInsn(ALOAD, 0);
+        mv.visitMethodInsn(INVOKESPECIAL, "com/tim/asm/simple/Person", "<init>", "()V", false);
+        mv.visitInsn(RETURN);
+        mv.visitMaxs(1, 1);
+        mv.visitEnd();
+
         classWriter.visitField(ACC_PUBLIC + ACC_STATIC + ACC_FINAL, "age", "I", null, 100).visitEnd();
-//        classWriter.visitMethod(ACC_PUBLIC + ACC_FINAL, "sayHello", "(V;)V", null, null).visitEnd();
         classWriter.visitEnd();
         byte[] bytes = classWriter.toByteArray();
 
 
         MyClassLoader myClassLoader = new MyClassLoader();
         Class clazz = myClassLoader.defineClass("com.tim.asm.simple.Boy", bytes);
-        Object age = clazz.getDeclaredField("age").get(null);
-        System.out.println(age);
+        Person p = ((Person) clazz.newInstance());
+        p.sayGoodBye();
     }
 
-    static class MyClassLoader extends ClassLoader {
+    public static class MyClassLoader extends ClassLoader {
         public Class defineClass(String name, byte[] b) {
             return defineClass(name, b, 0, b.length);
         }

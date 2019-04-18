@@ -29,6 +29,7 @@ public class Person {
         return name;
     }
 
+    @Check
     public void setName(String name) {
         this.name = name;
     }
@@ -37,6 +38,7 @@ public class Person {
         return new Person();
     }
 
+    @Check
     public void sayGoodBye() {
         System.out.println("good bye");
     }
