@@ -9,6 +9,8 @@ public class Person {
 
     private String name;
 
+    private int score = 100;
+
     public Person() {
     }
 
