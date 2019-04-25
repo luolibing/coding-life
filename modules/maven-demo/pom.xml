@@ -21,7 +21,7 @@
     <groupId>samples-tim</groupId>
 
     <!-- 项目唯一标识，与版本号一起构成一个唯一目录 -->
-    <artifactId>maven</artifactId>
+    <artifactId>maven1</artifactId>
 
     <!-- idea中maven选项项目显示的名称，不配置默认和artifactId一致 -->
     <name>maven project</name>
