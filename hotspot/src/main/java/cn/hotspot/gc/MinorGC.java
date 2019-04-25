@@ -3,6 +3,7 @@ package cn.hotspot.gc;
 import org.junit.Test;
 
 /**
+ * https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html
  * Created by LuoLiBing on 17/2/14.
  */
 public class MinorGC {
