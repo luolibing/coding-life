@@ -1,8 +1,6 @@
-package cn.tim.thinking.clazz14;
+package cn.hotspot.classloader;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -13,7 +11,9 @@ import java.lang.invoke.MethodType;
  */
 public class MethodHandler {
 
-    Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    static {
+        MethodHandles.lookup().lookupClass();
+    }
 
     public void methodType() {
         MethodType methodType = MethodType.methodType(String.class);
@@ -26,8 +26,7 @@ public class MethodHandler {
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         try {
             mh = lookup.findVirtual(getClass(), "toString", mt);
-            System.out.println(mh.invoke());
-            LoggerUtils.logger.info("toString");
+            System.out.println(mh.invoke(this));
         } catch (Throwable e) {
             e.printStackTrace();
         }

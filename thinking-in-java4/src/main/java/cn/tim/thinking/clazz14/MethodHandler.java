@@ -26,7 +26,7 @@ public class MethodHandler {
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         try {
             mh = lookup.findVirtual(getClass(), "toString", mt);
-            //System.out.println(mh.invoke());
+            System.out.println(mh.invoke());
             LoggerUtils.logger.info("toString");
         } catch (Throwable e) {
             e.printStackTrace();
