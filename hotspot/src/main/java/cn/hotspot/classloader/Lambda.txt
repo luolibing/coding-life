@@ -1,0 +1,134 @@
+Classfile /Users/luolibing/Documents/github/coding-life/hotspot/target/classes/cn/hotspot/classloader/Lambda.class
+  Last modified 2019-4-26; size 1317 bytes
+  MD5 checksum 1bef83165f5f3e863f0a4af89c1dddb1
+  Compiled from "Lambda.java"
+public class cn.hotspot.classloader.Lambda
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #10.#29        // java/lang/Object."<init>":()V
+   #2 = InterfaceMethodref #30.#31        // java/lang/Runnable.run:()V
+   #3 = Class              #32            // cn/hotspot/classloader/Lambda
+   #4 = Methodref          #3.#29         // cn/hotspot/classloader/Lambda."<init>":()V
+   #5 = InvokeDynamic      #0:#37         // #0:run:()Ljava/lang/Runnable;
+   #6 = Methodref          #3.#38         // cn/hotspot/classloader/Lambda.execute:(Ljava/lang/Runnable;)V
+   #7 = Fieldref           #39.#40        // java/lang/System.out:Ljava/io/PrintStream;
+   #8 = String             #41            // haha
+   #9 = Methodref          #42.#43        // java/io/PrintStream.println:(Ljava/lang/String;)V
+  #10 = Class              #44            // java/lang/Object
+  #11 = Utf8               <init>
+  #12 = Utf8               ()V
+  #13 = Utf8               Code
+  #14 = Utf8               LineNumberTable
+  #15 = Utf8               LocalVariableTable
+  #16 = Utf8               this
+  #17 = Utf8               Lcn/hotspot/classloader/Lambda;
+  #18 = Utf8               execute
+  #19 = Utf8               (Ljava/lang/Runnable;)V
+  #20 = Utf8               action
+  #21 = Utf8               Ljava/lang/Runnable;
+  #22 = Utf8               main
+  #23 = Utf8               ([Ljava/lang/String;)V
+  #24 = Utf8               args
+  #25 = Utf8               [Ljava/lang/String;
+  #26 = Utf8               lambda$main$0
+  #27 = Utf8               SourceFile
+  #28 = Utf8               Lambda.java
+  #29 = NameAndType        #11:#12        // "<init>":()V
+  #30 = Class              #45            // java/lang/Runnable
+  #31 = NameAndType        #46:#12        // run:()V
+  #32 = Utf8               cn/hotspot/classloader/Lambda
+  #33 = Utf8               BootstrapMethods
+  #34 = MethodHandle       #6:#47         // invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #35 = MethodType         #12            //  ()V
+  #36 = MethodHandle       #6:#48         // invokestatic cn/hotspot/classloader/Lambda.lambda$main$0:()V
+  #37 = NameAndType        #46:#49        // run:()Ljava/lang/Runnable;
+  #38 = NameAndType        #18:#19        // execute:(Ljava/lang/Runnable;)V
+  #39 = Class              #50            // java/lang/System
+  #40 = NameAndType        #51:#52        // out:Ljava/io/PrintStream;
+  #41 = Utf8               haha
+  #42 = Class              #53            // java/io/PrintStream
+  #43 = NameAndType        #54:#55        // println:(Ljava/lang/String;)V
+  #44 = Utf8               java/lang/Object
+  #45 = Utf8               java/lang/Runnable
+  #46 = Utf8               run
+  #47 = Methodref          #56.#57        // java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #48 = Methodref          #3.#58         // cn/hotspot/classloader/Lambda.lambda$main$0:()V
+  #49 = Utf8               ()Ljava/lang/Runnable;
+  #50 = Utf8               java/lang/System
+  #51 = Utf8               out
+  #52 = Utf8               Ljava/io/PrintStream;
+  #53 = Utf8               java/io/PrintStream
+  #54 = Utf8               println
+  #55 = Utf8               (Ljava/lang/String;)V
+  #56 = Class              #59            // java/lang/invoke/LambdaMetafactory
+  #57 = NameAndType        #60:#64        // metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #58 = NameAndType        #26:#12        // lambda$main$0:()V
+  #59 = Utf8               java/lang/invoke/LambdaMetafactory
+  #60 = Utf8               metafactory
+  #61 = Class              #66            // java/lang/invoke/MethodHandles$Lookup
+  #62 = Utf8               Lookup
+  #63 = Utf8               InnerClasses
+  #64 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #65 = Class              #67            // java/lang/invoke/MethodHandles
+  #66 = Utf8               java/lang/invoke/MethodHandles$Lookup
+  #67 = Utf8               java/lang/invoke/MethodHandles
+{
+  public cn.hotspot.classloader.Lambda();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 6: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcn/hotspot/classloader/Lambda;
+
+  public void execute(java.lang.Runnable);
+    descriptor: (Ljava/lang/Runnable;)V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=2, args_size=2
+         0: aload_1
+         1: invokeinterface #2,  1            // InterfaceMethod java/lang/Runnable.run:()V
+         6: return
+      LineNumberTable:
+        line 9: 0
+        line 10: 6
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       7     0  this   Lcn/hotspot/classloader/Lambda;
+            0       7     1 action   Ljava/lang/Runnable;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: new           #3                  // class cn/hotspot/classloader/Lambda
+         3: dup
+         4: invokespecial #4                  // Method "<init>":()V
+         7: invokedynamic #5,  0              // InvokeDynamic #0:run:()Ljava/lang/Runnable;
+        12: invokevirtual #6                  // Method execute:(Ljava/lang/Runnable;)V
+        15: return
+      LineNumberTable:
+        line 13: 0
+        line 16: 15
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      16     0  args   [Ljava/lang/String;
+}
+SourceFile: "Lambda.java"
+InnerClasses:
+     public static final #62= #61 of #65; //Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
+BootstrapMethods:
+  0: #34 invokestatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #35 ()V
+      #36 invokestatic cn/hotspot/classloader/Lambda.lambda$main$0:()V
+      #35 ()V
