@@ -1,16 +1,18 @@
 package cn.tim.db.sample1.web;
 
 import cn.tim.db.sample1.entity.Person;
+import cn.tim.db.sample1.service.ParallUpdateService;
 import cn.tim.db.sample1.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Created by LuoLiBing on 17/2/21.
@@ -20,6 +22,9 @@ public class PersonController {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private ParallUpdateService parallUpdateService;
 
     @RequestMapping(value = "/person/save", method = RequestMethod.POST)
     public Object save() throws InterruptedException {
@@ -57,6 +62,27 @@ public class PersonController {
     public Object slowQuery() {
         personService.slowQueryReport();
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/parallUpdate")
+    public Object parallUpdate() {
+        ExecutorService pool = Executors.newCachedThreadPool();
+        List<Future<Integer>> futureList = new ArrayList<>(1000);
+        for(int i = 0 ; i < 1000; i++) {
+            Future<Integer> future = pool.submit(() -> {
+                parallUpdateService.increment();
+                return 1;
+            });
+            futureList.add(future);
+        }
+        futureList.forEach(future -> {
+            try {
+                future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        });
+        return "OK";
     }
 
 

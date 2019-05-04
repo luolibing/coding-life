@@ -74,6 +74,7 @@
         <module>function-pro</module>
         <module>lombok-sample</module>
         <module>slf4j</module>
+        <module>xmind</module>
     </modules>
 
 

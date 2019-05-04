@@ -1,4 +1,5 @@
 package cn.hotspot.classloader;
 
-public class Function {
+public interface Function<T, R> {
+    R apply(T t);
 }

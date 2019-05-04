@@ -22,6 +22,10 @@ public class ClassLoaderSample {
 
         // 常量系统会优化
         public static final int b = 10;
+
+        public void execute() {
+            C.haha();
+        }
     }
 
     public static class B extends A {
@@ -30,6 +34,16 @@ public class ClassLoaderSample {
         static  {
             B.c = 20;
             System.out.println("B");
+        }
+    }
+
+    public static class C {
+        static {
+            System.out.println("load c");
+        }
+
+        public static void haha() {
+            System.out.println("haha");
         }
     }
 
