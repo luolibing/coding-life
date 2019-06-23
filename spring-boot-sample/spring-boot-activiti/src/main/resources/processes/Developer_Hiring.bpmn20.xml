@@ -6,6 +6,7 @@
     <extensionElements>
       <activiti:executionListener event="start" class="cn.tim.activiti.listener.MyEventListener"/>
       <activiti:executionListener event="end" class="cn.tim.activiti.listener.MyEventListener"/>
+      <activiti:taskListener event="complete" class="cn.tim.activiti.listener.MyUserTaskIdHandler" />
     </extensionElements>
     <startEvent id="startEvent1"></startEvent>
     <serviceTask id="sid-7C800320-0453-4A22-9B8A-467A60B5EE6B" name="store event" activiti:expression="${storeService.storeResume(applicant)}"></serviceTask>
