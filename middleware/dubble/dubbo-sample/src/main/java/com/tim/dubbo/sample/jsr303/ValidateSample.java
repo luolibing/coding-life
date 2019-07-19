@@ -3,6 +3,7 @@ package com.tim.dubbo.sample.jsr303;
 import com.tim.dubbo.sample.Person;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.engine.PathImpl;
+import org.hibernate.validator.HibernateValidator;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
@@ -10,12 +11,17 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 public class ValidateSample {
 
     public static void main(String[] args) {
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class )
+                .configure()
+                .addProperty( "hibernate.validator.fail_fast", "true" )
+                .buildValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
         Person p = new Person();
         Set<ConstraintViolation<Person>> validate = validator.validate(p, Person.UpdatePerson.class);
         System.out.println(validate);

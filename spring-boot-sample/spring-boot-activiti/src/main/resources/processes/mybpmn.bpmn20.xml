@@ -3,6 +3,22 @@
         xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
         xmlns:activiti="http://activiti.org/bpmn"
         targetNamespace="Examples">
+    <BPMNDiagram xmlns="http://www.omg.org/spec/BPMN/20100524/DI">
+        <BPMNPlane>
+            <BPMNShape bpmnElement="writeReportTask">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="48.0" width="120.0" x="-60.0" y="-24.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="start">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="end">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+            <BPMNShape bpmnElement="verifyReportTask">
+                <Bounds xmlns="http://www.omg.org/spec/DD/20100524/DC" height="30.0" width="30.0" x="-15.0" y="-15.0"/>
+            </BPMNShape>
+        </BPMNPlane>
+    </BPMNDiagram>
 
 
     <!-- 流程，理论上可以在一个流程图中定义多个process，但是一般情况一个xml只定义一个流程 -->

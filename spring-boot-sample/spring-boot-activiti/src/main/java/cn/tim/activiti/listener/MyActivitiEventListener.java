@@ -2,6 +2,7 @@ package cn.tim.activiti.listener;
 
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
+import org.activiti.engine.delegate.event.ActivitiEventType;
 
 /**
  * User: luolibing
@@ -11,12 +12,13 @@ public class MyActivitiEventListener implements ActivitiEventListener {
 
     @Override
     public void onEvent(ActivitiEvent event) {
-        System.out.println("received activitiEvent = " + event);
+        ActivitiEventType type = event.getType();
+        System.out.println("received activitiEvent type= " + type + " event = " + event);
     }
 
     @Override
     public boolean isFailOnException() {
         // ignore exception
-        return false;
+        return true;
     }
 }
