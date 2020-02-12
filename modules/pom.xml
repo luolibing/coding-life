@@ -75,6 +75,7 @@
         <module>lombok-sample</module>
         <module>slf4j</module>
         <module>xmind</module>
+        <module>sofa-boot</module>
     </modules>
 
 

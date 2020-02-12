@@ -25,6 +25,7 @@
         <module>ellasticsearch</module>
         <module>reading</module>
         <module>camel</module>
+        <module>sharding-jdbc-demo</module>
     </modules>
 
 

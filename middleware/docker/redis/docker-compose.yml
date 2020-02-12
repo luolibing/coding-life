@@ -1,18 +1,18 @@
-version : '2'
-services:
-
-  redis1:
-    image: redis:latest
-    ports:
-      - "6377:6377"
-  redis2:
-      image: redis:latest
-      ports:
-        - "6378:6378"
-  redis3:
-      image: redis:latest
-      ports:
-        - "6376:6376"
-
-
- Data Science for the Busy Java Developer
+#version : '2'
+#services:
+#
+#  redis1:
+#    image: redis:latest
+#    ports:
+#      - "6377:6377"
+#  redis2:
+#      image: redis:latest
+#      ports:
+#        - "6378:6378"
+#  redis3:
+#      image: redis:latest
+#      ports:
+#        - "6376:6376"
+#
+#
+# Data Science for the Busy Java Developer

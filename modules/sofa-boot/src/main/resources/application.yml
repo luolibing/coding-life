@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: sandbox
+logging:
+  path: ./logs

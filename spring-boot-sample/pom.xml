@@ -39,6 +39,7 @@
         <module>tim-starter</module>
         <module>spring-boot-aspect-api</module>
         <module>spring-boot-reactive</module>
+        <module>spring-boot-properties</module>
     </modules>
 
 

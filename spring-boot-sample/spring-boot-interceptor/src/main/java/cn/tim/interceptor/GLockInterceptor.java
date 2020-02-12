@@ -1,6 +1,7 @@
 package cn.tim.interceptor;
 
 import cn.tim.interceptor.annotation.GLock;
+import org.apache.commons.text.StringEscapeUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -56,5 +57,10 @@ public class GLockInterceptor {
             context.setVariable(parameterNames[i], args[i]);
         }
         return parser.parseExpression(key).getValue(context);
+    }
+
+    public static void main(String[] args) {
+        String sku = StringEscapeUtils.escapeHtml4("A1266021&B06XF6DR53");
+        System.out.println(sku);
     }
 }

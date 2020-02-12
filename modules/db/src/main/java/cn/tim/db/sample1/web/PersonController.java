@@ -5,10 +5,15 @@ import cn.tim.db.sample1.service.ParallUpdateService;
 import cn.tim.db.sample1.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -139,5 +144,17 @@ public class PersonController {
         ExecuteMode(int id) {
             this.id = id;
         }
+    }
+
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @GetMapping("/insert")
+    public void insertTime() {
+//        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        // new Date()会默认使用服务器的时区，连接用的utc时区，保存的时候会把这个时间当成UTC时区的时间传过去，导致出现问题
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("UTC"));
+        jdbcTemplate.update("insert into cs_time(ct, dt) value(?,?)", new Object[]{new Date(), now});
     }
 }
