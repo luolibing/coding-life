@@ -3,9 +3,11 @@ package com.tim.properties;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationBeanFactoryMetadata;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,5 +37,10 @@ public class PropertiesSourceController implements ApplicationContextAware {
         this.configurationBeanFactoryMetadata = applicationContext.getBean(
                 ConfigurationBeanFactoryMetadata.BEAN_NAME,
                 ConfigurationBeanFactoryMetadata.class);
+    }
+
+    @GetMapping("/employee")
+    public void addEmployee(Employee employee) {
+        System.out.println(employee);
     }
 }
