@@ -11,9 +11,9 @@
 
     <artifactId>thinking-in-java4</artifactId>
 
-    <!--<properties>-->
-        <!--<java.version>1.8</java.version>-->
-    <!--</properties>-->
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -44,14 +44,13 @@
             <artifactId>commons-beanutils</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.sun/tools -->
-        <!--<dependency>-->
-        <!--<groupId>jdk.tools</groupId>-->
-        <!--<artifactId>jdk.tools</artifactId>-->
-        <!--<scope>system</scope>-->
-        <!--<version>1.7.0.13</version>-->
-        <!--<systemPath>${java.home}/../lib/tools.jar</systemPath>-->
-        <!--</dependency>-->
+        <dependency>
+        <groupId>jdk.tools</groupId>
+        <artifactId>jdk.tools</artifactId>
+        <scope>system</scope>
+        <version>1.7.0.13</version>
+        <systemPath>${java.home}/../lib/tools.jar</systemPath>
+        </dependency>
 
         <dependency>
             <groupId>joda-time</groupId>
