@@ -34,7 +34,7 @@
 
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-        <!--<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>-->
+        <!--<testSourceDirectory>${project.basedir}/src/test/kotlinaaa</testSourceDirectory>-->
 
         <plugins>
             <plugin>
@@ -82,7 +82,9 @@
                     <execution>
                         <id>java-compile</id>
                         <phase>compile</phase>
-                        <goals> <goal>compile</goal> </goals>
+                        <goals> 
+                           <goal>compile</goal> 
+                        </goals>
                     </execution>
                     <execution>
                         <id>java-test-compile</id>
