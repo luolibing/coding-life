@@ -2,8 +2,10 @@ package cn.design.patterns.threadlocal;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.alibaba.ttl.TtlRunnable;
+import com.alibaba.ttl.threadpool.TtlExecutors;
 import org.junit.Test;
 
+import java.lang.instrument.Instrumentation;
 import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.concurrent.*;
@@ -91,6 +93,10 @@ public class InheritableThreadLocalTest {
                 });
     }
 
+    /**
+     * 将值传到真正要执行的地方
+     * @throws InterruptedException
+     */
     @Test
     public void executeHandle1() throws InterruptedException {
         inheritTenantHolder.set("cloud");
@@ -125,6 +131,10 @@ public class InheritableThreadLocalTest {
         TimeUnit.SECONDS.sleep(100);
     }
 
+    /**
+     * 重写ThreadPool，在要执行的地方获取ThreadLocal然后包装进Runnable里面
+     * @throws InterruptedException
+     */
     @Test
     public void executeHandle2() throws InterruptedException {
         inheritTenantHolder.set("cloud");
@@ -176,6 +186,10 @@ public class InheritableThreadLocalTest {
 
     private static TransmittableThreadLocal<String> ttlThreadLocal = new TransmittableThreadLocal<>();
 
+    /**
+     * 使用TTL框架，使用指定的Runnable或者Callable
+     * @throws InterruptedException
+     */
     @Test
     public void ttl1() throws InterruptedException {
         ttlThreadLocal.set("ttl1");
@@ -200,8 +214,28 @@ public class InheritableThreadLocalTest {
         TimeUnit.SECONDS.sleep(100);
     }
 
-
+    /**
+     * 不特定Runnable和Callback，使用指定的TtlExecutors
+     * @throws InterruptedException
+     */
     @Test
-    public void weakMap() {
+    public void executePoolHandle() throws InterruptedException {
+        Executor pool = TtlExecutors.getTtlExecutor(new ThreadPoolExecutor(2, 2, 10, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(100), new ThreadPoolExecutor.CallerRunsPolicy()));
+        for(int i = 0; i < 10000; i++) {
+            TimeUnit.SECONDS.sleep(1);
+            ttlThreadLocal.set("tenant" + i);
+            int finalI = i;
+            pool.execute(() -> {
+                String current = ttlThreadLocal.get();
+                if(!Objects.equals(current, "tenant" + finalI)) {
+                    System.out.println("error tenant " + current);
+                }
+            });
+        }
+        TimeUnit.SECONDS.sleep(100);
+    }
+
+    public static void premain(String agentArgs, Instrumentation inst) {
+
     }
 }

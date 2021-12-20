@@ -19,13 +19,13 @@ import javax.persistence.EntityManagerFactory;
 public class HibernatePJpaConfiguration {
 
 
-    @Bean
-    public TransactionManager transactionManager(SessionFactory sessionFactory) {
-        return new HibernateTransactionManager(sessionFactory);
-    }
+//    @Bean
+//    public TransactionManager transactionManager(SessionFactory sessionFactory) {
+//        return new HibernateTransactionManager(sessionFactory);
+//    }
 
-    @Bean
-    public SessionFactory sessionFactory(EntityManagerFactory entityManagerFactory) {
-        return entityManagerFactory.unwrap(SessionFactory.class);
-    }
+//    @Bean
+//    public SessionFactory sessionFactory(EntityManagerFactory entityManagerFactory) {
+//        return entityManagerFactory.unwrap(SessionFactory.class);
+//    }
 }

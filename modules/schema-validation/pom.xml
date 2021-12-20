@@ -11,5 +11,12 @@
 
     <artifactId>schema-validation</artifactId>
 
-
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.rackspace.apache/xerces2-xsd11 -->
+        <dependency>
+            <groupId>com.rackspace.apache</groupId>
+            <artifactId>xerces2-xsd11</artifactId>
+            <version>2.11.2</version>
+        </dependency>
+    </dependencies>
 </project>

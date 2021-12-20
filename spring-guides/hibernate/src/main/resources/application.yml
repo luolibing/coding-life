@@ -1,0 +1,18 @@
+
+spring:
+  application:
+    name: event-sourcing
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.HSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: true
+
+server:
+  port: 9999

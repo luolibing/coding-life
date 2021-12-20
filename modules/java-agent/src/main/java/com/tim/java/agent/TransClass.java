@@ -7,4 +7,8 @@ package com.tim.java.agent;
  * @since 2020-04-28 10:50
  */
 public class TransClass {
+
+    public int getNumber() {
+        return 2;
+    }
 }
