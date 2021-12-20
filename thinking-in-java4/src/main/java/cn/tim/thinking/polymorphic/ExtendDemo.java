@@ -1,6 +1,20 @@
 package cn.tim.thinking.polymorphic;
 
 import org.junit.Test;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.client.ClientHttpRequest;
+import org.springframework.web.client.RequestCallback;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by LuoLiBing on 16/12/16.
@@ -121,4 +135,31 @@ public class ExtendDemo {
      * is-like-a 向上转型会导致扩展出来的那部分接口无法在基类中使用.
      *
      */
+
+    public static void main(String[] args) throws IOException {
+        download("amzn-envelope.xsd");
+    }
+
+    public static void download(String xsd) throws IOException {
+        String baseUrl = "https://images-na.ssl-images-amazon.com/images/G/01/rainier/help/xsd/release_4_1/ExternalCustomer.xsd";
+        String url = "";
+        Path path = Paths.get("/Users/anker/Documents/工作/feeder/亚马逊退款/" + xsd);
+        try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
+             FileOutputStream fileOutputStream = new FileOutputStream(path.toString())) {
+            byte dataBuffer[] = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                fileOutputStream.write(dataBuffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            // handle exception
+        }
+
+        if(Files.exists(path)) {
+            List<String> schemaStrList = Files.readAllLines(path).stream()
+                    .filter(s -> s.contains("xsd:include schemaLocation="))
+                    .collect(Collectors.toList());
+            System.out.println(schemaStrList);
+        }
+    }
 }

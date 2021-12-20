@@ -87,23 +87,4 @@ public class OSExecuteDemo1 {
             }
         }
     }
-
-    public static void main1(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String command;
-        while ((command = reader.readLine()) != null) {
-            OSExecute.command(command);
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String command;
-        OSExecute2 execute2 = new OSExecute2();
-        while ((command = reader.readLine()) != null) {
-            execute2.command(command);
-            execute2.forEach(System.out::println);
-            execute2.clear();
-        }
-    }
 }

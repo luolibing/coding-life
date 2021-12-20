@@ -113,7 +113,7 @@ public class ExchangerDemo {
         exec.execute(new ExchangerProducer<>(generator, exchanger, producerList));
         exec.execute(new ExchangerConsumer<>(exchanger, consumerList));
 
-        TimeUnit.SECONDS.sleep(20);
+        TimeUnit.SECONDS.sleep(Long.MAX_VALUE);
         exec.shutdownNow();
     }
 }

@@ -76,6 +76,12 @@
         <module>slf4j</module>
         <module>xmind</module>
         <module>sofa-boot</module>
+        <module>java-agent</module>
+        <module>schema-validation</module>
+        <module>book</module>
+        <module>okhttp</module>
+        <module>canal</module>
+        <module>quarkus</module>
     </modules>
 
 

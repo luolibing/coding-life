@@ -69,6 +69,7 @@
         <module>state-machine</module>
         <module>integration-router</module>
         <module>spring-router</module>
+        <module>hibernate</module>
     </modules>
 
 
