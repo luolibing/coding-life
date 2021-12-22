@@ -53,6 +53,7 @@ public class HibernateCommonDao extends HibernateDaoSupport implements CommonDao
     }
 
     public static void main(String[] args) throws InterruptedException {
+
         for(int i = 0; i < 500; i++) {
             TENANT_HOLDER.set(i + "");
             executorService.execute(() -> {
